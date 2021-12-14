@@ -1,4 +1,4 @@
-package com.example.sortinghat;
+package Controller.Servlet;
 
 import java.io.*;
 import javax.servlet.http.*;
