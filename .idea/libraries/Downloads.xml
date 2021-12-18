@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Downloads">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/tomcat-jdbc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/mysql-connector-java-8.0.15.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jstl-1.2.jar!/" />
+      <root url="file://$USER_HOME$/Downloads" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$USER_HOME$/Downloads" recursive="false" />
+  </library>
+</component>

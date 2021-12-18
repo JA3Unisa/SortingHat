@@ -6,7 +6,9 @@
         <element id="directory" name="classes">
           <element id="module-output" name="SortingHat" />
         </element>
-        <element id="directory" name="lib" />
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Downloads" />
+        </element>
       </element>
       <element id="javaee-facet-resources" facet="SortingHat/web/Web" />
     </root>
