@@ -1,5 +1,10 @@
 package Model.Utente;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Utente {
     private int idUtente;
     private String nome;
@@ -45,9 +50,7 @@ public class Utente {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 
     public Boolean getUniversitario() {
         return universitario;
@@ -76,5 +79,29 @@ public class Utente {
         this.universitario=universitario;
         this.ruolo=ruolo;
     }
+    //Da controllare
+    public void setPassword(String password) throws NoSuchAlgorithmException { //SHA-512 prende array byte e format per usarlo
+      /*  MessageDigest digest= MessageDigest.getInstance("SHA-512");
+        byte[] hashedPwd= digest.digest(password.getBytes( StandardCharsets.UTF_8));
+        StringBuilder builder=new StringBuilder();
+        for(byte bit :hashedPwd){
+            builder.append(String.format("%02x",bit));
+        }
 
+        this.password = builder.toString();
+
+       */
+        try {
+            MessageDigest digest =
+                    MessageDigest.getInstance("SHA-512");
+            digest.reset();
+            digest.update(password.getBytes(StandardCharsets.UTF_8));
+            this.password = String.format("%02x", new
+                    BigInteger(1, digest.digest()));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 }
