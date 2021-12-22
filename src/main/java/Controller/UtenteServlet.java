@@ -1,6 +1,7 @@
 package Controller;
 
 import Controller.Http.InvalidRequestException;
+import Model.Utente.SqlUtenteDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,8 @@ import java.io.IOException;
 
 @WebServlet(name= "UtenteServlet" , value="/utente/*")
 public class UtenteServlet extends ControllerHttpServlet {
+
+private SqlUtenteDAO utenteDAO=new SqlUtenteDAO();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
