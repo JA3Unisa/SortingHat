@@ -10,14 +10,10 @@ import java.util.TimeZone;
 public class ConPool {
     private static DataSource datasource;
 
-    /*public ConPool(DataSource dataSource) {
-        this.datasource=dataSource;
-    }*/
-
     public static Connection getConnection() throws SQLException {
         if (datasource == null) {
             PoolProperties p = new PoolProperties();
-            p.setUrl("jdbc:mysql://localhost:3306/GiochiEGiocattoli?serverTimezone=" + TimeZone.getDefault().getID());
+            p.setUrl("jdbc:mysql://localhost:3306/sortinh_hat_test?serverTimezone=" + TimeZone.getDefault().getID());
             p.setDriverClassName("com.mysql.cj.jdbc.Driver");
             p.setUsername("admin");
             p.setPassword("admin");
