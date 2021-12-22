@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ErrorHandler {
     default void authenticated(HttpSession session) throws InvalidRequestException{//Controlla sessione se null o non presente
-        if(session==null || session.getAttribute("clienteSession")==null){
-            System.out.println(session.getAttribute("clienteSession")+" risulta null");
+        if(session==null || session.getAttribute("utenteSessione")==null){
+            System.out.println(session.getAttribute("utenteSessione")+" risulta null");
             throw new InvalidRequestException("Errore autenticazione", List.of("Non sei autenticato"),
                     HttpServletResponse.SC_UNAUTHORIZED);
 
@@ -19,16 +19,16 @@ public interface ErrorHandler {
     default void authorize(HttpSession session)throws InvalidRequestException{
         authenticated(session);
         System.out.println("prendo sessione");
-        UtenteSession clienteSession=(UtenteSession) session.getAttribute("UtenteSessione");
+        UtenteSession utenteSession=(UtenteSession) session.getAttribute("UtenteSessione");
         //controllo se admin
-      /*  if(!utenteSession.isRuolo()){
+          if(utenteSession.getRuolo()!=1){
             System.out.println("errore autorizzazione ");
             throw new InvalidRequestException("Errore autorizzazione",List.of("Azione non consentita"),
                     HttpServletResponse.SC_FORBIDDEN);
         }
-*/
-    }
 
+    }
+//MODERATORE
     default void internalError()throws InvalidRequestException{
         List<String>errori=List.of("Un errore imprevisto è accaduto","Riprova più tardi");
         throw new InvalidRequestException("Errore interno",errori,HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

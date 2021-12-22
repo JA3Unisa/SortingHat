@@ -16,6 +16,10 @@ public class CategoriaServlet extends ControllerHttpServlet {
         try {
             String path = getPath(request);
             switch (path) {
+                //show
+                //show admin
+
+
                 default:
                     notFound();
                     break;
@@ -29,6 +33,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
         try {
             String path = getPath(request);
             switch (path) {
+
                 default:
                     notAllowed();
                     break;

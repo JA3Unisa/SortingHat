@@ -17,6 +17,11 @@ public class RispostaServlet extends ControllerHttpServlet {
         try {
             String path = getPath(request);
             switch (path) {
+                //visualizzo
+                //creo
+                //modifico
+                //rimuovo(admin)
+
                 default:
                     notFound();
                     break;

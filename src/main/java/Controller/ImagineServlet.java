@@ -18,7 +18,11 @@ public class ImagineServlet  extends ControllerHttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String path = getPath(request);
+
             switch (path) {
+                //show
+                //creo
+                //rimozione?
                 default:
                     notFound();
                     break;

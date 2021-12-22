@@ -17,6 +17,11 @@ public class DiscussioneServlet extends ControllerHttpServlet {
         try {
             String path = getPath(request);
             switch (path) {
+                //vederle
+                //crearle
+                //update
+                //delete
+
                 default:
                     notFound();
                     break;

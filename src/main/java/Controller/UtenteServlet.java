@@ -18,6 +18,15 @@ private SqlUtenteDAO utenteDAO=new SqlUtenteDAO();
         try {
             String path = getPath(request);
             switch (path) {
+                //lista
+                //login
+                //logout
+                //creazione
+                //update
+                //registrazione
+                //show
+                //show Ad
+
                 default:
                     notFound();
                     break;
