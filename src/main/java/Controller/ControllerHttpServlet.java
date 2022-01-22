@@ -8,7 +8,7 @@ import Model.Utente.UtenteSession;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.annotation.Resource;
+//import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class ControllerHttpServlet extends HttpServlet implements ErrorHandler {
-    @Resource(name = "jdbc/")//Insert nome DB
+    //@Resource(name = "jdbc/")//Insert nome DB
     protected static DataSource source;
     protected String getPath(HttpServletRequest req) {
         return req.getPathInfo() != null ? req.getPathInfo() : "/";
