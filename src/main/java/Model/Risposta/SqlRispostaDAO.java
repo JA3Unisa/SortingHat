@@ -14,9 +14,10 @@ public class SqlRispostaDAO implements RispostaDAO{
                     "as value (?,?,?,?);")){
 
                 ps.setString(1,risposta.getCorpo());
-
+                Date date = new Date(risposta.getdataOra().getTimeInMillis());
+                ps.setDate(2,date);
                 ps.setInt(3,risposta.getIdUtente());
-                ps.setInt(3,risposta.getIdDiscussione());
+                ps.setInt(4,risposta.getIdDiscussione());
 
                 int rows = ps.executeUpdate();
 
