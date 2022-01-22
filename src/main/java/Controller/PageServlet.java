@@ -32,24 +32,38 @@ public class PageServlet extends ControllerHttpServlet {
                     int utenti = utenteDao.countAllUtente();
                     request.setAttribute("clientiNum", utenti);
                     //System.out.println("qua"+clienti);
-                    request.getRequestDispatcher(view("crm/home")).forward(request, response);
+                    request.getRequestDispatcher(view("homepage")).forward(request, response);/*MODIFICARE*/
                     break;
                 case "/":
-                    request.getRequestDispatcher(view("crm/Home-Page")).forward(request, response);
+                    request.getRequestDispatcher(view("homepage")).forward(request, response);
                     //  request.getRequestDispatcher(view("site/home")).forward(request, response);
                     break;
-                case "/regolamento": //show regolamento
-                    System.out.println("in regolamento");
-                    request.getRequestDispatcher(view("documenti/regolamentiInfo")).forward(request, response);
+                case "/questionarioUtente": //show Universiatrio
+
+                    request.getRequestDispatcher(view("user/questionarioUtente")).forward(request, response);
+                    break;
+                case "/contribuisci": //show Universiatrio
+
+                    request.getRequestDispatcher(view("user/questionarioUniversitario")).forward(request, response);
                     break;
                 case "/politiche": //show politiche
-                    System.out.println("in politiche");
+
                     request.getRequestDispatcher(view("documenti/politiche")).forward(request, response);
                     break;
-                case "/contattaci": //show info
-                    System.out.println("in contattaci");
-                    request.getRequestDispatcher(view("documenti/contattaci")).forward(request, response);
+                case "/forum": //a forum
+
+                    request.getRequestDispatcher(view("user/categorie")).forward(request, response);
                     break;
+
+                case "/aboutUs": //show info
+
+                    request.getRequestDispatcher(view("documenti/aboutUs")).forward(request, response);
+                    break;
+                case "/login": // a login utente
+
+                    request.getRequestDispatcher(view("user/login")).forward(request, response);
+                    break;
+
                 default:
                     notFound();
             }

@@ -3,17 +3,14 @@ package Model.Categoria;
 import Controller.Http.Paginator;
 import Model.ConPool.ConPool;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SqlCategoriaDAO implements CategoriaDAO{
+public class SqlCategoriaDAO implements CategoriaDAO {
     @Override
-    public int countAll () throws SQLException {
+    public int countAll() throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
                          con.prepareStatement("Select count(*) as totaleCategorie FROM Categoria ;")) {
@@ -27,11 +24,12 @@ public class SqlCategoriaDAO implements CategoriaDAO{
             }
         }
     }
+
     @Override
-    public List<Categoria> fetchCategories(Paginator paginatore)  throws SQLException{
+    public List<Categoria> fetchCategories(Paginator paginatore) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (  PreparedStatement ps =
-                           con.prepareStatement("SELECT * FROM Categoria LIMIT ?,?")) {
+            try (PreparedStatement ps =
+                         con.prepareStatement("SELECT * FROM Categoria LIMIT ?,?")) {
                 ps.setInt(1, paginatore.getOffset());
                 ps.setInt(2, paginatore.getLimite());
                 ResultSet rs = ps.executeQuery();
@@ -65,6 +63,47 @@ public class SqlCategoriaDAO implements CategoriaDAO{
                 }
 
                 return Optional.ofNullable(cat);
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteCategoria(String id) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps =
+                         con.prepareStatement("DELETE FROM Categoria WHERE idCategoria=?;")) {
+                ps.setString(1, id);
+                int rows = ps.executeUpdate();
+                return rows == 1;
+            }
+        }
+    }
+
+    @Override
+    public boolean createCategoria(Categoria categoria) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (   PreparedStatement ps =
+                            con.prepareStatement("INSERT INTO Categoria (idCategoria,Nome,Descrizione) VALUES(?,?,?);", Statement.RETURN_GENERATED_KEYS)) {
+                ps.setInt(1, categoria.getIdCategoria());
+                ps.setString(2, categoria.getNome());
+                ps.setString(3, categoria.getDescrizione());
+                int rows = ps.executeUpdate();
+                return rows == 1;
+            }
+        }
+    }
+
+    @Override
+    public boolean updateCategoria(Categoria categoriaAgg) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps =
+                         con.prepareStatement("UPDATE  Categoria SET Nome= ?,Descrizione= ? WHERE idCategoria=?;")) {
+                ps.setString(1, categoriaAgg.getNome());
+                ps.setString(2, categoriaAgg.getDescrizione());
+                ps.setInt(3, categoriaAgg.getIdCategoria());
+
+                int rows = ps.executeUpdate();
+                return rows == 1;
             }
         }
     }
