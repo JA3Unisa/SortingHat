@@ -43,10 +43,6 @@ public class UtenteServlet extends ControllerHttpServlet {
                         request.getRequestDispatcher(view("crm/utenti")).forward(request, response);/*MODIFICARE*/
                         break;
 
-                    case "/signin": //login cliente(pagina)
-                        request.getRequestDispatcher(view("site/signin")).forward(request, response);
-                        break;
-
                     case "/create"://creo cliente(admin)
                         authorize(request.getSession(false));
                         request.getRequestDispatcher(view("crm/utente")).forward(request, response);/*MODIFICARE*/
@@ -58,6 +54,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         request.setAttribute("utente", cl.get());
                         request.getRequestDispatcher(view("utenti/update")).forward(request, response);/*MODIFICARE*/
                         break;
+
                     case "/modificoCliente"://modifco cliente(cliente)
                         int idProfiloCliente = getUtenteSessione(request.getSession(false)).getId();
 

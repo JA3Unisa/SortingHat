@@ -1,9 +1,12 @@
 package Controller;
 
+import Controller.Http.Alert;
 import Controller.Http.CommonValidator;
 import Controller.Http.InvalidRequestException;
 import Controller.Http.Paginator;
 import Model.Categoria.Categoria;
+import Model.Categoria.CategoriaFormMapper;
+import Model.Categoria.CategoriaValidator;
 import Model.Categoria.SqlCategoriaDAO;
 
 import javax.servlet.ServletException;
@@ -68,9 +71,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     request.getRequestDispatcher(view("categoria/update")).forward(request, response);
                     break;
 
-                case "/prodotti":
-                    request.getRequestDispatcher(view("site/search")).forward(request, response);
-                    break;
+
 
                 default:
                     response.sendError(HttpServletResponse.SC_NOT_FOUND, "Risorsa non trovata");
@@ -88,12 +89,55 @@ public class CategoriaServlet extends ControllerHttpServlet {
         try {
             String path = getPath(request);
             switch (path) {
+                case"/create"://creo(admin)
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("crm/categoria"));
+
+                    validate(CategoriaValidator.validateForm(request,false));
+                    Categoria categoria=new CategoriaFormMapper().map(request,true);
+                    if(categoriaDAO.createCategoria(categoria)){
+                        System.out.println("creata");
+                        request.setAttribute("categoria",categoria);
+                        request.setAttribute("alert",new Alert(List.of("Categoria creata!"),"success"));
+                        request.getRequestDispatcher(view("user/categoria")).forward(request,response);/*MODIFICARE*/
+                    }else{internalError();}
+                    break;
+                case "/update": //aggiorno(admin)
+
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("categoria/update"));
+                    validate(CategoriaValidator.validateForm(request,true));
+                    Categoria categoriaAgg=new CategoriaFormMapper().map(request,true);
+                    System.out.println(categoriaAgg.getIdCategoria());
+
+                    if(categoriaDAO.updateCategoria(categoriaAgg)) {
+                        request.setAttribute("categoria",categoriaAgg);
+                        request.setAttribute("alert", new Alert(List.of("Categoria Aggiornata!"), "success"));
+                        request.getRequestDispatcher(view("categoria/update")).forward(request, response);/*MODIFICARE*/
+                    }else{
+                        internalError();}
+                    break;
+
+                case"/delete"://elimino(admin)
+                    System.out.println("in categorie Delete");
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("crm/categoria"));
+                    validate(CategoriaValidator.validateDelete(request));
+                    String id=request.getParameter("id");
+                    System.out.println("sto per cancellare "+ id);
+                    if(categoriaDAO.deleteCategoria(id)) {
+
+                        request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
+                        //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
+                        request.getRequestDispatcher(view("crm/delete")).forward(request,response);/*MODIFICARE*/
+                    }else{internalError();}
+                    break;
 
                 default:
                     notAllowed();
                     break;
             }
-        } catch (InvalidRequestException e) {
+        } catch (InvalidRequestException | SQLException e) {
             e.printStackTrace();
         }
     }
