@@ -11,5 +11,5 @@ public interface CategoriaDAO <E extends Exception>{
 
     List<Categoria> fetchCategories(Paginator paginatore) throws SQLException;
 
-    Optional<Categoria> fetchCategoriesByID(String id) throws SQLException;
+    Optional<Categoria> fetchCategoriesByID(int id) throws SQLException;
 }

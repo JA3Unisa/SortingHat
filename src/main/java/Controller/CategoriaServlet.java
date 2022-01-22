@@ -47,7 +47,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                 case "/show"://show categoria(admin)
                     authorize(request.getSession(false));
                     validate(CommonValidator.validatePage(request));
-                    String id = request.getParameter("id");
+                    int id = Integer.parseInt(request.getParameter("id"));
                     Optional<Categoria> categoriaOptional = categoriaDAO.fetchCategoriesByID(id);
                     if (categoriaOptional.isPresent()) {
                         request.setAttribute("categoria", categoriaOptional);
@@ -62,7 +62,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     break;
                 case "/update":
                     authorize(request.getSession(false));
-                    String idUpd= request.getParameter("id");
+                    int idUpd= Integer.parseInt(request.getParameter("id"));
                     Optional<Categoria> cl=categoriaDAO.fetchCategoriesByID(idUpd);
                     request.setAttribute("categoria",cl.get());
                     request.getRequestDispatcher(view("categoria/update")).forward(request, response);
