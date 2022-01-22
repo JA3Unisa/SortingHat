@@ -12,4 +12,6 @@ public interface CategoriaDAO <E extends Exception>{
     List<Categoria> fetchCategories(Paginator paginatore) throws SQLException;
 
     Optional<Categoria> fetchCategoriesByID(int id) throws SQLException;
+
+    // aggiungere i metodi sia qua che i metodi ed il corpo nel discussioniDAO
 }
