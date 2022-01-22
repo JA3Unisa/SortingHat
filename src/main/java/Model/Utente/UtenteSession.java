@@ -1,18 +1,18 @@
 package Model.Utente;
-//Da compilare
+
 public class UtenteSession {
     private final String Nome;
     private final String Cognome;
     private final int id;
     private final int Ruolo;
 
-    public UtenteSession(String nome, String cognome, int id, int ruolo) {
-        Nome = nome;
-        Cognome = cognome;
-        this.id = id;
-        Ruolo = ruolo;
-    }
 
+    public UtenteSession(Utente utente) {
+        this.Nome=utente.getNome();
+        this.Cognome=utente.getCognome();
+        this.id=utente.getIdUtente();
+        this.Ruolo=utente.getRuolo();
+    }
     public String getNome() {
         return Nome;
     }
