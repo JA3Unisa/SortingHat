@@ -10,8 +10,8 @@ public class Risposta {
     private String corpo;
     private GregorianCalendar dataOra;
     private Utente utente;//Controllare
-    private int idUtente;
-    private int idDiscussione;
+    //private int idUtente;
+    //private int idDiscussione;
     private Discussione discussione;//Discussione
 
     public int getIdRisposta() {
@@ -46,7 +46,7 @@ public class Risposta {
         this.utente = utente;
     }
 
-    public int getIdUtente() {
+   /* public int getIdUtente() {
         return idUtente;
     }
 
@@ -61,7 +61,7 @@ public class Risposta {
     public void setIdDiscussione(int idDiscussione) {
         this.idDiscussione = idDiscussione;
     }
-
+*/
     public Discussione getDiscussione() {
         return discussione;
     }
@@ -70,13 +70,13 @@ public class Risposta {
         this.discussione = discussione;
     }
 
-    public Risposta(int idRisposta, String corpo, GregorianCalendar dataOra, Utente utente, int idUtente, int idDiscussione, Discussione discussione) {
+    public Risposta(int idRisposta, String corpo, GregorianCalendar dataOra, Utente utente, Discussione discussione) {
         this.idRisposta = idRisposta;
         this.corpo = corpo;
         this.dataOra = dataOra;
         this.utente = utente;
-        this.idUtente = idUtente;
-        this.idDiscussione = idDiscussione;
+       // this.idUtente = idUtente;
+      //  this.idDiscussione = idDiscussione;
         this.discussione = discussione;
     }
     public Risposta(){}

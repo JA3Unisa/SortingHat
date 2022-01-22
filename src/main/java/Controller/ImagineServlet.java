@@ -22,7 +22,7 @@ public class ImagineServlet  extends ControllerHttpServlet{
             switch (path) {
                 //show
                 //creo
-                //rimozione?
+                //rimozione
                 default:
                     notFound();
                     break;
