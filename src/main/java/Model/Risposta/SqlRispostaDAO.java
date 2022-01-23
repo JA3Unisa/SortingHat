@@ -39,7 +39,7 @@ public class SqlRispostaDAO implements RispostaDAO {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("UPDATE Utente " +
                     "SET corpo = ?, dataOra = ?, idUtente = ?, idDiscussione = ?" +
-                    "WHERE id = ?;")) {
+                    "WHERE idRisposta = ?;")) {
 
                 //Inserimento utente nel db
                 ps.setString(1, risposta.getCorpo());
@@ -59,7 +59,7 @@ public class SqlRispostaDAO implements RispostaDAO {
     @Override
     public boolean deleteRisposta(int id) throws Exception {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("DELETE from Risposta where id = ?;")) {
+            try (PreparedStatement ps = con.prepareStatement("DELETE from Risposta where idRisposta = ?;")) {
 
                 ps.setInt(1, id);
 

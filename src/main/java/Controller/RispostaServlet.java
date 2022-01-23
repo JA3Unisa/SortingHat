@@ -1,9 +1,14 @@
 package Controller;
 
+import Controller.Http.Alert;
 import Controller.Http.CommonValidator;
 import Controller.Http.InvalidRequestException;
 import Controller.Http.Paginator;
+import Model.Categoria.Categoria;
+import Model.Categoria.CategoriaFormMapper;
+import Model.Categoria.CategoriaValidator;
 import Model.Risposta.Risposta;
+import Model.Risposta.RispostaFormMapper;
 import Model.Risposta.SqlRispostaDAO;
 
 import javax.servlet.ServletException;
@@ -81,13 +86,60 @@ public class RispostaServlet extends ControllerHttpServlet {
         try {
             String path = getPath(request);
             switch (path) {
+                case"/create"://creo(admin)
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("crm/categoria"));/*MODIFICARE*/
+
+                    validate(CategoriaValidator.validateForm(request,false));
+                   Risposta risposta=new RispostaFormMapper().map(request,true);
+                    if(rispostaDAO.createRisposta(risposta)){
+                        System.out.println("creata");
+                        request.setAttribute("risposta",risposta);
+                        request.setAttribute("alert",new Alert(List.of("Risposta creata!"),"success"));
+                        request.getRequestDispatcher(view("user/risposta")).forward(request,response);/*MODIFICARE*/
+                    }else{internalError();}
+                    break;
+                case "/update": //aggiorno(admin)
+
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("categoria/update"));
+                    validate(CategoriaValidator.validateForm(request,true));
+                   Risposta rispostaAgg=new RispostaFormMapper().map(request,true);
+                    System.out.println(rispostaAgg.getIdRisposta());
+
+                    if(rispostaDAO.updateRisposta(rispostaAgg)) {
+                        request.setAttribute("risposta",rispostaAgg);
+                        request.setAttribute("alert", new Alert(List.of("Risposta Aggiornata!"), "success"));
+                        request.getRequestDispatcher(view("risposta/update")).forward(request, response);/*MODIFICARE*/
+                    }else{
+                        internalError();}
+                    break;
+
+                case"/delete"://elimino(admin)
+                    System.out.println("in categorie Delete");
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("crm/categoria"));
+                    validate(CategoriaValidator.validateDelete(request));
+                   int id= Integer.parseInt(request.getParameter("id"));
+                    System.out.println("sto per cancellare "+ id);
+                    if(rispostaDAO.deleteRisposta(id)) {
+
+                        request.setAttribute("alert", new Alert(List.of("Risposta Rimossa!"), "success"));
+                        //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
+                        request.getRequestDispatcher(view("crm/delete")).forward(request,response);/*MODIFICARE*/
+                    }else{internalError();}
+                    break;
+
                 default:
                     notAllowed();
                     break;
             }
-        } catch (InvalidRequestException e) {
+        } catch (InvalidRequestException | SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+
 
