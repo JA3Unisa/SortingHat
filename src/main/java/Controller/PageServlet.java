@@ -32,10 +32,10 @@ public class PageServlet extends ControllerHttpServlet {
                     int utenti = utenteDao.countAllUtente();
                     request.setAttribute("clientiNum", utenti);
                     //System.out.println("qua"+clienti);
-                    request.getRequestDispatcher(view("homepage")).forward(request, response);/*MODIFICARE*/
+                    request.getRequestDispatcher(view("../../homepage")).forward(request, response);/*MODIFICARE*/
                     break;
                 case "/":
-                    request.getRequestDispatcher(view("homepage")).forward(request, response);
+                    request.getRequestDispatcher(view("../../homepage")).forward(request, response);
                     //  request.getRequestDispatcher(view("site/home")).forward(request, response);
                     break;
                 case "/questionarioUtente": //show Universiatrio

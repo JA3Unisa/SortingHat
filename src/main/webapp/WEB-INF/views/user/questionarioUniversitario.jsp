@@ -23,7 +23,7 @@
     <div id="questionarioUniversitario">
         <div class="domanda show">
             <p>Di che dipartimento fai parte?</p>
-            <select name="domanda1" id="domanda1">
+            <select name="domanda1" id="domanda1" required>
                 <option value="DI (informatica)">DI (informatica)</option>
                 <option value="DIEM (ingegneria informatica)">DIEM (ingegneria informatica)</option>
                 <option value="DIFARMA (gestione e valorizzazione delle risorse agrarie e delle aree protette - tecniche erboristiche - chimica e tecnologia farmaceutiche - farmacia)">DIFARMA (gestione e valorizzazione delle risorse agrarie e delle aree protette - tecniche erboristiche - chimica e tecnologia farmaceutiche - farmacia)</option>
@@ -54,7 +54,7 @@
         </div>
         <div class="domanda">
             <p>Che istituto hai frequentato?</p>
-            <select name="domanda1" id="domanda2">
+            <select name="domanda1" id="domanda2" required>
                 <option value="Liceo artistico">Liceo artistico</option>
                 <option value="Liceo classico">Liceo classico</option>
                 <option value="Liceo linguistico">Liceo linguistico</option>
@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-        <div class="domanda">
+        <div class="domanda" >
             <p>La tua materia preferita è inerente al tuo indirizzo di studio superiore?</p>
             <div class="radio">
                 <input type="radio" id="materiaPreferitaSI" name="materiaPreferita" value="SI">
@@ -129,7 +129,7 @@
         </div>
         <div class="domanda">
             <p>Quanto tempo utilizzi il tuo computer ogni giorno?</p>
-            <div class="radio">
+            <div class="radio" >
                 <input type="radio" id="computerGiorno1" name="computerGiorno" value="1">
                 <label for="computerGiorno1">1</label>
                 <input type="radio" id="computerGiorno2" name="computerGiorno" value="2">
@@ -889,7 +889,7 @@
         </div>
         <div class="domanda">
             <p>Ti piacerebbe affrontare i problemi di tipo logici/matematici?</p>
-            <div class="radio">
+            <div class="radio" >
                 <input type="radio" id="logicoMatematici1" name="logicoMatematici" value="1">
                 <label for="logicoMatematici1">1</label>
                 <input type="radio" id="logicoMatematici2" name="logicoMatematici" value="2">
