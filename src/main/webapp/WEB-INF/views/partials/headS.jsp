@@ -3,11 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${param.title}</title>
-<meta name="description" content="T&#x000F8;j | Clothing Store">
+<meta name="description" content="Sorting Hat">
 <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/icons/logo2.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone-no">
-<meta name="apple-mobile-web-app-title" content="T&#x000F8;j | Clothing Store">
+<meta name="apple-mobile-web-app-title" content="Sorting Hat">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/icons/logo2.png">
 <link rel="apple-touch-startup-image" href="${pageContext.request.contextPath}/icons/logo2.png">
