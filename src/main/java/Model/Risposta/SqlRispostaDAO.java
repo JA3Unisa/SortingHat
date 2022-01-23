@@ -110,8 +110,8 @@ public class SqlRispostaDAO implements RispostaDAO {
 
                     int idDiscussione = (rs.getInt("idDiscussione"));
                     SqlDiscussioneDAO sqlDiscussioneDAO = new SqlDiscussioneDAO();
-                    // Optional<Discussione> discussione = sqlDiscussioneDAO.findDiscussionebyID(idDiscussione);
-                    //  cat.setDiscussione(discussione.get());
+                     Optional<Discussione> discussione = sqlDiscussioneDAO.fetchDiscussioniByID(idDiscussione);
+                      cat.setDiscussione(discussione.get());
 
                     rispostas.add(cat);
                 }
@@ -147,8 +147,8 @@ public class SqlRispostaDAO implements RispostaDAO {
 
                     int idDiscussione = (rs.getInt("idDiscussione"));
                     SqlDiscussioneDAO sqlDiscussioneDAO = new SqlDiscussioneDAO();
-                    //Optional<Discussione> discussione=sqlDiscussioneDAO.findDiscussionebyID(idDiscussione);
-                    // cat.setDiscussione(discussione.get());
+                    Optional<Discussione> discussione=sqlDiscussioneDAO.fetchDiscussioniByID(idDiscussione);
+                     cat.setDiscussione(discussione.get());
 
                 }
 
