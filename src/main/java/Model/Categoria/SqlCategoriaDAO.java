@@ -48,11 +48,11 @@ public class SqlCategoriaDAO implements CategoriaDAO {
     }
 
     @Override
-    public Optional<Categoria> fetchCategoriesByID(String id) throws SQLException {
+    public Optional<Categoria> fetchCategoriesByID(int id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
                          con.prepareStatement("SELECT * FROM Categoria WHERE idCategoria=?")) {
-                ps.setString(1, id);
+                ps.setInt(1, id);
                 ResultSet rs = ps.executeQuery();
                 Categoria cat = new Categoria();
                 if (rs.next()) {
