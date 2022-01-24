@@ -105,7 +105,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                 case "/update": //aggiorno(admin)
 
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("categoria/update"));
+                    request.setAttribute("back",view("categoria/update"));/*MODIFICARE*/
                     validate(CategoriaValidator.validateForm(request,true));
                     Categoria categoriaAgg=new CategoriaFormMapper().map(request,true);
                     System.out.println(categoriaAgg.getIdCategoria());
@@ -113,7 +113,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     if(categoriaDAO.updateCategoria(categoriaAgg)) {
                         request.setAttribute("categoria",categoriaAgg);
                         request.setAttribute("alert", new Alert(List.of("Categoria Aggiornata!"), "success"));
-                        request.getRequestDispatcher(view("categoria/update")).forward(request, response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("Categoria/CategoriaUpdate")).forward(request, response);
                     }else{
                         internalError();}
                     break;

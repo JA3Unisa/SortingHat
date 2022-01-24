@@ -5,12 +5,20 @@
   Time: 18:02
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<aside class="sidebar">
+    <nav class=" ">
+        <div class="">
+            <a href="../utenti/?page=1">Gestione Utenti</a>
+        </div> <div class="around">
+        <a href="../categorie/?page=1">Gestione Categorie</a>
+    </div> <div class="around">
+        <a href="../risposte/?page=1">Gestione Risposte</a>
+    </div> <div class="around">
+        <a href="../discussioni/?page=1">Gestione Discussioni</a>
+    <div class="around">
+        <a href="../utenti/profiloAd">Profilo</a>
+    </div> <div class="around">
+        <a href="../utenti/logout" style="margin-bottom: 2px">Logout</a>
+    </div>
+    </nav>
+</aside>
