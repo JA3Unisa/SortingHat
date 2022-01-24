@@ -1,10 +1,15 @@
 package Controller;
 
+import Controller.Http.Alert;
 import Controller.Http.CommonValidator;
 import Controller.Http.InvalidRequestException;
 import Controller.Http.Paginator;
-import Model.Categoria.Categoria;
+
+
+
 import Model.Discussione.Discussione;
+import Model.Discussione.DiscussioneFormMapper;
+import Model.Discussione.DiscussioneValidator;
 import Model.Discussione.SqlDiscussioneDAO;
 
 import javax.servlet.ServletException;
@@ -43,7 +48,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     int size = discussioneDAO.countAll();
                     System.out.println("X" + paginatore.getPages(size));
                     List<Discussione> discussiones = discussioneDAO.fetchDiscussioni(paginatore);
-                    System.out.println(discussiones.get(0).getIdCategoria());
+
                     request.setAttribute("categorie", discussiones);
                     request.setAttribute("pages", paginatore.getPages(size));
                     request.getRequestDispatcher(view("crm/categorie")).forward(request, response);
@@ -53,9 +58,9 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     authorize(request.getSession(false));
                     validate(CommonValidator.validatePage(request));
                     int id = Integer.parseInt(request.getParameter("id"));
-                    Optional<Discussione> categoriaOptional = discussioneDAO.fetchDiscussioniByID(id);
-                    if (categoriaOptional.isPresent()) {
-                        request.setAttribute("categoria", categoriaOptional);           //modificare
+                    Optional<Discussione> discussioneOptional = discussioneDAO.fetchDiscussioniByID(id);
+                    if (discussioneOptional.isPresent()) {
+                        request.setAttribute("categoria", discussioneOptional);           //modificare
                         request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
                     } else {
                         notFound();
@@ -90,11 +95,55 @@ public class DiscussioneServlet extends ControllerHttpServlet {
         try {
             String path = getPath(request);
             switch (path) {
+                case"/create"://creo(admin)
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("crm/categoria"));
+
+                    validate(DiscussioneValidator.validateForm(request,false));
+                    Discussione discussione=new DiscussioneFormMapper().map(request,true);
+                    if(discussioneDAO.createDiscussione(discussione)){
+                        System.out.println("creata");
+                        request.setAttribute("discussione",discussione);
+                        request.setAttribute("alert",new Alert(List.of("Discussione creata!"),"success"));
+                        request.getRequestDispatcher(view("user/discussione")).forward(request,response);/*MODIFICARE*/
+                    }else{internalError();}
+                    break;
+                case "/update": //aggiorno(admin)
+
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("categoria/update"));
+                    validate(DiscussioneValidator.validateForm(request,true));
+                    Discussione discussioneAgg=new DiscussioneFormMapper().map(request,true);
+                    System.out.println(discussioneAgg.getCategoria().getIdCategoria());
+
+                    if(discussioneDAO.updateDiscussione(discussioneAgg)) {
+                        request.setAttribute("discussione",discussioneAgg);
+                        request.setAttribute("alert", new Alert(List.of("Discussione Aggiornata!"), "success"));
+                        request.getRequestDispatcher(view("discussione/update")).forward(request, response);
+                    }else{
+                        internalError();}
+                    break;
+
+                case"/delete"://elimino(admin)
+                    System.out.println("in Discussione Delete");
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("crm/categoria"));
+                    validate(DiscussioneValidator.validateDelete(request));
+                    String id=request.getParameter("id");
+                    System.out.println("sto per cancellare "+ id);
+                    if(discussioneDAO.deleteDiscussione(id)) {
+
+                        request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
+                        //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
+                        request.getRequestDispatcher(view("crm/delete")).forward(request,response);/*MODIFICARE*/
+                    }else{internalError();}
+                    break;
+
                 default:
                     notAllowed();
                     break;
             }
-        } catch (InvalidRequestException e) {
+        } catch (InvalidRequestException | SQLException e) {
             e.printStackTrace();
         }
     }

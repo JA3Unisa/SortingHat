@@ -3,16 +3,15 @@ package Model.Discussione;
 import Model.Categoria.Categoria;
 import Model.Utente.Utente;
 
+import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 
 public class Discussione {
     private int idDiscussione;
     private String corpo;
-    private GregorianCalendar dataOra;
+    private Timestamp dataOra;
     private String titolo;
-    private int idCategoria;
     private Categoria categoria;//Controllare
-    private int idUtente;
     private Utente utente;//Controllare
 
     public int getIdDiscussione() {
@@ -31,11 +30,11 @@ public class Discussione {
         this.corpo = corpo;
     }
 
-    public GregorianCalendar getDataOra() {
+    public Timestamp getDataOra() {
         return dataOra;
     }
 
-    public void setDataOra(GregorianCalendar dataOra) {
+    public void setDataOra(Timestamp dataOra) {
         this.dataOra = dataOra;
     }
 
@@ -47,13 +46,7 @@ public class Discussione {
         this.titolo = titolo;
     }
 
-    public int getIdCategoria() {
-        return idCategoria;
-    }
 
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
-    }
 
     public Categoria getCategoria() {
         return categoria;
@@ -61,14 +54,6 @@ public class Discussione {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-    }
-
-    public int getIdUtente() {
-        return idUtente;
-    }
-
-    public void setIdUtente(int idUtente) {
-        this.idUtente = idUtente;
     }
 
     public Utente getUtente() {
@@ -81,14 +66,14 @@ public class Discussione {
 
     public Discussione(){}
 
-    public Discussione(int idDiscussione, String corpo, GregorianCalendar dataOra, String titolo, int idCategoria, Categoria categoria, int idUtente, Utente utente) {
+    public Discussione(int idDiscussione, String corpo, Timestamp dataOra, String titolo,  Categoria categoria, Utente utente) {
         this.idDiscussione = idDiscussione;
         this.corpo = corpo;
         this.dataOra = dataOra;
         this.titolo = titolo;
-        this.idCategoria = idCategoria;
+
         this.categoria = categoria;
-        this.idUtente = idUtente;
+
         this.utente = utente;
     }
 }
