@@ -7,10 +7,7 @@ import Model.ConPool.ConPool;
 import Model.Utente.SqlUtenteDAO;
 import Model.Utente.Utente;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +41,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
                     Discussione dis = new Discussione();
                     dis.setIdDiscussione(rs.getInt("idDiscussione"));
                     dis.setCorpo(rs.getString("nome"));
-                   // dis.setDataOra(rs.get("dataOra"));          //?
+                    dis.setDataOra(rs.getTimestamp("dataOra"));          //?
                     dis.setTitolo(rs.getString("titolo"));
                     int idCategoria=(rs.getInt("idCategorie"));
                     SqlCategoriaDAO sqlCategoriaDAO=new SqlCategoriaDAO();
@@ -94,4 +91,55 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
             }
         }
     }
+
+    @Override
+    public boolean createDiscussione(Discussione discussione) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (   PreparedStatement ps =
+                            con.prepareStatement("INSERT INTO Discussione (idDiscussione,,,,,,) VALUES(?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)) {
+                ps.setInt(1,discussione.getIdDiscussione());
+                ps.setString(2, discussione.getCorpo());
+                ps.setTimestamp(3,discussione.getDataOra());
+                ps.setString(4, discussione.getTitolo());
+                ps.setInt(5, discussione.getCategoria().getIdCategoria());
+                ps.setInt(6, discussione.getUtente().getIdUtente());
+
+                int rows = ps.executeUpdate();
+                return rows == 1;
+            }
+        }
+    }
+    @Override
+    public boolean deleteDiscussione(String id) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps =
+                         con.prepareStatement("DELETE FROM Discussione WHERE idDiscussione=?;")) {
+                ps.setString(1, id);
+                int rows = ps.executeUpdate();
+                return rows == 1;
+            }
+        }
+    }
+    @Override
+    public boolean updateDiscussione(Discussione discussioneAgg) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (PreparedStatement ps =
+                         con.prepareStatement("UPDATE  Discussione SET = ?,= ? WHERE idDiscussione=?;")) {
+
+                ps.setString(2, discussioneAgg.getCorpo());
+                ps.setTimestamp(3,discussioneAgg.getDataOra());
+                ps.setString(4, discussioneAgg.getTitolo());
+                ps.setInt(5, discussioneAgg.getCategoria().getIdCategoria());
+                ps.setInt(6, discussioneAgg.getUtente().getIdUtente());
+
+                int rows = ps.executeUpdate();
+                return rows == 1;
+            }
+        }
+    }
+
+
+
+
+
 }
