@@ -85,7 +85,7 @@ public class UtenteServlet extends ControllerHttpServlet {
 
 
                     case "/signup"://registro cliente
-                        request.getRequestDispatcher(view("site/signup")).forward(request, response);
+                        request.getRequestDispatcher(view("user/registrazione")).forward(request, response);
                         break;
 
                     case "/profilo": //show profilo cliente
@@ -131,7 +131,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         authenticated(session);
                         UtenteSession utenteSession = (UtenteSession) session.getAttribute("utenteSession");
 
-                        String redirect = "../utente/secret";
+                        String redirect = "../utenti/secret";
                         session.removeAttribute("utenteSession");
                         session.invalidate();
                         response.sendRedirect(redirect);
