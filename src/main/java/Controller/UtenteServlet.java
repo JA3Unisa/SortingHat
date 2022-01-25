@@ -289,17 +289,21 @@ public class UtenteServlet extends ControllerHttpServlet {
                     }
                     break;*/
                 case "/secret"://login
+                    System.out.println("Verifico login");
                     request.setAttribute("back", view("crm/secret"));/*MODIFICARE*/
                   // Utente utente1=utenteDAO.findUtenteByMail(request.getParameter("Mail"));
                     validate(UtenteValidator.validateSignin(request,false));
+
                     Utente tmpUtente = new Utente();
-                    tmpUtente.setEmail(request.getParameter("Mail"));
-                    tmpUtente.setPassword(request.getParameter("password"));
+                    tmpUtente.setEmail(request.getParameter("Email"));
+                    tmpUtente.setPassword(request.getParameter("Password"));
+                    System.out.println(tmpUtente.getEmail()+" "+tmpUtente.getPassword());
                     Optional<Utente> optionalUtente=utenteDAO.findUtente(tmpUtente.getEmail(), tmpUtente.getPassword());
                     if(optionalUtente.isPresent() && optionalUtente.get().getNome()!=null){
 
                         if(optionalUtente.get().getRuolo()==1){
                             //ADMIN
+                            System.out.println("ADMIN VERIFICATO");
                             UtenteSession utenteSession = new UtenteSession(optionalUtente.get()); //Meno info cliente=meno info sensibili
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
                             response.sendRedirect("../pages/dashboard");/*ADMIN HOMEP*/

@@ -17,7 +17,7 @@ public class UtenteValidator {
 
         validator.assertMatch("Nome", Pattern.compile("^\\w{2,30}$"),"Nome compreso tra i 2 e 30 caratteri");
         validator.assertMatch("Cognome", Pattern.compile("^\\w{2,30}$"),"Cognome compreso tra i 2 e 30 caratteri");
-        validator.assertEmail("Mail","Email non valida");
+        validator.assertEmail("Email","Email non valida");
         if(update){
             validator.assertInt("id","Id deve essere una cifra");
         }
@@ -27,9 +27,9 @@ public class UtenteValidator {
 
     public static RequestValidator validateSignin(HttpServletRequest request,Boolean update){
         RequestValidator validator=new RequestValidator(request);
-        validator.assertEmail("Mail", "Email non valida");
+        validator.assertEmail("Email", "Email non valida");
 
-       validator.assertMatch("password", Pattern.compile("^\\w{2,20}$"),"Password compresa tra i 2 e 20 caratteri");
+       validator.assertMatch("Password", Pattern.compile("^\\w{2,20}$"),"Password compresa tra i 2 e 20 caratteri");
         if(update){
             validator.assertInt("id","Id deve essere una cifra");
         }

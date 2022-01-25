@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ErrorHandler {
     default void authenticated(HttpSession session) throws InvalidRequestException{//Controlla sessione se null o non presente
-        if(session==null || session.getAttribute("utenteSessione")==null){
-            System.out.println(session.getAttribute("utenteSessione")+" risulta null");
+        if(session==null || session.getAttribute("utenteSession")==null){
+            System.out.println(session.getAttribute("utenteSession")+" risulta null");
             throw new InvalidRequestException("Errore autenticazione", List.of("Non sei autenticato"),
                     HttpServletResponse.SC_UNAUTHORIZED);
 
@@ -19,7 +19,7 @@ public interface ErrorHandler {
     default void authorize(HttpSession session)throws InvalidRequestException{
         authenticated(session);
         System.out.println("prendo sessione");
-        UtenteSession utenteSession=(UtenteSession) session.getAttribute("UtenteSessione");
+        UtenteSession utenteSession=(UtenteSession) session.getAttribute("utenteSession");
         //controllo se admin
           if(utenteSession.getRuolo()!=1){
             System.out.println("errore autorizzazione ");

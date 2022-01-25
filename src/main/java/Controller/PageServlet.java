@@ -23,7 +23,7 @@ public class PageServlet extends ControllerHttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             String path = getPath(request);
-            System.out.println("in pages Servlet");
+            System.out.println("in pages Servlet"+ path);
             switch (path) {
 
                 case "/dashboard":

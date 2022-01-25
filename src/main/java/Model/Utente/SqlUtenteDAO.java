@@ -94,12 +94,13 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
             try (PreparedStatement ps = con.prepareStatement("Select * from utente where password=? AND email=? ;")) {
                 ps.setString(1, password);
                 ps.setString(2, email);
+                System.out.println("PRE RESULT");
                 ResultSet rs = ps.executeQuery();
                 Utente utente = new Utente();
-                //   System.out.println("POST ESEGUO FIND"+cliente.getNome()+" "+ps.toString());
+                System.out.println("POST ESEGUO FIND "+ utente.getNome()+"// "+ps.toString());
                 if (rs.next()) {
-                    utente.setIdUtente(rs.getInt("idUtente"));
-                    utente.setEmail(rs.getString("mail"));
+                    utente.setIdUtente(rs.getInt("idutente"));
+                    utente.setEmail(rs.getString("email"));
                     utente.setNome(rs.getString("nome"));
                     utente.setCognome(rs.getString("cognome"));
                     utente.setUniversitario(rs.getBoolean("universitario"));
