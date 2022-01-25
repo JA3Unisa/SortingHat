@@ -2,6 +2,8 @@ package Controller;
 
 
 import Controller.Http.InvalidRequestException;
+import Model.Discussione.SqlDiscussioneDAO;
+import Model.Risposta.SqlRispostaDAO;
 import Model.Utente.SqlUtenteDAO;
 
 import javax.servlet.ServletException;
@@ -15,7 +17,8 @@ import java.util.List;
 @WebServlet(name = "PageServlet", value = "/pages/*")
 public class PageServlet extends ControllerHttpServlet {
     private SqlUtenteDAO utenteDao = new SqlUtenteDAO();
-
+    private SqlDiscussioneDAO discussioneDao = new SqlDiscussioneDAO();
+    private SqlRispostaDAO rispostaDao = new SqlRispostaDAO();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
@@ -30,9 +33,15 @@ public class PageServlet extends ControllerHttpServlet {
                     request.setAttribute("back", view("crm/clienti"));
 
                     int utenti = utenteDao.countAllUtente();
-                    request.setAttribute("clientiNum", utenti);
-                    //System.out.println("qua"+clienti);
-                    request.getRequestDispatcher(view("../../homepage")).forward(request, response);/*MODIFICARE*/
+                    request.setAttribute("utentiNum", utenti);
+
+                    int risposte= rispostaDao.countAll();
+                    request.setAttribute("risposteNum", risposte);
+
+                    int discussioni = discussioneDao.countAll();
+                    request.setAttribute("discussioniNum", discussioni);
+
+                    request.getRequestDispatcher(view("user/adminDashboard")).forward(request, response);
                     break;
                 case "/":
                     request.getRequestDispatcher(view("../../homepage")).forward(request, response);

@@ -32,7 +32,7 @@
         <input type="password" name="Password" id="Password" placeholder="********">
         <input type="submit" value="Registrati">
     </form>
-    <p id="giaRegistrato">Hai già un account? <a href="${pageContext.request.contextPath}/pages/login"></a></p>
+    <p id="giaRegistrato">Hai già un account? <a href="${pageContext.request.contextPath}/pages/login">Login</a></p>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
