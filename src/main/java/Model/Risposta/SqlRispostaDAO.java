@@ -17,7 +17,7 @@ public class SqlRispostaDAO implements RispostaDAO {
     @Override
     public boolean createRisposta(Risposta risposta) throws Exception {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("Insert into Risposta(corpo,dataOra,idUtente,idDiscussione) " +
+            try (PreparedStatement ps = con.prepareStatement("Insert into Risposta(corpo,dataora,idutente,iddiscussione) " +
                     "as value (?,?,?,?);")) {
 
                 ps.setString(1, risposta.getCorpo());
@@ -37,9 +37,9 @@ public class SqlRispostaDAO implements RispostaDAO {
     @Override
     public boolean updateRisposta(Risposta risposta) throws Exception {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("UPDATE Utente " +
-                    "SET corpo = ?, dataOra = ?, idUtente = ?, idDiscussione = ?" +
-                    "WHERE idRisposta = ?;")) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE utente " +
+                    "SET corpo = ?, dataora = ?, idutente = ?, iddiscussione = ?" +
+                    "WHERE idrisposta = ?;")) {
 
                 //Inserimento utente nel db
                 ps.setString(1, risposta.getCorpo());
@@ -59,7 +59,7 @@ public class SqlRispostaDAO implements RispostaDAO {
     @Override
     public boolean deleteRisposta(int id) throws Exception {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("DELETE from Risposta where idRisposta = ?;")) {
+            try (PreparedStatement ps = con.prepareStatement("DELETE from risposta where idrisposta = ?;")) {
 
                 ps.setInt(1, id);
 
@@ -74,7 +74,7 @@ public class SqlRispostaDAO implements RispostaDAO {
     public int countAll() throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("Select count(*) as totaleRisposte FROM Risposta ;")) {
+                         con.prepareStatement("Select count(*) as totaleRisposte FROM risposta ;")) {
                 ResultSet resultSet = ps.executeQuery();
                 int size = 0;
                 if (resultSet.next()) {
@@ -90,7 +90,7 @@ public class SqlRispostaDAO implements RispostaDAO {
     public List<Risposta> fetchRisposta(Paginator paginatore) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("SELECT * FROM Risposta LIMIT ?,?")) {
+                         con.prepareStatement("SELECT * FROM risposta LIMIT ?,?")) {
                 ps.setInt(1, paginatore.getOffset());
                 ps.setInt(2, paginatore.getLimite());
                 ResultSet rs = ps.executeQuery();
@@ -130,7 +130,7 @@ public class SqlRispostaDAO implements RispostaDAO {
     public Optional<Risposta> fetchRisposte(int idUpd) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("SELECT * FROM Risposta WHERE idRisposta=?")) {
+                         con.prepareStatement("SELECT * FROM risposta WHERE idrisposta=?")) {
                 ps.setInt(1, idUpd);
                 ResultSet rs = ps.executeQuery();
                 Risposta cat = new Risposta();

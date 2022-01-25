@@ -17,7 +17,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
     public int countAll () throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("Select count(*) as totaleDiscussione FROM Discussione ;")) {
+                         con.prepareStatement("Select count(*) as totaleDiscussione FROM discussione ;")) {
                 ResultSet resultSet = ps.executeQuery();
                 int size = 0;
                 if (resultSet.next()) {
@@ -32,7 +32,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
     public List<Discussione> fetchDiscussioni(Paginator paginatore)  throws SQLException{
         try (Connection con = ConPool.getConnection()) {
             try (  PreparedStatement ps =
-                           con.prepareStatement("SELECT * FROM Categoria LIMIT ?,?")) {
+                           con.prepareStatement("SELECT * FROM discussione LIMIT ?,?")) {
                 ps.setInt(1, paginatore.getOffset());
                 ps.setInt(2, paginatore.getLimite());
                 ResultSet rs = ps.executeQuery();
@@ -66,7 +66,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
     public Optional<Discussione> fetchDiscussioniByID(int id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("SELECT * FROM Categoria WHERE idCategoria=?")) {
+                         con.prepareStatement("SELECT * FROM discussione WHERE iddiscussione=?")) {
                 ps.setInt(1, id);
                 ResultSet rs = ps.executeQuery();
                 Discussione  dis = new Discussione();
@@ -96,7 +96,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
     public boolean createDiscussione(Discussione discussione) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (   PreparedStatement ps =
-                            con.prepareStatement("INSERT INTO Discussione (idDiscussione,,,,,,) VALUES(?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)) {
+                            con.prepareStatement("INSERT INTO discussione (iddiscussione,corpo,dataora,titolo,idcategoria,idutente) VALUES(?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1,discussione.getIdDiscussione());
                 ps.setString(2, discussione.getCorpo());
                 ps.setTimestamp(3,discussione.getDataOra());
@@ -113,7 +113,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
     public boolean deleteDiscussione(String id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("DELETE FROM Discussione WHERE idDiscussione=?;")) {
+                         con.prepareStatement("DELETE FROM discussione WHERE iddiscussione=?;")) {
                 ps.setString(1, id);
                 int rows = ps.executeUpdate();
                 return rows == 1;
@@ -124,7 +124,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
     public boolean updateDiscussione(Discussione discussioneAgg) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("UPDATE  Discussione SET = ?,= ? WHERE idDiscussione=?;")) {
+                         con.prepareStatement("UPDATE  discussione SET = ?,= ? ,=?,=?,=? WHERE iddiscussione=?;")) {
 
                 ps.setString(2, discussioneAgg.getCorpo());
                 ps.setTimestamp(3,discussioneAgg.getDataOra());
