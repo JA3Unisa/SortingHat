@@ -21,7 +21,7 @@
     <tbody>
 
     <tr>
-        <td><a href="../clienti/show?id=${utente.idUtente}">${utente.idUtente}</a></td>
+        <td><a href="../utenti/show?id=${utente.idUtente}">${utente.idUtente}</a></td>
         <td>${utente.nome}</td>
 
         <td>${utente.cognome}</td>
