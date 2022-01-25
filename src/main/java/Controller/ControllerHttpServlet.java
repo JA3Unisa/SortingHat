@@ -5,6 +5,7 @@ import Controller.Http.InvalidRequestException;
 import Controller.Http.RequestValidator;
 import Model.Utente.UtenteSession;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class ControllerHttpServlet extends HttpServlet implements ErrorHandler {
-    //@Resource(name = "jdbc/")//Insert nome DB
+    @Resource(name = "jdbc/sorting_hat_test")//Insert nome DB
     protected static DataSource source;
     protected String getPath(HttpServletRequest req) {
         return req.getPathInfo() != null ? req.getPathInfo() : "/";
@@ -50,7 +51,7 @@ public class ControllerHttpServlet extends HttpServlet implements ErrorHandler {
 
 
     protected int parsePage(HttpServletRequest request) {
-        System.out.println(request.getParameter("page"));
+
         return Integer.parseInt(request.getParameter("page"));
     }
 }

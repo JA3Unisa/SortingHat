@@ -32,16 +32,17 @@ public class SqlCategoriaDAO implements CategoriaDAO {
                          con.prepareStatement("SELECT * FROM categoria LIMIT ?,?")) {
                 ps.setInt(1, paginatore.getOffset());
                 ps.setInt(2, paginatore.getLimite());
+                System.out.println(ps.toString());
                 ResultSet rs = ps.executeQuery();
                 List<Categoria> categorie = new ArrayList<>();
                 while (rs.next()) {
                     Categoria cat = new Categoria();
-                    cat.setIdCategoria(rs.getInt("idCategoria"));
+                    cat.setIdCategoria(rs.getInt("idcategoria"));
                     cat.setNome(rs.getString("nome"));
                     cat.setDescrizione(rs.getString("descrizione"));
                     categorie.add(cat);
                 }
-
+                System.out.println(categorie.size());
                 return categorie;
             }
         }
@@ -57,7 +58,7 @@ public class SqlCategoriaDAO implements CategoriaDAO {
                 Categoria cat = new Categoria();
                 if (rs.next()) {
 
-                    cat.setIdCategoria(rs.getInt("idCategoria"));
+                    cat.setIdCategoria(rs.getInt("idcategoria"));
                     cat.setNome(rs.getString("nome"));
                     cat.setDescrizione(rs.getString("descrizione"));
                 }

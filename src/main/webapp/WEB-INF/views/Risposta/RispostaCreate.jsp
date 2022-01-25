@@ -1,19 +1,18 @@
 <%--
   Created by IntelliJ IDEA.
   User: davidedisarno
-  Date: 25/01/22
-  Time: 15:45
+  Date: 26/01/22
+  Time: 00:05
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <jsp:include page="/WEB-INF/views/partials/headS.jsp">
         <jsp:param name="userStyles" value="main,background,homepage"/>
         <jsp:param name="userScripts" value="mobileMenu"/>
-        <jsp:param name="title" value="SortingHat - categoriaList"/>
+        <jsp:param name="title" value="SortingHat - RispostaCreate"/>
     </jsp:include>
 
     <!--<meta charset="UTF-8">
@@ -32,18 +31,16 @@
 <main class="app dashboard">
 
     <%@include file="../partials/adminBar.jsp"%>
-    <section class="content-grid-y">
-        <div class ="body grid-x justify-center">
-            <section class="grid-y cell justify-center">
-                <%@include file="categoriaTable.jsp"%>
-                <jsp:include page="../partials/paginator.jsp">
-                    <jsp:param name="risorse" value="categorie"/>
-                </jsp:include>
-            </section>
+    <section class="grid-y">
 
+        <div class="grid-x justify-center ">
+            <%@include file="../Risposta/RispostaFormCreate.jsp"%>
         </div>
+
     </section>
+
 </main>
+<body>
 
 </body>
 </html>

@@ -43,8 +43,7 @@ public class SqlRispostaDAO implements RispostaDAO {
 
                 //Inserimento utente nel db
                 ps.setString(1, risposta.getCorpo());
-                Date date = new Date(risposta.getdataOra().getTimeInMillis());
-                ps.setDate(2, date);
+                ps.setTimestamp(3,risposta.getdataOra());
                 ps.setInt(3, risposta.getUtente().getIdUtente());
                 ps.setInt(4, risposta.getDiscussione().getIdDiscussione());
                 ps.setInt(5, risposta.getIdRisposta());
@@ -97,25 +96,24 @@ public class SqlRispostaDAO implements RispostaDAO {
                 List<Risposta> rispostas = new ArrayList<>();
                 while (rs.next()) {
                     Risposta cat = new Risposta();
-                    cat.setIdRisposta(rs.getInt("idRisposta"));
+                    cat.setIdRisposta(rs.getInt("idrisposta"));
                     cat.setCorpo(rs.getString("corpo"));
-                    Date dataR = (rs.getDate("dataOra"));
-                    // cat.setDataOra(dataR);
+                    cat.setDataOra(rs.getTimestamp("dataOra"));
 
-                    int idUtente = (rs.getInt("idUtente"));
+                    int idUtente = (rs.getInt("idutente"));
                     SqlUtenteDAO sqlUtenteDAO = new SqlUtenteDAO();
                     Optional<Utente> utente = sqlUtenteDAO.findUtentebyID(idUtente);
                     cat.setUtente(utente.get());
 
 
-                    int idDiscussione = (rs.getInt("idDiscussione"));
+                    int idDiscussione = (rs.getInt("iddiscussione"));
                     SqlDiscussioneDAO sqlDiscussioneDAO = new SqlDiscussioneDAO();
                      Optional<Discussione> discussione = sqlDiscussioneDAO.fetchDiscussioniByID(idDiscussione);
                       cat.setDiscussione(discussione.get());
 
                     rispostas.add(cat);
                 }
-
+System.out.println("TAGLIA:"+rispostas.size());
                 return rispostas;
             }
         }
@@ -136,16 +134,16 @@ public class SqlRispostaDAO implements RispostaDAO {
                 Risposta cat = new Risposta();
                 if (rs.next()) {
 
-                    cat.setIdRisposta(rs.getInt("idRisposta"));
+                    cat.setIdRisposta(rs.getInt("idrisposta"));
                     cat.setCorpo(rs.getString("corpo"));
                     //  cat.setDataOra(rs.getDate("dataOra"));
-                    int idUtente = (rs.getInt("idUtente"));
+                    int idUtente = (rs.getInt("idutente"));
                     SqlUtenteDAO sqlUtenteDAO = new SqlUtenteDAO();
                     Optional<Utente> utente = sqlUtenteDAO.findUtentebyID(idUtente);
                     cat.setUtente(utente.get());
 
 
-                    int idDiscussione = (rs.getInt("idDiscussione"));
+                    int idDiscussione = (rs.getInt("iddiscussione"));
                     SqlDiscussioneDAO sqlDiscussioneDAO = new SqlDiscussioneDAO();
                     Optional<Discussione> discussione=sqlDiscussioneDAO.fetchDiscussioniByID(idDiscussione);
                      cat.setDiscussione(discussione.get());

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!DOCTYPE html>
     <html lang="it">
          <head>
@@ -27,8 +28,8 @@
                  <div class ="body grid-x justify-center">
                      <section class="grid-y cell justify-center">
                          <%@include file="discussioneTable.jsp"%>
-                         <jsp:include page="/WEB-INF/views/partials/paginator.jsp">
-                             <jsp:param name="risorse" value="discussione"/>
+                         <jsp:include page="../partials/paginator.jsp">
+                             <jsp:param name="risorse" value="discussioni"/>
                          </jsp:include>
                      </section>
 

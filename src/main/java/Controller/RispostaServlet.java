@@ -37,15 +37,15 @@ public class RispostaServlet extends ControllerHttpServlet {
                     int page = parsePage(request);
 
                     Paginator paginatore = new Paginator(page, "RispostaServlet");
-                    System.out.println(paginatore.getLimite());
+
 
                     int size = rispostaDAO.countAll();
 
                     List<Risposta> rispostas = rispostaDAO.fetchRisposta(paginatore);
-                    System.out.println(rispostas.get(0).getIdRisposta());
-                    request.setAttribute("categorie", rispostas);
+
+                    request.setAttribute("risposte", rispostas);
                     request.setAttribute("pages", paginatore.getPages(size));
-                    request.getRequestDispatcher(view("crm/categorie")).forward(request, response);/*MODIFICARE*/
+                    request.getRequestDispatcher(view("admin/rispostaList")).forward(request, response);
                     break;
 
                 case "/show"://show categoria(admin)
@@ -118,7 +118,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                 case"/delete"://elimino(admin)
                     System.out.println("in categorie Delete");
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("crm/categoria"));
+                    request.setAttribute("back",view("crm/categoria"));/*MODIFICARE*/
                     validate(CategoriaValidator.validateDelete(request));
                    int id= Integer.parseInt(request.getParameter("id"));
                     System.out.println("sto per cancellare "+ id);
@@ -126,7 +126,7 @@ public class RispostaServlet extends ControllerHttpServlet {
 
                         request.setAttribute("alert", new Alert(List.of("Risposta Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("crm/delete")).forward(request,response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);/*MODIFICARE*/
                     }else{internalError();}
                     break;
 

@@ -7,6 +7,9 @@ public class Paginator {
 
     public Paginator(int page,String servlet){
         int itemsPerPage=0;
+        if(servlet.compareToIgnoreCase("CategoriaServlet")==0){
+            itemsPerPage=20;
+        }
         if(servlet.compareToIgnoreCase("UtenteServlet")==0){
             itemsPerPage=20;
         }

@@ -29,7 +29,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                 switch (path) {
                     case "/"://lista account(admin)
                         authorize(request.getSession());
-                        request.setAttribute("back", view("crm/utenti"));/*MODIFICARE*/
+                        request.setAttribute("back", view("admin/utenteList"));
 
                         validate(CommonValidator.validatePage(request));
                         int page = parsePage(request);
@@ -40,28 +40,28 @@ public class UtenteServlet extends ControllerHttpServlet {
                         List<Utente> utenti = utenteDAO.fetchAccounts(paginatore);
 
                         request.setAttribute("utenti", utenti);
-                        request.getRequestDispatcher(view("crm/utenti")).forward(request, response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("admin/utenteList")).forward(request, response);
                         break;
 
                     case "/create"://creo cliente(admin)
                         authorize(request.getSession(false));
-                        request.getRequestDispatcher(view("crm/utente")).forward(request, response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("Utente/UtenteCreate")).forward(request, response);
                         break;
-                    case "/update"://modifico cliente(admin)
+                    case "/update"://modifico utente(admin)
                         authorize(request.getSession(false));
                         int idCl = Integer.parseInt(request.getParameter("id"));
                         Optional<Utente> cl = utenteDAO.findUtentebyID(idCl);
                         request.setAttribute("utente", cl.get());
-                        request.getRequestDispatcher(view("utenti/update")).forward(request, response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("Utente/UtenteUpdate")).forward(request, response);
                         break;
 
-                    case "/modificoCliente"://modifco cliente(cliente)
+                    case "/modificoCliente"://modifico cliente(cliente)
                         int idProfiloCliente = getUtenteSessione(request.getSession(false)).getId();
 
                         Optional<Utente> profiloClienteUp = utenteDAO.findUtentebyID(idProfiloCliente);
                         request.setAttribute("utente", profiloClienteUp.get());
 
-                        request.getRequestDispatcher(view("utenti/updateUtente")).forward(request, response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("Utente/Utenteupdate")).forward(request, response);
 
                         break;
 
@@ -79,7 +79,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         break;
                     case "/secret"://login pagina
                         System.out.println("in secret");
-                        request.getRequestDispatcher(view("crm/secret")).forward(request, response);
+                        request.getRequestDispatcher(view("user/login")).forward(request, response);
                         // request.getRequestDispatcher("/WEB-INF/views/crm/secret.jsp").forward(request,response);
                         break;
 
@@ -131,7 +131,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         authenticated(session);
                         UtenteSession utenteSession = (UtenteSession) session.getAttribute("utenteSession");
 
-                        String redirect = "../utenti/secret";
+                        String redirect = "../pages/login";
                         session.removeAttribute("utenteSession");
                         session.invalidate();
                         response.sendRedirect(redirect);
@@ -160,7 +160,7 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                 case "/create"://creo cliente
                     authorize(request.getSession(false));
-                    request.setAttribute("back", view("crm/cliente"));/*per tornare indietro*/
+                    request.setAttribute("back", view("admin/utenteList"));/*per tornare indietro*/
 
                     validate(UtenteValidator.validateForm(request, false));
                     request.setAttribute("ruolo",false);
@@ -181,7 +181,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                 case "/update": //aggiorno cliente
 
                     authorize(request.getSession(false));
-                    request.setAttribute("back", view("utente/update"));
+                    request.setAttribute("back", view("Utente/UtenteUpdate"));
                     validate(UtenteValidator.validateForm(request, true));
                    Utente utenteAggiornato=new UtenteFormMapper().map(request,true);
                     request.setAttribute("cliente",utenteAggiornato);
@@ -190,14 +190,14 @@ public class UtenteServlet extends ControllerHttpServlet {
                         request.setAttribute("utente",utenteAggiornato);
                         request.setAttribute("alert",new Alert(List.of("Utente Aggiornato!"),"success"));
                         // response.sendRedirect("../accounts/");
-                        request.getRequestDispatcher(view("utenti/update")).forward(request, response);
+                        request.getRequestDispatcher(view("Utente/UtenteUpdate")).forward(request, response);
 
                     }else{internalError();}
                     break;
                 case "/modificoUtente": //aggiorno cliente
 
                     authenticated(request.getSession(false));
-                    request.setAttribute("back", view("cliente/updateCliente"));
+                    request.setAttribute("back", view("Utente/UtenteUpdate"));
                     validate(UtenteValidator.validateForm(request, true));
                     Utente utenteAggiornato1=new UtenteFormMapper().map(request,true);
                     request.setAttribute("utente",utenteAggiornato1);
@@ -214,7 +214,7 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                     authorize(request.getSession(false));
 
-                    request.setAttribute("back", view("crm/cliente"));
+                    request.setAttribute("back", view("admin/utenteList"));/*MODIFICARE*/
                     validate(UtenteValidator.validateDelete(request));
                     //   Cliente clienteDel=new ClienteFormMapper().map(request,true);
                     int id=Integer.parseInt(request.getParameter("id"));
@@ -224,7 +224,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         System.out.println("cancellato");
                         request.setAttribute("alert",new Alert(List.of("Utente Eliminato!"),"success"));
 
-                        request.getRequestDispatcher(view("crm/delete")).forward(request,response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
                     }else
                     {internalError();}
                     break;
@@ -232,11 +232,11 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                 case "/signupUtente"://registrazione cliente
 
-                    request.setAttribute("back", view("site/signup"));
+                    request.setAttribute("back", view("user/registrazione"));
                     validate(UtenteValidator.validateForm(request,false));
 
                     Utente utenteSign=new UtenteFormMapper().map(request,false);
-                    utenteSign.setPassword(request.getParameter("password"));
+                    utenteSign.setPassword(request.getParameter("Password"));
                     System.out.println(utenteSign.getPassword());
                     if(utenteDAO.createUtente(utenteSign)){
                         System.out.println("creato");
@@ -290,7 +290,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                     break;*/
                 case "/secret"://login
                     System.out.println("Verifico login");
-                    request.setAttribute("back", view("crm/secret"));/*MODIFICARE*/
+                    request.setAttribute("back", view("user/login"));
                   // Utente utente1=utenteDAO.findUtenteByMail(request.getParameter("Mail"));
                     validate(UtenteValidator.validateSignin(request,false));
 
@@ -313,11 +313,12 @@ public class UtenteServlet extends ControllerHttpServlet {
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
                             response.sendRedirect("../accounts/profilo");/*HOME CLIENTE*/
                         }
-                        else {
-                            throw new InvalidRequestException("Credenziali non valide", List.of("Credenziali non valide"),
-                                    HttpServletResponse.SC_BAD_REQUEST);
+                         }
+                    else {
+                        throw new InvalidRequestException("Credenziali non valide", List.of("Credenziali non valide"),
+                                HttpServletResponse.SC_BAD_REQUEST);
 
-                        }
+
                     }
                         break;
                 default:

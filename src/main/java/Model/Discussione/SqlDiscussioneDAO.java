@@ -39,15 +39,16 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
                 List<Discussione> discussioni = new ArrayList<>();
                 while (rs.next()) {
                     Discussione dis = new Discussione();
-                    dis.setIdDiscussione(rs.getInt("idDiscussione"));
-                    dis.setCorpo(rs.getString("nome"));
+                    dis.setIdDiscussione(rs.getInt("iddiscussione"));
+                    dis.setCorpo(rs.getString("corpo"));
                     dis.setDataOra(rs.getTimestamp("dataOra"));          //?
                     dis.setTitolo(rs.getString("titolo"));
-                    int idCategoria=(rs.getInt("idCategorie"));
+                    int idCategoria=(rs.getInt("idcategoria"));
                     SqlCategoriaDAO sqlCategoriaDAO=new SqlCategoriaDAO();
                     Optional<Categoria> categoria=sqlCategoriaDAO.fetchCategoriesByID(idCategoria);
+                    dis.setCategoria(categoria.get());
 
-                    int idUtente=(rs.getInt("idUtente"));
+                    int idUtente=(rs.getInt("idutente"));
                     SqlUtenteDAO sqlUtenteDAO=new SqlUtenteDAO();
                     Optional<Utente> utente=sqlUtenteDAO.findUtentebyID(idUtente);
                     dis.setUtente(utente.get());
@@ -71,15 +72,15 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
                 ResultSet rs = ps.executeQuery();
                 Discussione  dis = new Discussione();
                 if (rs.next()) {
-                    dis.setIdDiscussione(rs.getInt("idDiscussione"));
-                    dis.setCorpo(rs.getString("nome"));
-                    // dis.setDataOra(rs.get("dataOra"));          //?
+                    dis.setIdDiscussione(rs.getInt("iddiscussione"));
+                    dis.setCorpo(rs.getString("corpo"));
+                    dis.setDataOra(rs.getTimestamp("dataOra"));
                     dis.setTitolo(rs.getString("titolo"));
-                    int idCategoria=(rs.getInt("idCategorie"));
+                    int idCategoria=(rs.getInt("idcategoria"));
                     SqlCategoriaDAO sqlCategoriaDAO=new SqlCategoriaDAO();
                     Optional<Categoria> categoria=sqlCategoriaDAO.fetchCategoriesByID(idCategoria);
 
-                    int idUtente=(rs.getInt("idUtente"));
+                    int idUtente=(rs.getInt("idutente"));
                     SqlUtenteDAO sqlUtenteDAO=new SqlUtenteDAO();
                     Optional<Utente> utente=sqlUtenteDAO.findUtentebyID(idUtente);
                     dis.setUtente(utente.get());

@@ -3,12 +3,12 @@ package Model.Risposta;
 import Model.Discussione.Discussione;
 import Model.Utente.Utente;
 
-import java.util.GregorianCalendar;
+import java.sql.Timestamp;
 
 public class Risposta {
     private int idRisposta;
     private String corpo;
-    private GregorianCalendar dataOra;
+    private Timestamp dataOra;
     private Utente utente;//Controllare
     //private int idUtente;
     //private int idDiscussione;
@@ -30,11 +30,11 @@ public class Risposta {
         this.corpo = corpo;
     }
 
-    public GregorianCalendar getdataOra() {
+    public Timestamp getdataOra() {
         return dataOra;
     }
 
-    public void setDataOra(GregorianCalendar dataOra) {
+    public void setDataOra(Timestamp dataOra) {
         this.dataOra = dataOra;
     }
 
@@ -70,7 +70,7 @@ public class Risposta {
         this.discussione = discussione;
     }
 
-    public Risposta(int idRisposta, String corpo, GregorianCalendar dataOra, Utente utente, Discussione discussione) {
+    public Risposta(int idRisposta, String corpo, Timestamp dataOra, Utente utente, Discussione discussione) {
         this.idRisposta = idRisposta;
         this.corpo = corpo;
         this.dataOra = dataOra;

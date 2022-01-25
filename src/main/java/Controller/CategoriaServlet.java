@@ -26,25 +26,24 @@ public class CategoriaServlet extends ControllerHttpServlet {
             String path = getPath(request);
             switch (path) {
                 case "/"://show categorie(admin)
-                    System.out.println(" categoria pre");
+
                     authorize(request.getSession(false));
 
                     request.setAttribute("page",1);
                     validate(CommonValidator.validatePage(request));
 
-                    System.out.println(" categoria post");
+
                     int page = parsePage(request);
 
                     Paginator paginatore = new Paginator(page, "CategoriaServlet");
-                    System.out.println(paginatore.getLimite());
+
 
                     int size = categoriaDAO.countAll();
-                    System.out.println("X" + paginatore.getPages(size));
+
                     List<Categoria> categorie = categoriaDAO.fetchCategories(paginatore);
-                    System.out.println(categorie.get(0).getIdCategoria());
                     request.setAttribute("categorie", categorie);
                     request.setAttribute("pages", paginatore.getPages(size));
-                    request.getRequestDispatcher(view("crm/categorie")).forward(request, response);
+                    request.getRequestDispatcher(view("admin/categoriaList")).forward(request, response);
                     break;
 
                 case "/show"://show categoria(admin)
@@ -121,7 +120,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                 case"/delete"://elimino(admin)
                     System.out.println("in categorie Delete");
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("crm/categoria"));
+                    request.setAttribute("back",view("crm/categoria"));/*MODIFICARE*/
                     validate(CategoriaValidator.validateDelete(request));
                     String id=request.getParameter("id");
                     System.out.println("sto per cancellare "+ id);
@@ -129,7 +128,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
 
                         request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("crm/delete")).forward(request,response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
                     }else{internalError();}
                     break;
 

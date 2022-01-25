@@ -124,8 +124,8 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
                 List<Utente> clienti = new ArrayList<>();
                 while (rs.next()) {
                     Utente utente = new Utente();
-                    utente.setIdUtente(rs.getInt("idUtente"));
-                    utente.setEmail(rs.getString("mail"));
+                    utente.setIdUtente(rs.getInt("idutente"));
+                    utente.setEmail(rs.getString("email"));
                     utente.setNome(rs.getString("nome"));
                     utente.setCognome(rs.getString("cognome"));
                     utente.setUniversitario(rs.getBoolean("universitario"));
@@ -147,8 +147,8 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
                 ResultSet rs = ps.executeQuery();
                 Utente utente =new Utente();
                 if (rs.next()) {
-                    utente.setIdUtente(rs.getInt("idUtente"));
-                    utente.setEmail(rs.getString("mail"));
+                    utente.setIdUtente(rs.getInt("idutente"));
+                    utente.setEmail(rs.getString("email"));
                     utente.setNome(rs.getString("nome"));
                     utente.setCognome(rs.getString("cognome"));
                     utente.setUniversitario(rs.getBoolean("universitario"));

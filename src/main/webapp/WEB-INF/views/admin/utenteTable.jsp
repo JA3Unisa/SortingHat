@@ -7,6 +7,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <table class="table">
+    <caption class="align-center justify-center">Lista Utenti
+        <form action="../utenti/delete"  method="post" >
+            <input type="text" name="id" placeholder="Elimina utente" style="color: black"/>
+        </form></caption>
     <thead>
     <tr>
         <th>Id</th>
@@ -19,7 +23,14 @@
     </tr>
     </thead>
     <tbody>
-
+    <c:choose>
+    <c:when test="${utenti.isEmpty()}">
+        <tr>
+            <td>Nessun utente presente!</td>
+        </tr>
+    </c:when>
+    <c:otherwise>
+    <c:forEach items="${utenti}" var="utente">
     <tr>
         <td><a href="../utenti/show?id=${utente.idUtente}">${utente.idUtente}</a></td>
         <td>${utente.nome}</td>
@@ -48,9 +59,13 @@
             </c:otherwise>
         </c:choose>
 
+        <td><a href="../utenti/update?id=${utente.idUtente}" >Modifica Utente</a></td>
 
 
     </tr>
+    </c:forEach>
+    </c:otherwise>
+    </c:choose>
 
     </tbody>
 

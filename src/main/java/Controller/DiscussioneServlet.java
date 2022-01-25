@@ -29,29 +29,26 @@ public class DiscussioneServlet extends ControllerHttpServlet {
         try {
             String path = getPath(request);
             switch (path) {
-                case "/": //show discussione admin
-                //crearle
-                //update
-                //delete
+                case "/":
                     System.out.println(" discussione pre");
                     authorize(request.getSession(false));
 
                     request.setAttribute("page",1);
                     validate(CommonValidator.validatePage(request));
 
-                    System.out.println(" discussione post");
+
                     int page = parsePage(request);
 
                     Paginator paginatore = new Paginator(page, "DiscussioneServlet");
-                    System.out.println(paginatore.getLimite());
+
 
                     int size = discussioneDAO.countAll();
-                    System.out.println("X" + paginatore.getPages(size));
+
                     List<Discussione> discussiones = discussioneDAO.fetchDiscussioni(paginatore);
 
-                    request.setAttribute("categorie", discussiones);
+                    request.setAttribute("discussioni", discussiones);
                     request.setAttribute("pages", paginatore.getPages(size));
-                    request.getRequestDispatcher(view("crm/categorie")).forward(request, response);
+                    request.getRequestDispatcher(view("admin/discussioneList")).forward(request, response);
                     break;
 
                 case "/show"://show categoria(admin)
@@ -127,15 +124,15 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                 case"/delete"://elimino(admin)
                     System.out.println("in Discussione Delete");
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("crm/categoria"));
+                    request.setAttribute("back",view("crm/categoria"));/*MODIFICARE*/
                     validate(DiscussioneValidator.validateDelete(request));
                     String id=request.getParameter("id");
                     System.out.println("sto per cancellare "+ id);
                     if(discussioneDAO.deleteDiscussione(id)) {
 
-                        request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
+                        request.setAttribute("alert", new Alert(List.of("Discussione Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("crm/delete")).forward(request,response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);/*MODIFICARE*/
                     }else{internalError();}
                     break;
 
