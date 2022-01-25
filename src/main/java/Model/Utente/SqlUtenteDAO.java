@@ -15,7 +15,7 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
     @Override
     public boolean createUtente(Utente utente) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("Insert into Utente(nome,cognome,email,password,universitario,ruolo) " +
+            try (PreparedStatement ps = con.prepareStatement("Insert into utente(nome,cognome,email,password,universitario,ruolo) " +
                     "as value (?,?,?,?,?,?)")) {
 
                 //Inserimento utente nel db
@@ -41,9 +41,9 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
     @Override
     public boolean updateUtente(Utente utente) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("UPDATE Utente " +
+            try (PreparedStatement ps = con.prepareStatement("UPDATE utente " +
                     "SET nome = ?, cognome = ?, email = ?, password = ?, universitario = ?, ruolo = ?" +
-                    "WHERE id = ?;")) {
+                    "WHERE idutente = ?;")) {
 
                 //Inserimento utente nel db
                 ps.setString(1, utente.getNome());
@@ -64,7 +64,7 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
     @Override
     public boolean deleteUtente(int id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("DELETE from Utente where id = ?;")) {
+            try (PreparedStatement ps = con.prepareStatement("DELETE from utente where idutente = ?;")) {
 
                 ps.setInt(1, id);
 
@@ -77,7 +77,7 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
     @Override
     public int countAllUtente() throws SQLException {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT count(*) as totaleUtenti from Utente")) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT count(*) as totaleUtenti from utente")) {
                 ResultSet rs = ps.executeQuery();
                 int size = 0;
                 if (rs.next()) {
@@ -91,7 +91,7 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
     @Override
     public Optional<Utente> findUtente(String email, String password) throws SQLException{
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("Select * from Utente where password=? AND mail=? ;")) {
+            try (PreparedStatement ps = con.prepareStatement("Select * from utente where password=? AND email=? ;")) {
                 ps.setString(1, password);
                 ps.setString(2, email);
                 ResultSet rs = ps.executeQuery();
@@ -116,7 +116,7 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
     public List<Utente> fetchAccounts(Paginator paginatore) throws SQLException {
 
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM Utente LIMIT ?,?")) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM utente LIMIT ?,?")) {
                 ps.setInt(1, paginatore.getOffset());
                 ps.setInt(2, paginatore.getLimite());
                 ResultSet rs = ps.executeQuery();
@@ -141,7 +141,7 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
     public Optional<Utente> findUtentebyID(int idCl)throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (   PreparedStatement ps =
-                            con.prepareStatement("SELECT * FROM Utente WHERE idUtente=?")){
+                            con.prepareStatement("SELECT * FROM utente WHERE idutente=?")){
                 ps.setInt(1, idCl);
                 ResultSet rs = ps.executeQuery();
                 Utente utente =new Utente();
