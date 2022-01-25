@@ -34,7 +34,7 @@
     <section class="content-grid-y">
         <div class ="body grid-x justify-center">
             <section class="grid-y cell justify-center">
-                <%@include file="table.jsp"%>
+                <%@include file="utenteTable.jsp"%>
                 <jsp:include page="/WEB-INF/views/partials/paginator.jsp">
                 <jsp:param name="risorse" value="utenti"/>
                 </jsp:include>
