@@ -29,7 +29,7 @@
         <c:forEach items="${risposte}" var="risposta">
     <tr>
         <td><a href="../risposte/show?id=${risposta.idRisposta}">${risposta.idRisposta}</a></td>
-        <td>${risposta.Corpo}</td>
+        <td>${risposta.corpo}</td>
 
         <td>${risposta.dataOra}</td>
 
