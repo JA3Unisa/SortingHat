@@ -72,7 +72,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     int idUpd= Integer.parseInt(request.getParameter("id"));
                     Optional<Discussione> cl=discussioneDAO.fetchDiscussioniByID(idUpd);
                     request.setAttribute("discussione",cl.get());
-                    request.getRequestDispatcher(view("discussione/update")).forward(request, response);
+                    request.getRequestDispatcher(view("Discussione/DiscussioneUpdate")).forward(request, response);
                     break;
 
 
@@ -108,7 +108,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                 case "/update": //aggiorno(admin)
 
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("categoria/update"));
+                    request.setAttribute("back",view("Discussione/DiscussioneUpdate"));
                     validate(DiscussioneValidator.validateForm(request,true));
                     Discussione discussioneAgg=new DiscussioneFormMapper().map(request,true);
                     System.out.println(discussioneAgg.getCategoria().getIdCategoria());
@@ -116,7 +116,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     if(discussioneDAO.updateDiscussione(discussioneAgg)) {
                         request.setAttribute("discussione",discussioneAgg);
                         request.setAttribute("alert", new Alert(List.of("Discussione Aggiornata!"), "success"));
-                        request.getRequestDispatcher(view("discussione/update")).forward(request, response);
+                        request.getRequestDispatcher(view("Discussione/DiscussioneUpdate")).forward(request, response);
                     }else{
                         internalError();}
                     break;

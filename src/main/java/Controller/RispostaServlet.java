@@ -69,7 +69,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                     int idUpd= Integer.parseInt(request.getParameter("id"));
                     Optional<Risposta> cl=rispostaDAO.fetchRisposte(idUpd);
                     request.setAttribute("risposta",cl.get());
-                    request.getRequestDispatcher(view("categoria/update")).forward(request, response);/*MODIFICARE*/
+                    request.getRequestDispatcher(view("Risposta/RispostaUpdate")).forward(request, response);
                     break;
 
 
@@ -102,7 +102,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                 case "/update": //aggiorno(admin)
 
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("categoria/update"));
+                    request.setAttribute("back",view("Risposta/RispostaUpdate"));
                     validate(CategoriaValidator.validateForm(request,true));
                    Risposta rispostaAgg=new RispostaFormMapper().map(request,true);
                     System.out.println(rispostaAgg.getIdRisposta());
@@ -110,7 +110,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                     if(rispostaDAO.updateRisposta(rispostaAgg)) {
                         request.setAttribute("risposta",rispostaAgg);
                         request.setAttribute("alert", new Alert(List.of("Risposta Aggiornata!"), "success"));
-                        request.getRequestDispatcher(view("risposta/update")).forward(request, response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("Risposta/RispostaUpdate")).forward(request, response);
                     }else{
                         internalError();}
                     break;

@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: davidedisarno
   Date: 26/01/22
-  Time: 00:06
+  Time: 15:39
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,8 +14,10 @@
     <%@include file="../partials/alert.jsp"%>
 </c:if>
 
-<form method="post" action="../risposte/create">
+<form method="post" action="../categorie/update">
 
+
+    <input type="hidden" name="id" value="${risposta.idRisposta}">
     <fieldset class="grid-x form admin">
         <legend>Aggiorna Risposta</legend>
         <label for="Corpo" >
@@ -24,4 +26,4 @@
         <button type="submit" class="btn primary">Aggiorna</button>
     </fieldset>
 
-</form>
+    </form>

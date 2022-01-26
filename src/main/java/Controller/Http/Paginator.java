@@ -14,7 +14,7 @@ public class Paginator {
             itemsPerPage=20;
         }
         if(servlet.compareToIgnoreCase("RispostaServlet")==0){
-            itemsPerPage=15;
+            itemsPerPage=25;
         }
         if(servlet.compareToIgnoreCase("DiscussioneServlet")==0){
             itemsPerPage=20;
