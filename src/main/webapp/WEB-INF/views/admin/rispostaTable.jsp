@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <table class="table">
-    <caption class="align-center justify-center">Lista Rispostee<a href="../risposte/create" >Crea Risposta</a>
+    <caption class="align-center justify-center">Lista Risposte<a href="../risposte/create" >Crea Risposta</a>
         <form action="../risposte/delete"  method="post" >
             <input type="text" name="id" placeholder="Elimina risposta" style="color: black"/>
         </form></caption>
@@ -29,7 +29,7 @@
         <c:forEach items="${risposte}" var="risposta">
     <tr>
         <td><a href="../risposte/show?id=${risposta.idRisposta}">${risposta.idRisposta}</a></td>
-        <td>${risposta.Corpo}</td>
+        <td>${risposta.corpo}</td>
 
         <td>${risposta.dataOra}</td>
 
