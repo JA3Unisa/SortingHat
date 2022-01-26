@@ -17,10 +17,20 @@
 <form method="post" action="../risposte/create">
 
     <fieldset class="grid-x form admin">
-        <legend>Aggiorna Risposta</legend>
+        <legend>Crea Risposta</legend>
         <label for="Corpo" >
             <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${corpo.nome}" required>
         </label>
+        <label for="Discussione" >
+            <select name="Discussione" id="Discussione">
+                <c:forEach items="${discussioni}" var="discussione">
+                    <option value="${discussione.idDiscussione}">${discussione.titolo}</option>
+                </c:forEach>
+
+            </select>
+        </label>
+        <input type="hidden" name="idUtente" value="${utente.idUtente}">
+
         <button type="submit" class="btn primary">Aggiorna</button>
     </fieldset>
 

@@ -7,6 +7,8 @@ import Controller.Http.Paginator;
 import Model.Categoria.Categoria;
 import Model.Categoria.CategoriaFormMapper;
 import Model.Categoria.CategoriaValidator;
+import Model.Discussione.Discussione;
+import Model.Discussione.SqlDiscussioneDAO;
 import Model.Risposta.Risposta;
 import Model.Risposta.RispostaFormMapper;
 import Model.Risposta.SqlRispostaDAO;
@@ -15,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.renderable.RenderableImageProducer;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,7 +26,7 @@ import java.util.Optional;
 @WebServlet(name= "RispostaServlet" , value="/risposte/*")
 public class RispostaServlet extends ControllerHttpServlet {
     private SqlRispostaDAO rispostaDAO=new SqlRispostaDAO();
-
+    private SqlDiscussioneDAO discussioneDao=new SqlDiscussioneDAO();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String path = getPath(request);
@@ -62,7 +65,10 @@ public class RispostaServlet extends ControllerHttpServlet {
                     break;
                 case "/create":
                     authorize(request.getSession(false));
-                    request.getRequestDispatcher(view("crm/categoria")).forward(request, response);/*MODIFICARE*/
+                    List<Discussione>discussioneList=discussioneDao.fetchDiscussioniAll();
+                    //ADD ID ADMIN
+                    request.setAttribute("discussioni",discussioneList);
+                    request.getRequestDispatcher(view("Risposta/RispostaCreate")).forward(request, response);/*MODIFICARE*/
                     break;
                 case "/update":
                     authorize(request.getSession(false));
@@ -88,15 +94,16 @@ public class RispostaServlet extends ControllerHttpServlet {
             switch (path) {
                 case"/create"://creo(admin)
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("crm/categoria"));/*MODIFICARE*/
+                    request.setAttribute("back",view("Risposta/RispostaCreate"));
 
                     validate(CategoriaValidator.validateForm(request,false));
-                   Risposta risposta=new RispostaFormMapper().map(request,true);
+                    Risposta risposta=new RispostaFormMapper().map(request,true);
+
                     if(rispostaDAO.createRisposta(risposta)){
                         System.out.println("creata");
                         request.setAttribute("risposta",risposta);
                         request.setAttribute("alert",new Alert(List.of("Risposta creata!"),"success"));
-                        request.getRequestDispatcher(view("user/risposta")).forward(request,response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("Risposta/RispostaCreate")).forward(request,response);
                     }else{internalError();}
                     break;
                 case "/update": //aggiorno(admin)
