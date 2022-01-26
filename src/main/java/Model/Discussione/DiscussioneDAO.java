@@ -1,6 +1,7 @@
 package Model.Discussione;
 
 import Controller.Http.Paginator;
+import Model.Categoria.Categoria;
 
 
 import java.sql.SQLException;
@@ -16,4 +17,6 @@ public interface DiscussioneDAO <E extends Exception>{
     public boolean deleteDiscussione(String id) throws SQLException;
     public boolean updateDiscussione(Discussione discussioneAgg) throws SQLException;
     public boolean createDiscussione(Discussione discussione) throws SQLException;
+
+    List<Discussione> fetchDiscussioniAll() throws SQLException;
 }
