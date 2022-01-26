@@ -212,6 +212,17 @@
         opacity: 0.4;
     }
 
+    #main #questionarioUniversitario .risposta{
+        display: none;
+    }
+
+    #main #questionarioUniversitario .risposta p{
+        font-family: 'Inter', sans-serif;
+        font-weight: 900;
+        max-width: 50vw;
+        text-align: center;
+    }
+
 @media only screen and (max-width: 700px) {
 
     #menu_desktop{

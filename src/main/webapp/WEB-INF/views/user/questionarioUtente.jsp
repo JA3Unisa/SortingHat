@@ -24,37 +24,37 @@
         <div class="domanda show">
             <p>Che istituto hai frequentato?</p>
             <select name="domanda1" id="domanda2">
-                <option value="Liceo artistico">Liceo artistico</option>
-                <option value="Liceo classico">Liceo classico</option>
-                <option value="Liceo linguistico">Liceo linguistico</option>
-                <option value="Liceo musicale e coreutico">Liceo musicale e coreutico</option>
-                <option value="Liceo scientifico">Liceo scientifico</option>
-                <option value="Liceo scientifico - scienze applicate">Liceo scientifico - scienze applicate</option>
-                <option value="Liceo scientifico - indirizzo sportivo">Liceo scientifico - indirizzo sportivo</option>
-                <option value="Liceo delle scienze umane">Liceo delle scienze umane</option>
-                <option value="Liceo delle scienze umane - economico/sociale">Liceo delle scienze umane - economico/sociale</option>
-                <option value="Amministrazione, Finanza e Marketing">Amministrazione, Finanza e Marketing</option>
-                <option value="Turismo">Turismo</option>
-                <option value="Meccanica, Meccatronica ed Energia">Meccanica, Meccatronica ed Energia</option>
-                <option value="Trasporti e Logistica">Trasporti e Logistica</option>
-                <option value="Elettronica ed Elettrotecnica">Elettronica ed Elettrotecnica</option>
-                <option value="Informatica e Telecomunicazioni">Informatica e Telecomunicazioni</option>
-                <option value="Grafica e Comunicazione">Grafica e Comunicazione</option>
-                <option value="Chimica, Materiali e Biotecnologie">Chimica, Materiali e Biotecnologie</option>
-                <option value="Sistema Moda">Sistema Moda</option>
-                <option value="Agraria, Agroalimentare e Agroindustria">Agraria, Agroalimentare e Agroindustria</option>
-                <option value="Costruzioni, Ambiente e Territorio">Costruzioni, Ambiente e Territorio</option>
-                <option value="Agricoltura, sviluppo rurale, valorizzazione dei prodotti del territorio e gestione [...]">Agricoltura, sviluppo rurale, valorizzazione dei prodotti del territorio e gestione [...]</option>
-                <option value="Pesca commerciale e produzioni ittiche">Pesca commerciale e produzioni ittiche</option>
-                <option value="Industria e artigianato per il Made in Italy">Industria e artigianato per il Made in Italy</option>
-                <option value="Manutenzione e assistenza tecnica">Manutenzione e assistenza tecnica</option>
-                <option value="Gestione delle acque e risanamento ambientale">Gestione delle acque e risanamento ambientale</option>
-                <option value="Servizi commerciali">Servizi commerciali</option>
-                <option value="Enogastronomia e ospitalità alberghiera">Enogastronomia e ospitalità alberghiera</option>
-                <option value="Servizi culturali e dello spettacolo">Servizi culturali e dello spettacolo</option>
-                <option value="Servizi per la sanità e l’assistenza sociale">Servizi per la sanità e l’assistenza sociale</option>
-                <option value="Arti ausiliarie delle professioni sanitarie: odontotecnico">Arti ausiliarie delle professioni sanitarie: odontotecnico</option>
-                <option value="Arti ausiliarie delle professioni sanitarie: ottico">Arti ausiliarie delle professioni sanitarie: ottico</option>
+                <option value="0">Liceo artistico</option>
+                <option value="1">Liceo classico</option>
+                <option value="2">Liceo linguistico</option>
+                <option value="3">Liceo musicale e coreutico</option>
+                <option value="4">Liceo scientifico</option>
+                <option value="5">Liceo scientifico - scienze applicate</option>
+                <option value="6">Liceo scientifico - indirizzo sportivo</option>
+                <option value="7">Liceo delle scienze umane</option>
+                <option value="8">Liceo delle scienze umane - economico/sociale</option>
+                <option value="9">Amministrazione, Finanza e Marketing</option>
+                <option value="10">Turismo</option>
+                <option value="11">Meccanica, Meccatronica ed Energia</option>
+                <option value="12">Trasporti e Logistica</option>
+                <option value="13">Elettronica ed Elettrotecnica</option>
+                <option value="14">Informatica e Telecomunicazioni</option>
+                <option value="15">Grafica e Comunicazione</option>
+                <option value="16">Chimica, Materiali e Biotecnologie</option>
+                <option value="17">Sistema Moda</option>
+                <option value="18">Agraria, Agroalimentare e Agroindustria</option>
+                <option value="19">Costruzioni, Ambiente e Territorio</option>
+                <option value="20">Agricoltura, sviluppo rurale, valorizzazione dei prodotti del territorio e gestione [...]</option>
+                <option value="21">Pesca commerciale e produzioni ittiche</option>
+                <option value="22">Industria e artigianato per il Made in Italy</option>
+                <option value="23">Manutenzione e assistenza tecnica</option>
+                <option value="24">Gestione delle acque e risanamento ambientale</option>
+                <option value="25">Servizi commerciali</option>
+                <option value="26">Enogastronomia e ospitalità alberghiera</option>
+                <option value="27">Servizi culturali e dello spettacolo</option>
+                <option value="28">Servizi per la sanità e l’assistenza sociale</option>
+                <option value="29">Arti ausiliarie delle professioni sanitarie: odontotecnico</option>
+                <option value="30">Arti ausiliarie delle professioni sanitarie: ottico</option>
             </select>
             <div class="comandi">
                 <div class="continua" onclick="prossimaDomanda(this)">
@@ -69,9 +69,9 @@
         <div class="domanda">
             <p>La tua materia preferita è inerente al tuo indirizzo di studio superiore?</p>
             <div class="radio">
-                <input type="radio" id="materiaPreferitaSI" name="materiaPreferita" value="SI">
+                <input type="radio" id="materiaPreferitaSI" name="materiaPreferita" value="1">
                 <label for="materiaPreferitaSI">SI</label>
-                <input type="radio" id="materiaPreferitaNO" name="materiaPreferita" value="NO">
+                <input type="radio" id="materiaPreferitaNO" name="materiaPreferita" value="0">
                 <label for="materiaPreferitaNO">NO</label>
             </div>
             <div class="comandi">
@@ -873,6 +873,46 @@
                 <label for="logicoMatematici9">9</label>
                 <input type="radio" id="logicoMatematici10" name="logicoMatematici" value="10">
                 <label for="logicoMatematici10">10</label>
+            </div>
+            <div class="comandi">
+                <div class="back" onclick="precedenteDomanda(this)">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 20H27" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 13L27 20L20 27" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="continua" onclick="prossimaDomanda(this)">
+                    <p>Continua</p>
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 20H27" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 13L27 20L20 27" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="domanda">
+            <p>Quanto vorresti fosse pratico il tuo corso di studi?</p>
+            <div class="radio">
+                <input type="radio" id="domandaPratica1" name="domandaPratica" value="1">
+                <label for="domandaPratica1">1</label>
+                <input type="radio" id="domandaPratica2" name="domandaPratica" value="2">
+                <label for="domandaPratica2">2</label>
+                <input type="radio" id="domandaPratica3" name="domandaPratica" value="3">
+                <label for="domandaPratica3">3</label>
+                <input type="radio" id="domandaPratica4" name="domandaPratica" value="4">
+                <label for="domandaPratica4">4</label>
+                <input type="radio" id="domandaPratica5" name="domandaPratica" value="5">
+                <label for="domandaPratica5">5</label>
+                <input type="radio" id="domandaPratica6" name="domandaPratica" value="6">
+                <label for="domandaPratica6">6</label>
+                <input type="radio" id="domandaPratica7" name="domandaPratica" value="7">
+                <label for="domandaPratica7">7</label>
+                <input type="radio" id="domandaPratica8" name="domandaPratica" value="8">
+                <label for="domandaPratica8">8</label>
+                <input type="radio" id="domandaPratica9" name="domandaPratica" value="9">
+                <label for="domandaPratica9">9</label>
+                <input type="radio" id="domandaPratica10" name="domandaPratica" value="10">
+                <label for="domandaPratica10">10</label>
             </div>
             <div class="comandi">
                 <div class="back" onclick="precedenteDomanda(this)">
