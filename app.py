@@ -4,7 +4,7 @@ from machineLearning import executeMachineLearning
 import json
 from model import saveMachineLearning
 from flask_cors import CORS, cross_origin
-
+from s3 import *
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
@@ -29,8 +29,8 @@ def contribuisci():
 @app.route('/FIA/machineLearning', methods=['GET'])
 def machineLearning():
     try:
-        response, nElements = executeMachineLearning()
-        saveMachineLearning(nElements, response)
+        response, nElements, pickle_dump = executeMachineLearning()
+        saveMachineLearning(nElements, response, pickle_dump)
         response = {"score": str(response), "nElements": str(nElements)}
         response = json.dumps(response)
         return Response(response, status=200, mimetype='application/json')

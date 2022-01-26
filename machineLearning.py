@@ -40,9 +40,8 @@ def executeMachineLearning():
     forest = RandomForestClassifier(criterion='gini', n_estimators=1000, random_state=1, n_jobs=4)
     forest.fit(X_train, y_train)
 
-    # save the model to disk
-    filename = 'finalized_model.sav'
-    pickle.dump(forest, open(filename, 'wb'))
+    #rendo forest binario
+    pickle_dump = pickle.dumps(forest)
 
     score = forest.score(X_test, y_test)
-    return score, nElements
+    return score, nElements, pickle_dump
