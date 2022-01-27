@@ -11,7 +11,10 @@ import Model.Discussione.Discussione;
 import Model.Discussione.SqlDiscussioneDAO;
 import Model.Risposta.Risposta;
 import Model.Risposta.RispostaFormMapper;
+import Model.Risposta.RispostaValidator;
 import Model.Risposta.SqlRispostaDAO;
+import Model.Utente.Utente;
+import Model.Utente.UtenteSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -67,6 +70,8 @@ public class RispostaServlet extends ControllerHttpServlet {
                     authorize(request.getSession(false));
                     List<Discussione>discussioneList=discussioneDao.fetchDiscussioniAll();
                     //ADD ID ADMIN
+                  int idCreate=getId(request.getSession(false));
+                   request.setAttribute("utente",idCreate);
                     request.setAttribute("discussioni",discussioneList);
                     request.getRequestDispatcher(view("Risposta/RispostaCreate")).forward(request, response);/*MODIFICARE*/
                     break;
@@ -96,7 +101,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("Risposta/RispostaCreate"));
 
-                    validate(CategoriaValidator.validateForm(request,false));
+                    validate(RispostaValidator.validateForm(request,false));
                     Risposta risposta=new RispostaFormMapper().map(request,true);
 
                     if(rispostaDAO.createRisposta(risposta)){
@@ -147,6 +152,8 @@ public class RispostaServlet extends ControllerHttpServlet {
             e.printStackTrace();
         }
     }
+
+
 }
 
 

@@ -305,6 +305,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                             //ADMIN
                             System.out.println("ADMIN VERIFICATO");
                             UtenteSession utenteSession = new UtenteSession(optionalUtente.get()); //Meno info cliente=meno info sensibili
+
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
                             response.sendRedirect("../pages/dashboard");/*ADMIN HOMEP*/
                         }

@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="risposta" class="Model.Risposta.Risposta" scope="request"/>
+<jsp:useBean id="categoria" class="Model.Categoria.Categoria" scope="request"/>
 
 <%--Se esiste l'alert lo include --%>
 <c:if test="${not empty alert}">
@@ -17,13 +17,16 @@
 <form method="post" action="../categorie/update">
 
 
-    <input type="hidden" name="id" value="${risposta.idRisposta}">
+
     <fieldset class="grid-x form admin">
-        <legend>Aggiorna Risposta</legend>
-        <label for="Corpo" >
-            <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${corpo.nome}" required>
+        <legend>Crea categoria</legend>
+        <label for="Nome" >
+            <input id="Nome" name="Nome" placeholder="Nome" type="text" value="${categoria.nome}" required>
         </label>
-        <button type="submit" class="btn primary">Aggiorna</button>
+        <label for="Descrizione" >
+            <input id="Descrizione" name="Descrizione" placeholder="Descrizione" type="text" value="${categoria.descrizione}" required>
+        </label>
+        <button type="submit" class="btn primary">Crea</button>
     </fieldset>
 
     </form>

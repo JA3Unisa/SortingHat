@@ -60,7 +60,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     break;
                 case "/create":
                     authorize(request.getSession(false));
-                    request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
+                    request.getRequestDispatcher(view("Categoria/CategoriaCreate")).forward(request, response);
                     break;
                 case "/update":
                     authorize(request.getSession(false));
@@ -91,7 +91,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
             switch (path) {
                 case"/create"://creo(admin)
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("crm/categoria"));
+                    request.setAttribute("back",view("Categoria/CategoriaCreate"));
 
                     validate(CategoriaValidator.validateForm(request,false));
                     Categoria categoria=new CategoriaFormMapper().map(request,true);
@@ -99,7 +99,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                         System.out.println("creata");
                         request.setAttribute("categoria",categoria);
                         request.setAttribute("alert",new Alert(List.of("Categoria creata!"),"success"));
-                        request.getRequestDispatcher(view("user/categoria")).forward(request,response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("Categoria/CategoriaCreate")).forward(request,response);/*MODIFICARE*/
                     }else{internalError();}
                     break;
                 case "/update": //aggiorno(admin)
@@ -121,7 +121,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                 case"/delete"://elimino(admin)
                     System.out.println("in categorie Delete");
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("crm/categoria"));/*MODIFICARE*/
+                    request.setAttribute("back",view("admin/categoriaList"));/*MODIFICARE*/
                     validate(CategoriaValidator.validateDelete(request));
                     String id=request.getParameter("id");
                     System.out.println("sto per cancellare "+ id);
