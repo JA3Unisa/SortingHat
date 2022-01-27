@@ -84,10 +84,11 @@ public class SqlCategoriaDAO implements CategoriaDAO {
     public boolean createCategoria(Categoria categoria) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (   PreparedStatement ps =
-                            con.prepareStatement("INSERT INTO categoria (idcategoria,nome,descrizione) VALUES(?,?,?);", Statement.RETURN_GENERATED_KEYS)) {
-                ps.setInt(1, categoria.getIdCategoria());
-                ps.setString(2, categoria.getNome());
-                ps.setString(3, categoria.getDescrizione());
+                            con.prepareStatement("INSERT INTO categoria (nome, descrizione) VALUES(?,?);", Statement.RETURN_GENERATED_KEYS)) {
+
+                ps.setString(1, categoria.getNome());
+                ps.setString(2, categoria.getDescrizione());
+                System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }

@@ -14,7 +14,7 @@
     <%@include file="../partials/alert.jsp"%>
 </c:if>
 
-<form method="post" action="../categorie/update">
+<form method="post" action="../categorie/create">
 
 
 
