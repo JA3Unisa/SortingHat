@@ -70,7 +70,9 @@ public class RispostaServlet extends ControllerHttpServlet {
                     authorize(request.getSession(false));
                     List<Discussione>discussioneList=discussioneDao.fetchDiscussioniAll();
                     //ADD ID ADMIN
-                  int idCreate=getId(request.getSession(false));
+                 //   System.out.println("IDCREATE");
+                    int idCreate=getId(request.getSession(false));
+                    System.out.println(idCreate+"IDCREATE");
                    request.setAttribute("utente",idCreate);
                     request.setAttribute("discussioni",discussioneList);
                     request.getRequestDispatcher(view("Risposta/RispostaCreate")).forward(request, response);/*MODIFICARE*/

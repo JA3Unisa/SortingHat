@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,7 +66,9 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     break;
                 case "/create":
                     authorize(request.getSession(false));
-                    request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    request.setAttribute("dataOra",timestamp);
+                    request.getRequestDispatcher(view("Discussione/DiscussioneCreate")).forward(request, response);
                     break;
                 case "/update":
                     authorize(request.getSession(false));
@@ -94,7 +97,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
             switch (path) {
                 case"/create"://creo(admin)
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("crm/categoria"));
+                    request.setAttribute("back",view("Discussione/DiscussioneCreate"));
 
                     validate(DiscussioneValidator.validateForm(request,false));
                     Discussione discussione=new DiscussioneFormMapper().map(request,true);
@@ -102,7 +105,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                         System.out.println("creata");
                         request.setAttribute("discussione",discussione);
                         request.setAttribute("alert",new Alert(List.of("Discussione creata!"),"success"));
-                        request.getRequestDispatcher(view("user/discussione")).forward(request,response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("Discussione/DiscussioneCreate")).forward(request,response);/*MODIFICARE*/
                     }else{internalError();}
                     break;
                 case "/update": //aggiorno(admin)

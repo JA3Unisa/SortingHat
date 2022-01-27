@@ -100,7 +100,9 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
                             con.prepareStatement("INSERT INTO discussione (iddiscussione,corpo,dataora,titolo,idcategoria,idutente) VALUES(?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1,discussione.getIdDiscussione());
                 ps.setString(2, discussione.getCorpo());
-                ps.setTimestamp(3,discussione.getDataOra());
+              //  ps.setTimestamp(3,discussione.getDataOra());
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                ps.setTimestamp(3,timestamp);
                 ps.setString(4, discussione.getTitolo());
                 ps.setInt(5, discussione.getCategoria().getIdCategoria());
                 ps.setInt(6, discussione.getUtente().getIdUtente());

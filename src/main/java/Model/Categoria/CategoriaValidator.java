@@ -10,13 +10,12 @@ public class CategoriaValidator {
         RequestValidator validator=new RequestValidator(request);
         validator.assertMatch("Nome", Pattern.compile("^\\w{2,30}$"),"Nome compresa tra i 2 e 30 caratteri");
         if(update){
-            validator.assertMatch("id",Pattern.compile("^\\w{2,30}$"),"Id compreso tra i 2 e i 30 caratteri");
-        }
+            validator.assertInt("id","Id deve essere una cifra"); }
         return validator;
     }
     public static RequestValidator validateDelete(HttpServletRequest request){
         RequestValidator validator=new RequestValidator(request);
-        validator.assertMatch("id",Pattern.compile("^\\w{2,30}$"),"Id compreso tra i 2 e i 30 caratteri");
+        validator.assertInt("id","Id deve essere una cifra");
         return validator;
     }
 }
