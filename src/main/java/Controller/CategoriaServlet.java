@@ -71,6 +71,21 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     request.getRequestDispatcher(view("Categoria/CategoriaUpdate")).forward(request, response);
                     break;
 
+                case"/delete"://elimino(admin)
+                    System.out.println("in categorie Delete");
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("admin/categoriaList"));
+                    validate(CategoriaValidator.validateDelete(request));
+                    String idDelete=request.getParameter("id");
+                    System.out.println("sto per cancellare "+ idDelete);
+                    if(categoriaDAO.deleteCategoria(idDelete)) {
+
+                        request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
+                        //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
+                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                    }else{internalError();}
+                    break;
+
 
 
                 default:

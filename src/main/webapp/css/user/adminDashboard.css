@@ -33,3 +33,21 @@
     margin-left: 3px;
     color: #6C5CE7;
 }
+
+#listaUtenteUtenteList{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.paginator{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 30px;
+}

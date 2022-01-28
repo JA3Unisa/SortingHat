@@ -42,9 +42,6 @@
             <c:when test="${utente.ruolo ==1}">
                 <td>Admin</td>
             </c:when>
-            <c:when test="${utente.ruolo ==2}">
-                <td>Moderatore</td>
-            </c:when>
             <c:otherwise>
                 <td>Utente</td>
             </c:otherwise>
@@ -59,14 +56,13 @@
             </c:otherwise>
         </c:choose>
 
-        <td><a href="../utenti/update?id=${utente.idUtente}" >Modifica Utente</a></td>
-
+        <td><a href="../utenti/update?id=${utente.idUtente}"><i class="fas fa-edit"></i></a></td>
+        <td><a href="../utenti/delete?id=${utente.idUtente}"><i class="fas fa-trash-alt"></i></a></td>
 
     </tr>
     </c:forEach>
     </c:otherwise>
     </c:choose>
-
     </tbody>
 
 </table>
