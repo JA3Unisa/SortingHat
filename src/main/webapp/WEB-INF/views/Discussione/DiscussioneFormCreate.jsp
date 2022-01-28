@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="categoria" class="Model.Categoria.Categoria" scope="request"/>
+<jsp:useBean id="discussione" class="Model.Discussione.Discussione" scope="request"/>
 
 <%--Se esiste l'alert lo include --%>
 <c:if test="${not empty alert}">

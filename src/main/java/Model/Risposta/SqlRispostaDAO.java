@@ -17,7 +17,7 @@ public class SqlRispostaDAO implements RispostaDAO {
     @Override
     public boolean createRisposta(Risposta risposta) throws Exception {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("Insert into Risposta(corpo,dataora,idutente,iddiscussione) " +
+            try (PreparedStatement ps = con.prepareStatement("Insert into risposta(corpo,dataora,idutente,iddiscussione) " +
                     " values (?,?,?,?);")) {
 
                 ps.setString(1, risposta.getCorpo());

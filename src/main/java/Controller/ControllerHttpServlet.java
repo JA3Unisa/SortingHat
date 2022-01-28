@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class ControllerHttpServlet extends HttpServlet implements ErrorHandler {
+    private int id;
     @Resource(name = "jdbc/sorting_hat_test")//Insert nome DB
     protected static DataSource source;
     protected String getPath(HttpServletRequest req) {
@@ -42,7 +43,10 @@ public class ControllerHttpServlet extends HttpServlet implements ErrorHandler {
     protected String back(HttpServletRequest request) {
         return request.getServletPath() + request.getPathInfo();
     }
-
+   protected void setId(int i){
+        id=i;
+   }
+   protected int getId(){return id;}
 
 
     protected UtenteSession getUtenteSessione(HttpSession session) {
