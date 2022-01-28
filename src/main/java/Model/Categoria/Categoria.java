@@ -1,9 +1,13 @@
 package Model.Categoria;
 
-public class Categoria {
+import java.sql.Timestamp;
+
+public class    Categoria {
     private int idCategoria;
     private String nome;
     private String descrizione;
+    private Timestamp dataOra;
+    private String titoloDescrizione;
 
     public int getIdCategoria() {
         return idCategoria;
@@ -29,11 +33,25 @@ public class Categoria {
         this.descrizione = descrizione;
     }
 
+    public Timestamp getDataOra() { return dataOra; }
+
+    public void setDataOra(Timestamp dataOra) { this.dataOra = dataOra; }
+
+    public String getTitoloDescrizione() {
+        return titoloDescrizione;
+    }
+
+    public void setTitoloDescrizione(String titoloDescrizione) {
+        this.titoloDescrizione = titoloDescrizione;
+    }
+
     public Categoria(){}
 
-    public Categoria(int idCategoria, String nome, String descrizione) {
+    public Categoria(int idCategoria, String nome, String descrizione, Timestamp dataOra, String titoloDescrizione) {
         this.idCategoria = idCategoria;
         this.nome = nome;
         this.descrizione = descrizione;
+        this.dataOra = dataOra;
+        this.titoloDescrizione = titoloDescrizione;
     }
 }

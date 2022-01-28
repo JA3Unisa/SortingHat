@@ -18,5 +18,6 @@ public interface DiscussioneDAO <E extends Exception>{
     public boolean updateDiscussione(Discussione discussioneAgg) throws SQLException;
     public boolean createDiscussione(Discussione discussione) throws SQLException;
 
+    List<Discussione> fetchDiscussioniByCategoria(Categoria categoria, Paginator paginatorore) throws SQLException;
     List<Discussione> fetchDiscussioniAll() throws SQLException;
 }

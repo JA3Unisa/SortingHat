@@ -114,6 +114,41 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
     }
 
     @Override
+    public List<Discussione> fetchDiscussioniByCategoria(Categoria categoria,Paginator paginatore) throws SQLException {
+        String str = "SELECT * FROM discussione WHERE idcategoria = " + categoria.getIdCategoria() + " LIMIT ?,?";
+        try (Connection con = ConPool.getConnection()) {
+            try (  PreparedStatement ps =
+                           con.prepareStatement(str)) {
+                ps.setInt(1, paginatore.getOffset());
+                ps.setInt(2, paginatore.getLimite());
+                ResultSet rs = ps.executeQuery();
+                List<Discussione> discussione = new ArrayList<>();
+                while (rs.next()) {
+                    Discussione dis = new Discussione();
+                    dis.setIdDiscussione(rs.getInt("iddiscussione"));
+                    dis.setCorpo(rs.getString("corpo"));
+                    dis.setDataOra(rs.getTimestamp("dataOra"));          //?
+                    dis.setTitolo(rs.getString("titolo"));
+                    int idCategoria = (rs.getInt("idcategoria"));
+                    SqlCategoriaDAO sqlCategoriaDAO = new SqlCategoriaDAO();
+                    Optional<Categoria> categorie = sqlCategoriaDAO.fetchCategoriesByID(idCategoria);
+                    dis.setCategoria(categorie.get());
+
+                    int idUtente = (rs.getInt("idutente"));
+                    SqlUtenteDAO sqlUtenteDAO = new SqlUtenteDAO();
+                    Optional<Utente> utente = sqlUtenteDAO.findUtentebyID(idUtente);
+                    dis.setUtente(utente.get());
+
+                    discussione.add(dis);
+                }
+                // System.out.println("qui in sql"+categorie.get(0).getIdCategoria());
+
+                return discussione;
+            }
+        }
+    }
+
+    @Override
     public List<Discussione> fetchDiscussioniAll()  throws SQLException{
         try (Connection con = ConPool.getConnection()) {
             try (  PreparedStatement ps =

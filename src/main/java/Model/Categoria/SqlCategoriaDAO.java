@@ -40,6 +40,8 @@ public class SqlCategoriaDAO implements CategoriaDAO {
                     cat.setIdCategoria(rs.getInt("idcategoria"));
                     cat.setNome(rs.getString("nome"));
                     cat.setDescrizione(rs.getString("descrizione"));
+                    cat.setTitoloDescrizione(rs.getString("titoloDescrizione"));
+                    cat.setDataOra(rs.getTimestamp("dataOra"));
                     categorie.add(cat);
                 }
                 System.out.println(categorie.size());

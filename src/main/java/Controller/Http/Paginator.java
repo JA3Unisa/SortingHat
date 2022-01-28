@@ -25,6 +25,7 @@ public class Paginator {
 
     }
 
+
     public int getLimite() {
         return limite;
     }

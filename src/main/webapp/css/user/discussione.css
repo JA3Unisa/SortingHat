@@ -75,156 +75,108 @@
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     overflow-y: scroll;
 }
 
-    #main #post, #main #commenti, #main #commenta{
-        width: 40%;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        flex-direction: column;
+    #main #PostTitle{
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 30px;
+        color: #6C5CE7;
+    }
+
+    #main .post{
+        width: 600px;
+        height: 90px;
+        margin: 15px;
+        display: inline-block;
+        text-decoration: none;
         background-color: white;
         border-radius: 10px;
         box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.2), 0 5px 19px 0 rgba(0, 0, 0, 0.19);
-        padding: 5px;
     }
 
-        #main #post #utente_post{
+        #main .post .intestazione-post{
+            height: 40%;
+            width: 580px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            margin-top: 5px;
+            margin-left: 10px;
         }
 
-            #main #post #utente_post img{
-                height: 50px;
-                border-radius: 50%;
+            #main .post .intestazione-post img{
+                height: 100%;
             }
 
-            #main #post #utente_post p{
-                font-family: 'Inter', sans-serif;
-                font-weight: 700;
-                margin-left: 10px;
-            }
-
-        #main #post #title_post{
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-            #main #post #title_post #post_title_text{
-                font-family: 'Inter', sans-serif;
-                font-weight: 800;
-            }
-
-            #main #post #title_post #post_date{
-                font-family: 'Poppins', sans-serif;
+            #main .post .intestazione-post .testo-intestazione-post{
+                margin-left: 15px;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                flex-direction: column;
+                font-family: 'Roboto', sans-serif;
                 font-weight: 400;
-                font-size: 12px;
-                margin-left: 5px;
             }
 
-        #main #post #corpo_post{
-            margin-top: 10px;
-            max-height: 100px;
-            overflow-y: auto;
-        }
-
-        #main #post #post_files{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            overflow-x: scroll;
-        }
-
-        #main #post #post_files::-webkit-scrollbar{
-            width: auto;
-            height: 5px;
-        }
-
-            #main #post .file{
-                margin-left: 20px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-bottom: 10px;
-                cursor: pointer;
-                padding: 3px;
-                border-radius: 3px;
-                color: black;
-                background-color: rgba(108, 92, 231, 0.4);
-            }
-
-                #main #post .file .nome_file{
-                    margin-left: 5px;
-                }
-
-
-    #main #commenti{
-        margin-top: 10px;
-        height: 30%;
-        overflow-y: scroll;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: column;
-    }
-
-        #main #commenti .commento{
-            margin-top: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            flex-direction: column;
-            padding: 5px;
-            border-radius: 3px;
-            background-color: rgba(108, 92, 231, 0.4);
-        }
-
-            #main #commenti .commento .utente{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-                #main #commenti .commento .utente img{
-                    height: 30px;
-                    border-radius: 50%;
-                }
-
-                #main #commenti .commento .utente .nome_utente{
-                    margin-left: 5px;
+                #main .post .intestazione-post .testo-intestazione-post .nome-utente{
+                    color: black;
                     font-family: 'Inter', sans-serif;
                     font-weight: 700;
+                    font-size: 15px;
                 }
 
-        #main #commenti .commento .corpo_commento{
-            margin-top: 5px;
-            font-size: 13px;
-        }
 
-        #main #commenti .commento .ora_commento{
-            margin-top: 5px;
-            font-size: 10px;
-        }
+                #main .post .intestazione-post .testo-intestazione-post .data-intestazione-post{
+                    color: #808080;
+                    font-family: 'Inter', sans-serif;
+                    font-weight: 400;
+                    font-size: 11px;
+                }
 
+            #main .post .intestazione-post .edit-intestazione-post{
+               margin-left: auto;
+            }
 
-        #main #commenta{
-            margin-top: 10px;
+    #main .post .corpo-post{
+        color: black;
+        height: 50%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 5px;
+        margin-left: 10px;
+    }
+
+        #main .post .corpo-post{
+            height: 50%;
             display: flex;
+            align-items: flex-start;
             justify-content: center;
-            align-items: center;
-            flex-direction: row;
+            flex-direction: column;
+            margin-top: 5px;
+            margin-left: 10px;
         }
+
+            #main .post .corpo-post .titolo-corpo-post{
+                font-family: 'Inter', sans-serif;
+                font-weight: 700;
+                font-size: 14px;
+            }
+
+            #main .post .corpo-post .descrizione-corpo-post{
+                font-family: 'Inter', sans-serif;
+                font-weight: 400;
+                font-size: 14px;
+            }
+
+
 
 
 
@@ -324,7 +276,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #6c5ce7;
+        background-color: #6C5CE7;
         border-radius: 30px;
     }
 
@@ -346,7 +298,57 @@
         height: 95vh;
     }
 
+    #main .post{
+        width: 250px;
+        height: 60px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 
+    #main .post .intestazione-post{
+        width: 230px;
+        margin-top: 2px;
+        margin-left: 5px;
+    }
+
+    #main .post .intestazione-post .edit-intestazione-post{
+        font-size: 8px;
+    }
+
+    #main .post .intestazione-post .testo-intestazione-post{
+        margin-left: 5px;
+    }
+
+    #main .post .intestazione-post .testo-intestazione-post .nome-utente{
+        color: black;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 10px;
+    }
+
+
+    #main .post .intestazione-post .testo-intestazione-post .data-intestazione-post{
+        font-size: 8px;
+    }
+
+
+    #main .post .corpo-post{
+        margin-top: 3px;
+        margin-left: 5px;
+    }
+
+    #main .post .corpo-post{
+        margin-top: 3px;
+        margin-left: 5px;
+    }
+
+    #main .post .corpo-post .titolo-corpo-post{
+        font-size: 8px;
+    }
+
+    #main .post .corpo-post .descrizione-corpo-post{
+        font-size: 8px;
+    }
 }
 
 
