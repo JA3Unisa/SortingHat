@@ -303,7 +303,7 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                         if(optionalUtente.get().getRuolo()==1){
                             //ADMIN
-                            setId(optionalUtente.get().getIdUtente());
+
                             System.out.println("ADMIN VERIFICATO");
                             UtenteSession utenteSession = new UtenteSession(optionalUtente.get()); //Meno info cliente=meno info sensibili
 
