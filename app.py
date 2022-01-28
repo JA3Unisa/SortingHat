@@ -12,13 +12,29 @@ CORS(app, support_credentials=True)
 
 @app.route('/FIA/consiglio', methods=['POST'])
 @cross_origin(supports_credentials=True)
-def contribuisci():
+def consiglio():
     try:
         content = request.get_json(silent=True)
         if not 'risposte' in content:
             return Response("campi invalidi", status=300)
         response = analyze_data(content['risposte'])
+        save_response([str(response)])
         response = {"dipartimento": str(response)}
+        response = json.dumps(response)
+        return Response(response, status=200, mimetype='application/json')
+    except Exception as e:
+        print(e)
+        return Response("Internal error", status=500)
+
+@app.route('/FIA/contribuisci', methods=['POST'])
+@cross_origin(supports_credentials=True)
+def contribuisci():
+    try:
+        content = request.get_json(silent=True)
+        if not 'risposte' in content:
+            return Response("campi invalidi", status=300)
+        save_data(content['risposte'], content['idUtente'])
+        response = {"msg": "dati salvati con successo"}
         response = json.dumps(response)
         return Response(response, status=200, mimetype='application/json')
     except Exception as e:
@@ -27,6 +43,7 @@ def contribuisci():
 
 
 @app.route('/FIA/machineLearning', methods=['GET'])
+@cross_origin(supports_credentials=True)
 def machineLearning():
     try:
         response, nElements, pickle_dump = executeMachineLearning()

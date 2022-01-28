@@ -44,3 +44,35 @@ def getLatestMachineLearning():
 
     mydb.close()
     return res[0][4]
+
+def saveContribuisci(dati):
+    mydb = mysql.connector.connect(
+        host=os.environ.get("host"),
+        user=os.environ.get("user"),
+        password=os.environ.get("pwd"),
+        database='sorting_hat_test'
+    )
+
+
+    mycursor = mydb.cursor()
+
+    sql = "INSERT INTO `contribuisci` (`idutente`, `domanda1`, `domanda2`, `domanda3`, `domanda4`, `domanda5`, `domanda6`, `domanda7`, `domanda8`, `domanda9`, `domanda10`, `domanda11`, `domanda12`, `domanda13`, `domanda14`, `domanda15`, `domanda16`, `domanda17`, `domanda18`, `domanda19`, `domanda20`, `domanda21`, `domanda22`, `domanda23`, `domanda24`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+    mycursor.execute(sql, dati)
+
+    mydb.commit()
+
+def save_response(resp):
+    mydb = mysql.connector.connect(
+        host=os.environ.get("host"),
+        user=os.environ.get("user"),
+        password=os.environ.get("pwd"),
+        database='sorting_hat_test'
+    )
+
+
+    mycursor = mydb.cursor()
+
+    sql = "INSERT INTO `sorting_hat_test`.`predict` (`dipartimento`) VALUES (%s);"
+    mycursor.execute(sql, resp)
+
+    mydb.commit()
