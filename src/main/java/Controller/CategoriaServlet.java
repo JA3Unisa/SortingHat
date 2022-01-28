@@ -122,7 +122,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                 case"/delete"://elimino(admin)
                     System.out.println("in categorie Delete");
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("admin/categoriaList"));/*MODIFICARE*/
+                    request.setAttribute("back",view("admin/categoriaList"));
                     validate(CategoriaValidator.validateDelete(request));
                     String id=request.getParameter("id");
                     System.out.println("sto per cancellare "+ id);

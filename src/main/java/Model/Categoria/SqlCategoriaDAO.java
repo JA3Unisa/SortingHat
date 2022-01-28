@@ -63,6 +63,9 @@ public class SqlCategoriaDAO implements CategoriaDAO {
                     cat.setIdCategoria(rs.getInt("idcategoria"));
                     cat.setNome(rs.getString("nome"));
                     cat.setDescrizione(rs.getString("descrizione"));
+                    cat.setTitoloDescrizione(rs.getString("titoloDescrizione"));
+                    cat.setDataOra(rs.getTimestamp("dataOra"));
+
                 }
 
                 return Optional.ofNullable(cat);
@@ -86,10 +89,13 @@ public class SqlCategoriaDAO implements CategoriaDAO {
     public boolean createCategoria(Categoria categoria) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (   PreparedStatement ps =
-                            con.prepareStatement("INSERT INTO categoria (nome, descrizione) VALUES(?,?);", Statement.RETURN_GENERATED_KEYS)) {
+                            con.prepareStatement("INSERT INTO categoria (nome, descrizione,titoloDescrizione,dataOra) VALUES(?,?,?,?);", Statement.RETURN_GENERATED_KEYS)) {
 
                 ps.setString(1, categoria.getNome());
                 ps.setString(2, categoria.getDescrizione());
+                ps.setString(3,categoria.getTitoloDescrizione());
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                ps.setTimestamp(4,timestamp);
                 System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
                 return rows == 1;
@@ -101,11 +107,11 @@ public class SqlCategoriaDAO implements CategoriaDAO {
     public boolean updateCategoria(Categoria categoriaAgg) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("UPDATE  categoria SET nome= ?,descrizione= ? WHERE idcategoria=?;")) {
+                         con.prepareStatement("UPDATE  categoria SET nome= ?,descrizione= ?,titoloDescrizione=? WHERE idcategoria=?;")) {
                 ps.setString(1, categoriaAgg.getNome());
                 ps.setString(2, categoriaAgg.getDescrizione());
-                ps.setInt(3, categoriaAgg.getIdCategoria());
-
+                ps.setString(3, categoriaAgg.getTitoloDescrizione());
+                ps.setInt(4, categoriaAgg.getIdCategoria());
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }

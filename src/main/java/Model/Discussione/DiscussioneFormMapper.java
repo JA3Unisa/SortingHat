@@ -19,9 +19,9 @@ public class DiscussioneFormMapper implements FormMapper<Discussione> {
 
         Discussione dis = new Discussione();
 
-        dis.setCorpo(rs.getParameter("nome"));
+        dis.setCorpo(rs.getParameter("Corpo"));
        // dis.setDataOra(rs.("dataOra"));          #########RICORDARE############
-        dis.setTitolo(rs.getParameter("titolo"));
+        dis.setTitolo(rs.getParameter("Titolo"));
         int idCategoria=(Integer.parseInt(rs.getParameter("idCategoria")));
         SqlCategoriaDAO sqlCategoriaDAO=new SqlCategoriaDAO();
         Optional<Categoria> categoria=sqlCategoriaDAO.fetchCategoriesByID(idCategoria);
