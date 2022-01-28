@@ -17,5 +17,7 @@
     </div>
     <div id="utente">
         <a href="${pageContext.request.contextPath}/pages/login">Login</a>
-    </div>
+<%-- <a href="${authenticated? '${pageContext.request.contextPath}/utenti/profilo' :  '${pageContext.request.contextPath}/pages/login'}" >${authenticated? utenteSession.nome : 'Login' }</a>--%>
+
+</div>
 </div>
