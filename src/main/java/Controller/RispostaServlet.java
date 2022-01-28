@@ -103,7 +103,6 @@ public class RispostaServlet extends ControllerHttpServlet {
 
                     Risposta risposta=new RispostaFormMapper().map(request,false);
 
-
                     if(rispostaDAO.createRisposta(risposta)){
                         System.out.println("creata");
                         request.setAttribute("risposta",risposta);
@@ -128,7 +127,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                     break;
 
                 case"/delete"://elimino(admin)
-                    System.out.println("in categorie Delete");
+
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("admin/discussioneList"));/*MODIFICARE*/
                     validate(CategoriaValidator.validateDelete(request));

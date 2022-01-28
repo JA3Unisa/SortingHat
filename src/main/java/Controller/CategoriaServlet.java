@@ -110,7 +110,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
 
                     validate(CategoriaValidator.validateForm(request,false));
                     Categoria categoria=new CategoriaFormMapper().map(request,false);
-                   ;
+
                     if(categoriaDAO.createCategoria(categoria)){
                         System.out.println("creata");
                         request.setAttribute("categoria",categoria);
