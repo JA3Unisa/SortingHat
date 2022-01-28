@@ -10,9 +10,9 @@
 <html lang="it">
 <head>
     <jsp:include page="../partials/headS.jsp">
-        <jsp:param name="userStyles" value="main,background,categorie"/>
+        <jsp:param name="userStyles" value="main,background,categorie,adminDashboard"/>
         <jsp:param name="userScripts" value="mobileMenu"/>
-        <jsp:param name="title" value="SortingHat -DashboardAdmin"/>
+        <jsp:param name="title" value="SortingHat - DashboardAdmin"/>
     </jsp:include>
     <!--<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,32 +30,20 @@
 <main class="app dashboard">
 
     <%@include file="../partials/adminBar.jsp"%>
-    <section class="content grid-y">
-
-        <div class="body grid-x justify-center">
-            <div class="valori">
-                <jsp:include page="../partials/statscard.jsp">
-                    <jsp:param name="title" value="Utenti Registrati"/>
-                    <jsp:param name="stat" value="${utentiNum}"/>
-
-                </jsp:include>
-            </div><div class="valori">
-            <jsp:include page="../partials/statscard.jsp">
-                <jsp:param name="title" value="Risposte "/>
-                <jsp:param name="stat" value="${risposteNum}"/>
-
-            </jsp:include>
-        </div><div class="valori">
-            <jsp:include page="../partials/statscard.jsp">
-                <jsp:param name="title" value="Discussioni "/>
-                <jsp:param name="stat" value="${discussioniNum}"/>
-
-            </jsp:include>
-
+    <div id="stats">
+        <div class="valore">
+            <h4>Utenti Registrati:</h4>
+            <h2>${utentiNum}</h2>
         </div>
+        <div class="valore">
+            <h4>Risposte:</h4>
+            <h2>${risposteNum}</h2>
         </div>
-
-    </section>
+        <div class="valore">
+            <h4>Discussioni:</h4>
+            <h2>${discussioniNum}</h2>
+        </div>
+    </div>
 
 </main>
 
