@@ -19,9 +19,9 @@
       <a href="${pageContext.request.contextPath}/pages/forum">Forum</a>
     </div>
     <div id="utente_mobile">
-      <%--   <a href="${pageContext.request.contextPath}/pages/login">Login</a>--%>
-      <a href="${authenticated? '${pageContext.request.contextPath}/utenti/profilo' :  '${pageContext.request.contextPath}/pages/login'}" >${authenticated? utenteSession.nome : 'Login' }</a>
-
+     <a href="${pageContext.request.contextPath}/pages/login">Login</a>
+<%--    <a href="${authenticated? '${pageContext.request.contextPath}/utenti/profilo' :  '${pageContext.request.contextPath}/pages/login'}" >${authenticated? utenteSession.nome : 'Login' }</a>
+--%>
 </div>
 </div>
 </div>
