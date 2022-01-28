@@ -33,6 +33,7 @@ public class RispostaServlet extends ControllerHttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String path = getPath(request);
+            System.out.println(path);
             switch (path) {
                 case "/"://show (admin)
                     authorize(request.getSession(false));

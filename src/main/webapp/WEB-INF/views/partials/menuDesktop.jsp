@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="menu_desktop">
     <div id="logo">
         <svg id="img" width="57" height="56" viewBox="0 0 57 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,8 +17,10 @@
         <a href="${pageContext.request.contextPath}/pages/forum">Forum</a>
     </div>
     <div id="utente">
-        <a href="${pageContext.request.contextPath}/pages/login">Login</a>
-<%-- <a href="${authenticated? '${pageContext.request.contextPath}/utenti/profilo' :  '${pageContext.request.contextPath}/pages/login'}" >${authenticated? utenteSession.nome : 'Login' }</a>--%>
+
+        <c:set var="authenticated" value="${not empty utenteSession}" scope="request"/>
+        <%-- <a href="${pageContext.request.contextPath}/pages/login">Login</a>--%>
+ <a href="${authenticated? './utenti/profilo' :  './pages/login'}" >${authenticated? utenteSession.nome : 'Login' }</a>
 
 </div>
 </div>
