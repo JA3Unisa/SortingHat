@@ -58,7 +58,7 @@ function prossimaDomanda(e){
                 $("#questionarioUniversitario").html("<div class=\"domanda show\"> <p>" + dipartimenti[response.dipartimento] + "</p></div>");
             },
             error: function (xhr, status) {
-                alert("error");
+                $("#questionarioUniversitario").html("<div class=\"domanda show\"> <p>C'è stato un errore, riprova.</p></div>");
             }
         });
 

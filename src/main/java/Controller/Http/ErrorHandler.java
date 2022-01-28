@@ -17,16 +17,8 @@ public interface ErrorHandler {
         System.out.println("autenticato");
     }
 
-    default int getId(HttpSession session) throws InvalidRequestException{//Controlla sessione se null o non presente
-        if(session==null || session.getAttribute("utenteSession")==null){
-            System.out.println(session.getAttribute("utenteSession")+" risulta null");
-            throw new InvalidRequestException("Errore autenticazione", List.of("Non sei autenticato"),
-                    HttpServletResponse.SC_UNAUTHORIZED);
 
-        }
-        UtenteSession u= (UtenteSession)session.getAttribute("utenteSessione");
-        return u.getId();
-    }
+
     default void authorize(HttpSession session)throws InvalidRequestException{
         authenticated(session);
         System.out.println("prendo sessione");
