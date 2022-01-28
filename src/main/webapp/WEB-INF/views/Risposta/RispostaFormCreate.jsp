@@ -29,7 +29,7 @@
 
             </select>
         </label>
-        <input type="hidden" name="idUtente" value="${utente}">
+        <input type="hidden" name="idUtente" value="0">
 
         <button type="submit" class="btn primary">Aggiorna</button>
     </fieldset>

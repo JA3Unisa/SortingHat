@@ -100,7 +100,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     request.setAttribute("back",view("Discussione/DiscussioneCreate"));
 
                     validate(DiscussioneValidator.validateForm(request,false));
-                    Discussione discussione=new DiscussioneFormMapper().map(request,true);
+                    Discussione discussione=new DiscussioneFormMapper().map(request,false);
                     if(discussioneDAO.createDiscussione(discussione)){
                         System.out.println("creata");
                         request.setAttribute("discussione",discussione);
@@ -127,7 +127,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                 case"/delete"://elimino(admin)
                     System.out.println("in Discussione Delete");
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("crm/categoria"));/*MODIFICARE*/
+                    request.setAttribute("back",view("admin/discussioneList"));/*MODIFICARE*/
                     validate(DiscussioneValidator.validateDelete(request));
                     String id=request.getParameter("id");
                     System.out.println("sto per cancellare "+ id);

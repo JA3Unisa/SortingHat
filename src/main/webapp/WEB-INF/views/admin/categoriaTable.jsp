@@ -15,6 +15,8 @@
         <th>Id</th>
         <th>Nome</th>
         <th>Descrizione</th>
+        <th>Titolo</th>
+        <th>Data e Ora</th>
     </tr>
     </thead>
     <tbody>
@@ -31,6 +33,8 @@
         <td>${categoria.nome}</td>
 
         <td>${categoria.descrizione}</td>
+        <td>${categoria.titoloDescrizione}</td>
+        <td>${categoria.dataOra}</td>
         <td><a href="../categorie/update?id=${categoria.idCategoria}" >Modifica Categoria</a></td>
     </tr>
       </c:forEach>

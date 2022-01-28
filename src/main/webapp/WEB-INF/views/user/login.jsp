@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -30,6 +31,9 @@
         <path d="M28.5 30.9667C32.7548 30.9047 36.8896 29.5594 40.3534 27.1099L36.875 11.6L45.25 22.6501C46.5802 21.168 47.5289 19.3889 48.015 17.4648C48.5011 15.5406 48.5103 13.5284 48.0417 11.6C45.25 3.29999 31.2917 0.533333 28.5 0.533333C26.2416 0.533333 18.3579 24.5508 17.3948 27.5858C20.6922 29.746 24.5475 30.9197 28.5 30.9667Z" fill="black"/>
     </svg><p class="inter_bold">Sorting Hat</p></div>
     <form action="../utenti/secret" method="post">
+
+
+
         <label for="Email">Email</label>
         <input type="email" name="Email" id="Email" placeholder="m.rossi@studenti.unisa.it">
         <label for="Password">Password</label>

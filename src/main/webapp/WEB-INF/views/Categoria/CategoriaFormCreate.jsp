@@ -26,6 +26,9 @@
         <label for="Descrizione" >
             <input id="Descrizione" name="Descrizione" placeholder="Descrizione" type="text" value="${categoria.descrizione}" required>
         </label>
+        <label for="TitoloDescrizione" >
+            <input id="TitoloDescrizione" name="TitoloDescrizione" placeholder="Titolo Descrizione" type="text" value="${categoria.titoloDescrizione}" required>
+        </label>
         <button type="submit" class="btn primary">Crea</button>
     </fieldset>
 

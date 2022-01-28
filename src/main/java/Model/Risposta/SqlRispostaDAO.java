@@ -18,15 +18,16 @@ public class SqlRispostaDAO implements RispostaDAO {
     public boolean createRisposta(Risposta risposta) throws Exception {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("Insert into Risposta(corpo,dataora,idutente,iddiscussione) " +
-                    "as value (?,?,?,?);")) {
+                    " values (?,?,?,?);")) {
 
                 ps.setString(1, risposta.getCorpo());
                 //Date date = new Date(risposta.getdataOra().getTimeInMillis());
                 // ps.setDate(2,date);
-
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                ps.setTimestamp(2,timestamp);
                 ps.setInt(3, risposta.getUtente().getIdUtente());
                 ps.setInt(4, risposta.getDiscussione().getIdDiscussione());
-
+                System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
 
                 return rows == 1;
@@ -43,7 +44,7 @@ public class SqlRispostaDAO implements RispostaDAO {
 
                 //Inserimento utente nel db
                 ps.setString(1, risposta.getCorpo());
-                ps.setTimestamp(3,risposta.getdataOra());
+                ps.setTimestamp(2,risposta.getdataOra());
                 ps.setInt(3, risposta.getUtente().getIdUtente());
                 ps.setInt(4, risposta.getDiscussione().getIdDiscussione());
                 ps.setInt(5, risposta.getIdRisposta());
@@ -136,7 +137,7 @@ System.out.println("TAGLIA:"+rispostas.size());
 
                     cat.setIdRisposta(rs.getInt("idrisposta"));
                     cat.setCorpo(rs.getString("corpo"));
-                    //  cat.setDataOra(rs.getDate("dataOra"));
+                    cat.setDataOra(rs.getTimestamp("dataOra"));
                     int idUtente = (rs.getInt("idutente"));
                     SqlUtenteDAO sqlUtenteDAO = new SqlUtenteDAO();
                     Optional<Utente> utente = sqlUtenteDAO.findUtentebyID(idUtente);

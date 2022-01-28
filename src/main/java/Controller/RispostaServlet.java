@@ -69,12 +69,8 @@ public class RispostaServlet extends ControllerHttpServlet {
                 case "/create":
                     authorize(request.getSession(false));
                     List<Discussione>discussioneList=discussioneDao.fetchDiscussioniAll();
-                    //ADD ID ADMIN
-                 //   System.out.println("IDCREATE");
-                    int idCreate=getId(request.getSession(false));
-                    System.out.println(idCreate+"IDCREATE");
-                   request.setAttribute("utente",idCreate);
                     request.setAttribute("discussioni",discussioneList);
+
                     request.getRequestDispatcher(view("Risposta/RispostaCreate")).forward(request, response);/*MODIFICARE*/
                     break;
                 case "/update":
@@ -104,8 +100,9 @@ public class RispostaServlet extends ControllerHttpServlet {
                     request.setAttribute("back",view("Risposta/RispostaCreate"));
 
                     validate(RispostaValidator.validateForm(request,false));
-                    Risposta risposta=new RispostaFormMapper().map(request,true);
 
+                    Risposta risposta=new RispostaFormMapper().map(request,false);
+                    System.out.println("PRE:create");
                     if(rispostaDAO.createRisposta(risposta)){
                         System.out.println("creata");
                         request.setAttribute("risposta",risposta);
@@ -119,7 +116,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                     request.setAttribute("back",view("Risposta/RispostaUpdate"));
                     validate(CategoriaValidator.validateForm(request,true));
                    Risposta rispostaAgg=new RispostaFormMapper().map(request,true);
-                    System.out.println(rispostaAgg.getIdRisposta());
+
 
                     if(rispostaDAO.updateRisposta(rispostaAgg)) {
                         request.setAttribute("risposta",rispostaAgg);
@@ -132,7 +129,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                 case"/delete"://elimino(admin)
                     System.out.println("in categorie Delete");
                     authorize(request.getSession(false));
-                    request.setAttribute("back",view("crm/categoria"));/*MODIFICARE*/
+                    request.setAttribute("back",view("admin/discussioneList"));/*MODIFICARE*/
                     validate(CategoriaValidator.validateDelete(request));
                    int id= Integer.parseInt(request.getParameter("id"));
                     System.out.println("sto per cancellare "+ id);
@@ -140,7 +137,7 @@ public class RispostaServlet extends ControllerHttpServlet {
 
                         request.setAttribute("alert", new Alert(List.of("Risposta Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
                     }else{internalError();}
                     break;
 

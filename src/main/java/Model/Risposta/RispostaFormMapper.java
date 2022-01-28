@@ -18,12 +18,14 @@ public class RispostaFormMapper implements FormMapper<Risposta> {
     public Risposta map(HttpServletRequest request, Boolean update) {
         Risposta risposta = new Risposta();
         Utente ut=new Utente();
-        ut.setIdUtente(Integer.parseInt(request.getParameter("IdUtente")));
+        ut.setIdUtente(Integer.parseInt(request.getParameter("idUtente")));
         risposta.setUtente(ut);
+
         Discussione discussione=new Discussione();
-        discussione.setIdDiscussione(Integer.parseInt(request.getParameter("IdDiscussione")));
+        discussione.setIdDiscussione(Integer.parseInt(request.getParameter("Discussione")));
+        System.out.println("POST SET DISCUSSIONE");
         risposta.setDiscussione(discussione);
-      //  risposta.setDataOra(GregorianCalendar.getInstance());
+        //risposta.setDataOra(GregorianCalendar.getInstance());
         risposta.setCorpo(request.getParameter("Corpo"));
         if (update) {
             risposta.setIdRisposta(Integer.parseInt(request.getParameter("id")));

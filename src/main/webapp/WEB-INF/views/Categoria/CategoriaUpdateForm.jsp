@@ -24,7 +24,10 @@
             <input id="Nome" name="Nome" placeholder="Nome" type="text" value="${categoria.nome}" required>
         </label>
         <label for="Descrizione" >
-            <input id="Descrizione" name="Descrizione" placeholder="Descrizione" type="text" value="${categoria.Descrizione}" required>
+            <input id="Descrizione" name="Descrizione" placeholder="Descrizione" type="text" value="${categoria.descrizione}" required>
+        </label>
+        <label for="TitoloDescrizione" >
+            <input id="TitoloDescrizione" name="TitoloDescrizione" placeholder="Titolo Descrizione" type="text" value="${categoria.titoloDescrizione}" required>
         </label>
         <button type="submit" class="btn primary">Aggiorna</button>
     </fieldset>
