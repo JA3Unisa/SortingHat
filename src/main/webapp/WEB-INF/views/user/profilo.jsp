@@ -14,6 +14,5 @@
   <jsp:include page="/WEB-INF/views/partials/menuMobile.jsp"></jsp:include>
 
 
-
 </body>
 </html>
