@@ -89,31 +89,31 @@ public class UtenteServlet extends ControllerHttpServlet {
                         break;
 
                     case "/profilo": //show profilo cliente
-                        System.out.println("qui");
-                        int profilo = getUtenteSessione(request.getSession(false)).getId();
+                        System.out.println("Profilo");
+                        int profilo = getUtenteSessione(request.getSession(false)).getId(); // non da l'id
                         System.out.println(profilo);
-                        int ruolo = getUtenteSessione(request.getSession(false)).getRuolo();
-                        System.out.println(ruolo);
-                        if (ruolo == 1) {
+                       // int ruolo = getUtenteSessione(request.getSession(false)).getRuolo();
+                       // System.out.println(ruolo);
+                       // if (ruolo == 1) {
 
-                            response.sendRedirect("../pages/dashboard");
+                           //response.sendRedirect("../pages/dashboard");
                             //request.getRequestDispatcher(view("crm/home"));
-                        } else {
+                        //} else {
 
-                            Optional<Utente> profiloCliente = utenteDAO.findUtentebyID(profilo);
+                            Optional<Utente> profiloUtente = utenteDAO.findUtentebyID(profilo);
 
-                            if (profiloCliente.isPresent()) {
+                            if (profiloUtente.isPresent()) {
                                 System.out.println("qui Trovato");
-                                request.setAttribute("utente", profiloCliente.get());
+                                request.setAttribute("utente", profiloUtente.get());
 
 
-                                request.getRequestDispatcher(view("utenti/profiloCliente")).forward(request, response);/*MODIFICARE*/
+                                request.getRequestDispatcher(view("user/profilo")).forward(request, response);/*MODIFICARE*/
                             } else {
                                 notFound();
                             }
-                        }
+
                         break;
-                    case "/profiloAd": //show profilo admin
+                /*    case "/profiloAd": //show profilo admin
                         int profiloAD = getUtenteSessione(request.getSession(false)).getId();
                         Optional<Utente> profiloAdmin = utenteDAO.findUtentebyID(profiloAD);
                         System.out.println("in profilo Ad");
@@ -124,7 +124,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         } else
                             notFound();
 
-                        break;
+                        break;*/
                     case "/logout"://logout
 
                         HttpSession session = request.getSession(false);//sessione falsa per non crearla(se log-out allora già log-in)
@@ -303,7 +303,7 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                         if(optionalUtente.get().getRuolo()==1){
                             //ADMIN
-                            setId(optionalUtente.get().getIdUtente());
+
                             System.out.println("ADMIN VERIFICATO");
                             UtenteSession utenteSession = new UtenteSession(optionalUtente.get()); //Meno info cliente=meno info sensibili
 
