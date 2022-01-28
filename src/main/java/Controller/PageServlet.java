@@ -32,9 +32,9 @@ public class PageServlet extends ControllerHttpServlet {
             switch (path) {
 
                 case "/dashboard":
-                    System.out.println("dashboard");
+
                     authorize(request.getSession(false));
-                    System.out.println("sessione autorizzata");
+
                     request.setAttribute("back", view("crm/clienti"));
 
                     int utenti = utenteDao.countAllUtente();

@@ -66,8 +66,8 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     break;
                 case "/create":
                     authorize(request.getSession(false));
-                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                    request.setAttribute("dataOra",timestamp);
+                    //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                   // request.setAttribute("dataOra",timestamp);
                     request.getRequestDispatcher(view("Discussione/DiscussioneCreate")).forward(request, response);
                     break;
                 case "/update":
