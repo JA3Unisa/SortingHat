@@ -31,7 +31,7 @@
     <div id="main-text"><span id="joinUnisa">Salve <div id="unisa"><p>a tutti!</p></div></span></div>
             <br>
             <p>Salve siamo Josef,Matteo,Davide ed Emanuele, siamo 4 studenti dell' università di Fisciano,siamo studenti del terzo anno ed abbiamo</p>
-            <p> vissuto anche se in oandemia gia buoni 2 anni ,convivendo con lo spirito univeristario e abbiamo riscontrato alcuni problemi come </p>
+            <p> vissuto anche se in poandemia già buoni 2 anni ,convivendo con lo spirito univeristario e abbiamo riscontrato alcuni problemi come </p>
             <p>la mancanza di informazioni relative a ciò a cui vai in contro,quindi spinti dalla scusa del progetto ci siamo riuniti per poter creare </p>
             <p>un forum funzionale sulla divulgazione di informazioni da parte degli altri studenti già "esperti" rispetto ai maturandi o ai primini.</p>
         </div>

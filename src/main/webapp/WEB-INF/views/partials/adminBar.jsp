@@ -16,7 +16,7 @@
     </div> <div class="comincia">
         <a href="../discussioni/?page=1">Gestione Discussioni</a>
     <div cclass="comincia">
-        <a href="../utenti/profiloAd">Profilo</a>
+        <a href="../">Profilo</a>
     </div> <div class="comincia">
         <a href="../utenti/logout" style="margin-bottom: 2px">Logout</a>
     </div>
