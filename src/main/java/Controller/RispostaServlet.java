@@ -102,7 +102,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                     validate(RispostaValidator.validateForm(request,false));
 
                     Risposta risposta=new RispostaFormMapper().map(request,false);
-                    System.out.println("ID ADMIN"+getId());
+
 
                     if(rispostaDAO.createRisposta(risposta)){
                         System.out.println("creata");
