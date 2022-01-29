@@ -66,7 +66,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     authorize(request.getSession(false));
                     int idUpd= Integer.parseInt(request.getParameter("id"));
                     Optional<Categoria> cl=categoriaDAO.fetchCategoriesByID(idUpd);
-                    System.out.println("CL:"+cl.get().getNome());
+
                     request.setAttribute("categoria",cl.get());
                     request.getRequestDispatcher(view("Categoria/CategoriaUpdate")).forward(request, response);
                     break;
@@ -77,7 +77,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     request.setAttribute("back",view("admin/categoriaList"));
                     validate(CategoriaValidator.validateDelete(request));
                     String idDelete=request.getParameter("id");
-                    System.out.println("sto per cancellare "+ idDelete);
+
                     if(categoriaDAO.deleteCategoria(idDelete)) {
 
                         request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));

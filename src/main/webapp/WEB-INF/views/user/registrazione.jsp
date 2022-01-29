@@ -6,13 +6,18 @@
         <jsp:param name="userStyles" value="main,background,registrazione"/>
         <jsp:param name="title" value="SortingHat - Registrazione"/>
     </jsp:include>
-    <!--<meta charset="UTF-8">
+  <%--  <!--<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="discussione.css">
     <link rel="stylesheet" href="../global/background.css">
     <link rel="stylesheet" href="../global/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>SortingHat - Registrazione</title>-->
+    <title>SortingHat - Registrazione</title>
+
+     <c:if test="${not empty alert}">
+            <%@include file="../partials/alert.jsp"%>
+        </c:if>
+    --%>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/partials/background.jsp"></jsp:include>
@@ -22,6 +27,7 @@
         <path d="M28.5 30.9667C32.7548 30.9047 36.8896 29.5594 40.3534 27.1099L36.875 11.6L45.25 22.6501C46.5802 21.168 47.5289 19.3889 48.015 17.4648C48.5011 15.5406 48.5103 13.5284 48.0417 11.6C45.25 3.29999 31.2917 0.533333 28.5 0.533333C26.2416 0.533333 18.3579 24.5508 17.3948 27.5858C20.6922 29.746 24.5475 30.9197 28.5 30.9667Z" fill="black"/>
     </svg><p class="inter_bold">Sorting Hat</p></div>
     <form action="../utenti/signupUtenti" method="post">
+
         <label for="Nome">Nome</label>
         <input type="text" name="Nome" id="Nome" placeholder="Mario">
         <label for="Cognome">Cognome</label>

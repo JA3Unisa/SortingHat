@@ -52,7 +52,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     request.getRequestDispatcher(view("admin/discussioneList")).forward(request, response);
                     break;
 
-                case "/show"://show categoria(admin)
+                case "/show"://show (admin)
                     authorize(request.getSession(false));
                     validate(CommonValidator.validatePage(request));
                     int id = Integer.parseInt(request.getParameter("id"));
@@ -68,13 +68,13 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     authorize(request.getSession(false));
                     //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                    // request.setAttribute("dataOra",timestamp);
-                    System.out.println(path);
                     request.getRequestDispatcher(view("Discussione/DiscussioneCreate")).forward(request, response);
                     break;
                 case "/update":
                     authorize(request.getSession(false));
                     int idUpd= Integer.parseInt(request.getParameter("id"));
                     Optional<Discussione> cl=discussioneDAO.fetchDiscussioniByID(idUpd);
+
                     request.setAttribute("discussione",cl.get());
                     request.getRequestDispatcher(view("Discussione/DiscussioneUpdate")).forward(request, response);
                     break;
@@ -136,7 +136,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
 
                         request.setAttribute("alert", new Alert(List.of("Discussione Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
                     }else{internalError();}
                     break;
 
