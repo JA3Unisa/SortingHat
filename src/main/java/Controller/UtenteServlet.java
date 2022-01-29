@@ -57,12 +57,20 @@ public class UtenteServlet extends ControllerHttpServlet {
                         break;
 
                     case "/modificoCliente"://modifico cliente(cliente)
-                        int idProfiloCliente = getUtenteSessione(request.getSession(false)).getId();
+                         System.out.println("modifico cliente");
+                        //int idProfiloCliente = getUtenteSessione(request.getSession(false)).getId();
+                        UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
+                        System.out.println(ut);
+                       Utente profiloClienteUp = utenteDAO.findUtentebyID(ut.getId()).get();
+                        System.out.println(profiloClienteUp.getNome());
+                        request.setAttribute("utente", profiloClienteUp);
 
-                        Optional<Utente> profiloClienteUp = utenteDAO.findUtentebyID(idProfiloCliente);
-                        request.setAttribute("utente", profiloClienteUp.get());
+                        if (profiloClienteUp.getRuolo()==1)
 
-                        request.getRequestDispatcher(view("Utente/Utenteupdate")).forward(request, response);
+                            request.getRequestDispatcher(view("Utente/UtenteUpdate")).forward(request, response);       //admin
+
+                        else
+                        request.getRequestDispatcher(view("Utente/UtenteProfiloForm")).forward(request, response);      //utente
 
                         break;
 
@@ -91,17 +99,10 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                     case "/profilo": //show profilo cliente
                         System.out.println("Profilo");
-                        UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
+                        UtenteSession ut1= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
 
-                       // int ruolo = getUtenteSessione(request.getSession(false)).getRuolo();
-                       // System.out.println(ruolo);
-                       // if (ruolo == 1) {
 
-                           //response.sendRedirect("../pages/dashboard");
-                            //request.getRequestDispatcher(view("crm/home"));
-                        //} else {
-
-                        Utente profilo=utenteDAO.findUtentebyID(ut.getId()).get();
+                        Utente profilo=utenteDAO.findUtentebyID(ut1.getId()).get();
 
                         request.setAttribute("utente", profilo);
                         request.getRequestDispatcher(view("user/profilo")).forward(request, response);/*MODIFICARE*/
