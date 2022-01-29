@@ -60,7 +60,7 @@
 
         #main #post #corpo_post{
             margin-top: 10px;
-            max-height: 100px;
+            max-height: 200px;
             overflow-y: auto;
         }
 

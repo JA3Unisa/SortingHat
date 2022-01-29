@@ -27,7 +27,7 @@
                 nome = nome.substring(0,1).toUpperCase() + nome.substring(1);
                 titoloDescrizione = titoloDescrizione.substring(0,1).toUpperCase() + titoloDescrizione.substring(1);
                 descrizione = descrizione.substring(0,1).toUpperCase() + descrizione.substring(1);%>
-    <a class="categoria" href="${pageContext.request.contextPath}/pages/forum/<%= c.getNome()%>">
+    <a class="categoria" href="${pageContext.request.contextPath}/pages/discussione?id=<%= c.getIdCategoria()%>">
         <div class="intestazione-categoria">
             <img src="https://miro.medium.com/max/924/1*JvcT-AKla3rnmaMhTP5wbQ.png" alt="" class="img-categoria">
             <div class="testo-intestazione-categoria">

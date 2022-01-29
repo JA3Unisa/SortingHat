@@ -13,6 +13,7 @@ public interface RispostaDAO <E extends Exception>{
 
     int countAll() throws SQLException;
 
+    List<Risposta> fetchRispostaByIdDiscussione(int idDiscussione,Paginator paginator) throws SQLException;
     List<Risposta> fetchRisposta(Paginator paginatore) throws SQLException;
     Optional<Risposta> fetchRisposte(int idUpd) throws SQLException;
 }

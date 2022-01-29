@@ -6,10 +6,10 @@ import Model.Discussione.Discussione;
 import Model.Discussione.SqlDiscussioneDAO;
 import Model.Utente.SqlUtenteDAO;
 import Model.Utente.Utente;
+import com.sun.source.tree.WhileLoopTree;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,6 +82,38 @@ public class SqlRispostaDAO implements RispostaDAO {
                 }
                 System.out.println(size);
                 return size;
+            }
+        }
+    }
+
+    @Override
+    public List<Risposta> fetchRispostaByIdDiscussione(int idDiscussione, Paginator paginator) throws SQLException {
+        String query ="SELECT * FROM risposta r WHERE r.idDiscussione = "+idDiscussione+" LIMIT ?,?";
+        try (Connection con = ConPool.getConnection()){
+            try (PreparedStatement ps =
+                    con.prepareStatement(query)){
+                ps.setInt(1,paginator.getOffset());
+                ps.setInt(2,paginator.getLimite());
+                ResultSet rs = ps.executeQuery();
+                List<Risposta> risposte = new ArrayList<>();
+                while (rs.next()){
+                    Risposta r = new Risposta();
+                    r.setIdRisposta(rs.getInt("idrisposta"));
+                    r.setCorpo(rs.getString("corpo"));
+                    r.setDataOra(rs.getTimestamp("dataOra"));
+
+                    int idUtente = rs.getInt("idUtente");
+                    SqlUtenteDAO utenteDAO = new SqlUtenteDAO();
+                    Utente utente = utenteDAO.findUtentebyID(idUtente).get();
+                    r.setUtente(utente);
+
+                    SqlDiscussioneDAO discussioneDAO = new SqlDiscussioneDAO();
+                    Discussione discussione = discussioneDAO.fetchDiscussioniByID(idDiscussione).get();
+                    r.setDiscussione(discussione);
+
+                    risposte.add(r);
+                }
+                return risposte;
             }
         }
     }
