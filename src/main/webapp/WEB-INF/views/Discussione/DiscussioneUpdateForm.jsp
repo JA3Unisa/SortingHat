@@ -21,7 +21,7 @@
     <fieldset class="grid-x form admin">
         <legend>Aggiorna Categoria</legend>
         <label for="Titolo" >
-            <input id="Titolo" name="Titolo" placeholder="Titolo" type="text" value="${discussione.Titolo}" required>
+            <input id="Titolo" name="Titolo" placeholder="Titolo" type="text" value="${discussione.titolo}" required>
         </label>
         <label for="Corpo" >
             <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${discussione.corpo}" required>

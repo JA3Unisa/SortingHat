@@ -18,7 +18,9 @@ public class RispostaFormMapper implements FormMapper<Risposta> {
     public Risposta map(HttpServletRequest request, Boolean update) {
         Risposta risposta = new Risposta();
         Utente ut=new Utente();
-        ut.setIdUtente(Integer.parseInt(request.getParameter("idUtente")));
+
+        //ut.setIdUtente(Integer.parseInt(request.getParameter("idUtente")));
+        ut.setIdUtente(0);
         risposta.setUtente(ut);
 
         Discussione discussione=new Discussione();

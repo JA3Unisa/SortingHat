@@ -14,15 +14,14 @@
     <%@include file="../partials/alert.jsp"%>
 </c:if>
 
-<form method="post" action="../risposte/create">
+<form method="post" action="../risposte/update">
 
 
 
     <fieldset class="grid-x form admin">
-        <legend>Crea Risposta</legend>
+        <legend>Aggiorna Risposta</legend>
         <label for="Corpo" >
-            <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${corpo.nome}" pattern="^[a-zA-Z0-9_ .,']{2,45}$"
-                   title="Nome compreso tra i 2 e 45 caratteri" required>
+            <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${risposta.corpo}" required>
         </label>
         <label for="Discussione" >
             <select name="Discussione" id="Discussione">
@@ -32,6 +31,9 @@
 
             </select>
         </label>
+        <input type="hidden" name="idUtente" value="${risposta.utente.idUtente}">
+        <input type="hidden" name="id" value="${risposta.idRisposta}">
+
         <button type="submit" class="btn primary">Aggiorna</button>
     </fieldset>
 

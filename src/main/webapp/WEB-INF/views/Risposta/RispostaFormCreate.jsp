@@ -29,9 +29,9 @@
 
             </select>
         </label>
-        <input type="hidden" name="idUtente" value="${risposta.idUtente}">
+        <input type="hidden" name="idUtente" value="${risposta.utente.idUtente}">
 
-        <button type="submit" class="btn primary">Aggiorna</button>
+        <button type="submit" class="btn primary">Crea</button>
     </fieldset>
 
 </form>
