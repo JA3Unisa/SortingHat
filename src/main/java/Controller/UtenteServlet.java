@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -90,8 +91,8 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                     case "/profilo": //show profilo cliente
                         System.out.println("Profilo");
-                        int profilo = getUtenteSessione(request.getSession(false)).getId(); // non da l'id
-                        System.out.println(profilo);
+                        UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
+
                        // int ruolo = getUtenteSessione(request.getSession(false)).getRuolo();
                        // System.out.println(ruolo);
                        // if (ruolo == 1) {
@@ -100,17 +101,11 @@ public class UtenteServlet extends ControllerHttpServlet {
                             //request.getRequestDispatcher(view("crm/home"));
                         //} else {
 
-                            Optional<Utente> profiloUtente = utenteDAO.findUtentebyID(profilo);
+                        Utente profilo=utenteDAO.findUtentebyID(ut.getId()).get();
 
-                            if (profiloUtente.isPresent()) {
-                                System.out.println("qui Trovato");
-                                request.setAttribute("utente", profiloUtente.get());
+                        request.setAttribute("utente", profilo);
+                        request.getRequestDispatcher(view("user/profilo")).forward(request, response);/*MODIFICARE*/
 
-
-                                request.getRequestDispatcher(view("user/profilo")).forward(request, response);/*MODIFICARE*/
-                            } else {
-                                notFound();
-                            }
 
                         break;
                 /*    case "/profiloAd": //show profilo admin
