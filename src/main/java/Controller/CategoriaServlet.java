@@ -136,7 +136,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                         internalError();}
                     break;
 
-                case"/delete"://elimino(admin)
+                case"/delete"://elimino(admin) ATTIVA
                     System.out.println("in categorie Delete");
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("admin/categoriaList"));
@@ -148,7 +148,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                         //request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
                        // request.getRequestDispatcher(view("admin/delete")).forward(request,response);
-                        response.sendRedirect("../categorie/");
+                        response.sendRedirect("../categorie/?page=1");
                     }else{internalError();}
                     break;
 

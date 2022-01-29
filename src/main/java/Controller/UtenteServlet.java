@@ -219,7 +219,8 @@ public class UtenteServlet extends ControllerHttpServlet {
                         System.out.println("cancellato");
                         request.setAttribute("alert",new Alert(List.of("Utente Eliminato!"),"success"));
 
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                        //request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                        response.sendRedirect("../utenti/?page=1");
                     }else
                     {internalError();}
                     break;

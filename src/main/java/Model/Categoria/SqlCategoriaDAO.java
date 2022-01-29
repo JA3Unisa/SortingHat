@@ -19,7 +19,7 @@ public class SqlCategoriaDAO implements CategoriaDAO {
                 if (resultSet.next()) {
                     size = resultSet.getInt("totaleCategorie");
                 }
-                System.out.println(size);
+
                 return size;
             }
         }
@@ -44,7 +44,7 @@ public class SqlCategoriaDAO implements CategoriaDAO {
                     cat.setDataOra(rs.getTimestamp("dataOra"));
                     categorie.add(cat);
                 }
-                System.out.println(categorie.size());
+
                 return categorie;
             }
         }
@@ -96,9 +96,31 @@ public class SqlCategoriaDAO implements CategoriaDAO {
                 ps.setString(3,categoria.getTitoloDescrizione());
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 ps.setTimestamp(4,timestamp);
-                System.out.println(ps.toString());
+
                 int rows = ps.executeUpdate();
                 return rows == 1;
+            }
+        }
+    }
+
+    @Override
+    public List<Categoria> fetchCategoriesAll() throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (   PreparedStatement ps =
+                            con.prepareStatement("SELECT * FROM categoria")) {
+                ResultSet rs = ps.executeQuery();
+                List<Categoria> categorie = new ArrayList<>();
+                while (rs.next()) {
+                    Categoria cat = new Categoria();
+                    cat.setIdCategoria(rs.getInt("idcategoria"));
+                    cat.setNome(rs.getString("nome"));
+                    cat.setDescrizione(rs.getString("descrizione"));
+                    cat.setTitoloDescrizione(rs.getString("titoloDescrizione"));
+                    cat.setDataOra(rs.getTimestamp("dataOra"));
+                    categorie.add(cat);
+                }
+
+                return categorie;
             }
         }
     }
@@ -107,11 +129,13 @@ public class SqlCategoriaDAO implements CategoriaDAO {
     public boolean updateCategoria(Categoria categoriaAgg) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("UPDATE  categoria SET nome= ?,descrizione= ?,titoloDescrizione=? WHERE idcategoria=?;")) {
+                         con.prepareStatement("UPDATE  categoria SET nome= ?,descrizione= ?,titoloDescrizione=?,dataOra=? WHERE idcategoria=?;")) {
                 ps.setString(1, categoriaAgg.getNome());
                 ps.setString(2, categoriaAgg.getDescrizione());
                 ps.setString(3, categoriaAgg.getTitoloDescrizione());
-                ps.setInt(4, categoriaAgg.getIdCategoria());
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                ps.setTimestamp(4,timestamp);
+                ps.setInt(5, categoriaAgg.getIdCategoria());
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }

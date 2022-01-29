@@ -27,7 +27,7 @@ public class SqlRispostaDAO implements RispostaDAO {
                 ps.setTimestamp(2,timestamp);
                 ps.setInt(3, risposta.getUtente().getIdUtente());
                 ps.setInt(4, risposta.getDiscussione().getIdDiscussione());
-                System.out.println(ps.toString());
+
                 int rows = ps.executeUpdate();
 
                 return rows == 1;
@@ -39,12 +39,13 @@ public class SqlRispostaDAO implements RispostaDAO {
     public boolean updateRisposta(Risposta risposta) throws Exception {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("UPDATE risposta " +
-                    "SET corpo = ?, dataora = ?, idutente = ?, iddiscussione = ?" +
+                    "SET corpo = ?, dataora = ?, idutente = ?, iddiscussione = ? " +
                     "WHERE idrisposta = ?;")) {
 
                 //Inserimento utente nel db
                 ps.setString(1, risposta.getCorpo());
-                ps.setTimestamp(2,risposta.getdataOra());
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                ps.setTimestamp(2,timestamp);
                 ps.setInt(3, risposta.getUtente().getIdUtente());
                 ps.setInt(4, risposta.getDiscussione().getIdDiscussione());
                 ps.setInt(5, risposta.getIdRisposta());
@@ -80,7 +81,7 @@ public class SqlRispostaDAO implements RispostaDAO {
                 if (resultSet.next()) {
                     size = resultSet.getInt("totaleRisposte");
                 }
-                System.out.println(size);
+
                 return size;
             }
         }
@@ -146,7 +147,7 @@ public class SqlRispostaDAO implements RispostaDAO {
 
                     rispostas.add(cat);
                 }
-System.out.println("TAGLIA:"+rispostas.size());
+
                 return rispostas;
             }
         }

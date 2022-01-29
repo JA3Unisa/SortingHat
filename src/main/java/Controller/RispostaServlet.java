@@ -147,7 +147,8 @@ public class RispostaServlet extends ControllerHttpServlet {
 
                         request.setAttribute("alert", new Alert(List.of("Risposta Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                      //  request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                        response.sendRedirect("../risposte/?page=1");
                     }else{internalError();}
                     break;
 

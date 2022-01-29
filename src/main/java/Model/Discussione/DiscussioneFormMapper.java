@@ -20,18 +20,23 @@ public class DiscussioneFormMapper implements FormMapper<Discussione> {
         Discussione dis = new Discussione();
 
         dis.setCorpo(rs.getParameter("Corpo"));
-       // dis.setDataOra(rs.("dataOra"));          #########RICORDARE############
-        dis.setTitolo(rs.getParameter("Titolo"));
-        int idCategoria=(Integer.parseInt(rs.getParameter("idCategoria")));
-        SqlCategoriaDAO sqlCategoriaDAO=new SqlCategoriaDAO();
-        Optional<Categoria> categoria=sqlCategoriaDAO.fetchCategoriesByID(idCategoria);
 
-        int idUtente=(Integer.parseInt(rs.getParameter("idUtente")));
-        SqlUtenteDAO sqlUtenteDAO=new SqlUtenteDAO();
-        Optional<Utente> utente=sqlUtenteDAO.findUtentebyID(idUtente);
-        dis.setUtente(utente.get());
+        dis.setTitolo(rs.getParameter("Titolo"));
+
+        int idCategoria=(Integer.parseInt(rs.getParameter("Categoria")));
+        Categoria categoria=new Categoria();
+        categoria.setIdCategoria(idCategoria);
+        dis.setCategoria(categoria);
+
+        Utente utente=new Utente();
+        utente.setIdUtente(0);
+        dis.setUtente(utente);
+        //int idUtente=(Integer.parseInt(rs.getParameter("idUtente")));
+        //SqlUtenteDAO sqlUtenteDAO=new SqlUtenteDAO();
+        //Optional<Utente> utente=sqlUtenteDAO.findUtentebyID(idUtente);
+        //dis.setUtente(utente.get());
         if (update) {
-            dis.setIdDiscussione(Integer.parseInt(rs.getParameter("idDiscussione")));
+            dis.setIdDiscussione(Integer.parseInt(rs.getParameter("id")));
         }
         return dis;
 

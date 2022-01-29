@@ -17,7 +17,6 @@
 <form method="post" action="../risposte/update">
 
 
-
     <fieldset class="grid-x form admin">
         <legend>Aggiorna Risposta</legend>
         <label for="Corpo" >

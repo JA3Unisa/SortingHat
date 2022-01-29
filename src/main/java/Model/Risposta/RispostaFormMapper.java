@@ -25,7 +25,7 @@ public class RispostaFormMapper implements FormMapper<Risposta> {
 
         Discussione discussione=new Discussione();
         discussione.setIdDiscussione(Integer.parseInt(request.getParameter("Discussione")));
-        System.out.println("POST SET DISCUSSIONE");
+
         risposta.setDiscussione(discussione);
         //risposta.setDataOra(GregorianCalendar.getInstance());
         risposta.setCorpo(request.getParameter("Corpo"));

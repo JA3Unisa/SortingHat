@@ -26,6 +26,15 @@
         <label for="Corpo" >
             <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${discussione.corpo}" required>
         </label>
+        <label for="Categoria" >
+            <select name="Categoria" id="Categoria">
+                <c:forEach items="${categorie}" var="categoria">
+                    <option value="${categoria.idCategoria}">${categoria.nome}</option>
+                </c:forEach>
+
+            </select>
+        </label>
+        <input type="hidden" name="idUtente" value="${risposta.utente.idUtente}">
         <button type="submit" class="btn primary">Crea</button>
     </fieldset>
 
