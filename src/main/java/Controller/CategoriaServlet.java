@@ -80,9 +80,11 @@ public class CategoriaServlet extends ControllerHttpServlet {
 
                     if(categoriaDAO.deleteCategoria(idDelete)) {
 
-                        request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
+                       // request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                      //  request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                         response.sendRedirect("../categorie/?page=1");
+
                     }else{internalError();}
                     break;
 
@@ -143,9 +145,10 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     System.out.println("sto per cancellare "+ id);
                     if(categoriaDAO.deleteCategoria(id)) {
 
-                        request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
+                        //request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                       // request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                        response.sendRedirect("../categorie/");
                     }else{internalError();}
                     break;
 

@@ -38,7 +38,7 @@ public class SqlRispostaDAO implements RispostaDAO {
     @Override
     public boolean updateRisposta(Risposta risposta) throws Exception {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("UPDATE utente " +
+            try (PreparedStatement ps = con.prepareStatement("UPDATE risposta " +
                     "SET corpo = ?, dataora = ?, idutente = ?, iddiscussione = ?" +
                     "WHERE idrisposta = ?;")) {
 
