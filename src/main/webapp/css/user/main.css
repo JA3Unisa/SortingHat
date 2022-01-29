@@ -138,3 +138,29 @@ body{
     margin: 40px;
     text-decoration: none;
 }
+
+.notifica{
+    position: relative;
+    color: white;
+    border-radius: 10px;
+
+    margin-bottom: .2rem;
+    text-align: center;
+    padding: initial;
+}
+.notifica.success{
+    background-color: darkcyan;
+    margin: auto;
+}
+.notifica.danger{
+    background-color: red;
+    color: white;
+    margin: auto;
+    font-size: larger;
+    text-align: justify;
+}
+.notifica .chiusa{
+    position: absolute;
+    top:10px;
+    right:10px;
+    fill:white;}

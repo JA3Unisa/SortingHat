@@ -313,7 +313,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         if(optionalUtente.get().getRuolo()==2 || optionalUtente.get().getRuolo()==3) {
                            UtenteSession utenteSession = new UtenteSession(optionalUtente.get());
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
-                            response.sendRedirect("../accounts/profilo");/*HOME CLIENTE*/
+                            response.sendRedirect("../utenti/profilo");/*HOME CLIENTE*/
                         }
                          }
                     else {

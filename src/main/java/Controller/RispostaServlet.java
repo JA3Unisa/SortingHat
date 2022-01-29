@@ -99,11 +99,12 @@ public class RispostaServlet extends ControllerHttpServlet {
                 case"/create"://creo(admin)
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("Risposta/RispostaCreate"));
+                   UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
 
                     validate(RispostaValidator.validateForm(request,false));
 
                     Risposta risposta=new RispostaFormMapper().map(request,false);
-
+                    risposta.setIdRisposta(ut.getId());
                     if(rispostaDAO.createRisposta(risposta)){
                         System.out.println("creata");
                         request.setAttribute("risposta",risposta);
