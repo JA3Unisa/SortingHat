@@ -309,7 +309,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
                             response.sendRedirect("../pages/dashboard");/*ADMIN HOMEP*/
                         }
-                        if(optionalUtente.get().getRuolo()==2 || optionalUtente.get().getRuolo()==3) {
+                        if(optionalUtente.get().getRuolo()==0) {
                            UtenteSession utenteSession = new UtenteSession(optionalUtente.get());
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
                             response.sendRedirect("../utenti/profilo");/*HOME CLIENTE*/
