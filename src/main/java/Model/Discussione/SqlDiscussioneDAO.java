@@ -106,7 +106,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
                 ps.setString(4, discussione.getTitolo());
                 ps.setInt(5, discussione.getCategoria().getIdCategoria());
                 ps.setInt(6, discussione.getUtente().getIdUtente());
-
+System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }
@@ -196,14 +196,16 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
     public boolean updateDiscussione(Discussione discussioneAgg) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps =
-                         con.prepareStatement("UPDATE  discussione SET = ?,= ? ,=?,=?,=? WHERE iddiscussione=?;")) {
+                         con.prepareStatement("UPDATE  discussione SET corpo= ?,dataOra= ? ,titolo=?,idcategoria=?,idutente=? WHERE iddiscussione=?;")) {
 
-                ps.setString(2, discussioneAgg.getCorpo());
-                ps.setTimestamp(3,discussioneAgg.getDataOra());
-                ps.setString(4, discussioneAgg.getTitolo());
-                ps.setInt(5, discussioneAgg.getCategoria().getIdCategoria());
-                ps.setInt(6, discussioneAgg.getUtente().getIdUtente());
-
+                ps.setString(1, discussioneAgg.getCorpo());
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                ps.setTimestamp(2,timestamp);
+                ps.setString(3, discussioneAgg.getTitolo());
+                ps.setInt(4, discussioneAgg.getCategoria().getIdCategoria());
+                ps.setInt(5, discussioneAgg.getUtente().getIdUtente());
+                ps.setInt(6,discussioneAgg.getIdDiscussione());
+System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }

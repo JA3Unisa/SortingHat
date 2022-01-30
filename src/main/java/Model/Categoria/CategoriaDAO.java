@@ -14,5 +14,7 @@ public interface CategoriaDAO <E extends Exception>{
     Optional<Categoria> fetchCategoriesByID(int id) throws SQLException;
     boolean updateCategoria(Categoria categoriaAgg) throws SQLException;
     boolean createCategoria(Categoria categoria) throws SQLException;
+
+    List<Categoria> fetchCategoriesAll() throws SQLException;
     // aggiungere i metodi sia qua che i metodi ed il corpo nel discussioniDAO
 }

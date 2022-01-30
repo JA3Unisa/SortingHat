@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -56,12 +57,20 @@ public class UtenteServlet extends ControllerHttpServlet {
                         break;
 
                     case "/modificoCliente"://modifico cliente(cliente)
-                        int idProfiloCliente = getUtenteSessione(request.getSession(false)).getId();
+                         System.out.println("modifico cliente");
+                        //int idProfiloCliente = getUtenteSessione(request.getSession(false)).getId();
+                        UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
+                        System.out.println(ut);
+                       Utente profiloClienteUp = utenteDAO.findUtentebyID(ut.getId()).get();
+                        System.out.println(profiloClienteUp.getNome());
+                        request.setAttribute("utente", profiloClienteUp);
 
-                        Optional<Utente> profiloClienteUp = utenteDAO.findUtentebyID(idProfiloCliente);
-                        request.setAttribute("utente", profiloClienteUp.get());
+                        if (profiloClienteUp.getRuolo()==1)
 
-                        request.getRequestDispatcher(view("Utente/Utenteupdate")).forward(request, response);
+                            request.getRequestDispatcher(view("Utente/UtenteUpdate")).forward(request, response);       //admin
+
+                        else
+                        request.getRequestDispatcher(view("Utente/UtenteProfiloForm")).forward(request, response);      //utente
 
                         break;
 
@@ -90,27 +99,14 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                     case "/profilo": //show profilo cliente
                         System.out.println("Profilo");
-                        int profilo = getUtenteSessione(request.getSession(false)).getId(); // non da l'id
-                        System.out.println(profilo);
-                       // int ruolo = getUtenteSessione(request.getSession(false)).getRuolo();
-                       // System.out.println(ruolo);
-                       // if (ruolo == 1) {
-
-                           //response.sendRedirect("../pages/dashboard");
-                            //request.getRequestDispatcher(view("crm/home"));
-                        //} else {
-
-                            Optional<Utente> profiloUtente = utenteDAO.findUtentebyID(profilo);
-
-                            if (profiloUtente.isPresent()) {
-                                System.out.println("qui Trovato");
-                                request.setAttribute("utente", profiloUtente.get());
+                        UtenteSession ut1= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
 
 
-                                request.getRequestDispatcher(view("user/profilo")).forward(request, response);/*MODIFICARE*/
-                            } else {
-                                notFound();
-                            }
+                        Utente profilo=utenteDAO.findUtentebyID(ut1.getId()).get();
+
+                        request.setAttribute("utente", profilo);
+                        request.getRequestDispatcher(view("user/profilo")).forward(request, response);/*MODIFICARE*/
+
 
                         break;
                 /*    case "/profiloAd": //show profilo admin
@@ -224,7 +220,8 @@ public class UtenteServlet extends ControllerHttpServlet {
                         System.out.println("cancellato");
                         request.setAttribute("alert",new Alert(List.of("Utente Eliminato!"),"success"));
 
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                        //request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                        response.sendRedirect("../utenti/?page=1");
                     }else
                     {internalError();}
                     break;
@@ -290,15 +287,17 @@ public class UtenteServlet extends ControllerHttpServlet {
                     break;*/
                 case "/secret"://login
                     System.out.println("Verifico login");
-                    request.setAttribute("back", view("user/login"));
-                  // Utente utente1=utenteDAO.findUtenteByMail(request.getParameter("Mail"));
+                    request.setAttribute("back", view("pages/login"));
+                    System.out.println(request.getAttribute("back"));
+
                     validate(UtenteValidator.validateSignin(request,false));
 
                     Utente tmpUtente = new Utente();
                     tmpUtente.setEmail(request.getParameter("Email"));
                     tmpUtente.setPassword(request.getParameter("Password"));
-                    System.out.println(tmpUtente.getEmail()+" "+tmpUtente.getPassword());
+
                     Optional<Utente> optionalUtente=utenteDAO.findUtente(tmpUtente.getEmail(), tmpUtente.getPassword());
+                    System.out.println(optionalUtente.get().getNome());
                     if(optionalUtente.isPresent() && optionalUtente.get().getNome()!=null){
 
                         if(optionalUtente.get().getRuolo()==1){
@@ -313,13 +312,13 @@ public class UtenteServlet extends ControllerHttpServlet {
                         if(optionalUtente.get().getRuolo()==2 || optionalUtente.get().getRuolo()==3) {
                            UtenteSession utenteSession = new UtenteSession(optionalUtente.get());
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
-                            response.sendRedirect("../accounts/profilo");/*HOME CLIENTE*/
+                            response.sendRedirect("../utenti/profilo");/*HOME CLIENTE*/
                         }
                          }
                     else {
+                        response.sendRedirect("../pages/login");
                         throw new InvalidRequestException("Credenziali non valide", List.of("Credenziali non valide"),
                                 HttpServletResponse.SC_BAD_REQUEST);
-
 
                     }
                         break;

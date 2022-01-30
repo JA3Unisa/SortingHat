@@ -33,6 +33,7 @@ public class RispostaServlet extends ControllerHttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String path = getPath(request);
+            System.out.println(path);
             switch (path) {
                 case "/"://show (admin)
                     authorize(request.getSession(false));
@@ -78,6 +79,9 @@ public class RispostaServlet extends ControllerHttpServlet {
                     int idUpd= Integer.parseInt(request.getParameter("id"));
                     Optional<Risposta> cl=rispostaDAO.fetchRisposte(idUpd);
                     request.setAttribute("risposta",cl.get());
+                    List<Discussione>discussioneList1=discussioneDao.fetchDiscussioniAll();
+                    request.setAttribute("discussioni",discussioneList1);
+
                     request.getRequestDispatcher(view("Risposta/RispostaUpdate")).forward(request, response);
                     break;
 
@@ -98,11 +102,14 @@ public class RispostaServlet extends ControllerHttpServlet {
                 case"/create"://creo(admin)
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("Risposta/RispostaCreate"));
+                   UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
 
                     validate(RispostaValidator.validateForm(request,false));
 
                     Risposta risposta=new RispostaFormMapper().map(request,false);
-
+                    Utente utente=new Utente();
+                    utente.setIdUtente(ut.getId());
+                    risposta.setUtente(utente);
                     if(rispostaDAO.createRisposta(risposta)){
                         System.out.println("creata");
                         request.setAttribute("risposta",risposta);
@@ -114,10 +121,13 @@ public class RispostaServlet extends ControllerHttpServlet {
 
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("Risposta/RispostaUpdate"));
-                    validate(CategoriaValidator.validateForm(request,true));
-                   Risposta rispostaAgg=new RispostaFormMapper().map(request,true);
+                    validate(RispostaValidator.validateForm(request,true));
 
-
+                    Risposta rispostaAgg=new RispostaFormMapper().map(request,true);
+                    UtenteSession ut1= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
+                    Utente utente1=new Utente();
+                    utente1.setIdUtente(ut1.getId());
+                    rispostaAgg.setUtente(utente1);
                     if(rispostaDAO.updateRisposta(rispostaAgg)) {
                         request.setAttribute("risposta",rispostaAgg);
                         request.setAttribute("alert", new Alert(List.of("Risposta Aggiornata!"), "success"));
@@ -137,7 +147,8 @@ public class RispostaServlet extends ControllerHttpServlet {
 
                         request.setAttribute("alert", new Alert(List.of("Risposta Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                      //  request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                        response.sendRedirect("../risposte/?page=1");
                     }else{internalError();}
                     break;
 

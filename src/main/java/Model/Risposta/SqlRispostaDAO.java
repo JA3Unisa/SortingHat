@@ -6,10 +6,10 @@ import Model.Discussione.Discussione;
 import Model.Discussione.SqlDiscussioneDAO;
 import Model.Utente.SqlUtenteDAO;
 import Model.Utente.Utente;
+import com.sun.source.tree.WhileLoopTree;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ public class SqlRispostaDAO implements RispostaDAO {
                 ps.setTimestamp(2,timestamp);
                 ps.setInt(3, risposta.getUtente().getIdUtente());
                 ps.setInt(4, risposta.getDiscussione().getIdDiscussione());
-                System.out.println(ps.toString());
+
                 int rows = ps.executeUpdate();
 
                 return rows == 1;
@@ -38,13 +38,14 @@ public class SqlRispostaDAO implements RispostaDAO {
     @Override
     public boolean updateRisposta(Risposta risposta) throws Exception {
         try (Connection con = ConPool.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("UPDATE utente " +
-                    "SET corpo = ?, dataora = ?, idutente = ?, iddiscussione = ?" +
+            try (PreparedStatement ps = con.prepareStatement("UPDATE risposta " +
+                    "SET corpo = ?, dataora = ?, idutente = ?, iddiscussione = ? " +
                     "WHERE idrisposta = ?;")) {
 
                 //Inserimento utente nel db
                 ps.setString(1, risposta.getCorpo());
-                ps.setTimestamp(2,risposta.getdataOra());
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                ps.setTimestamp(2,timestamp);
                 ps.setInt(3, risposta.getUtente().getIdUtente());
                 ps.setInt(4, risposta.getDiscussione().getIdDiscussione());
                 ps.setInt(5, risposta.getIdRisposta());
@@ -80,8 +81,40 @@ public class SqlRispostaDAO implements RispostaDAO {
                 if (resultSet.next()) {
                     size = resultSet.getInt("totaleRisposte");
                 }
-                System.out.println(size);
+
                 return size;
+            }
+        }
+    }
+
+    @Override
+    public List<Risposta> fetchRispostaByIdDiscussione(int idDiscussione, Paginator paginator) throws SQLException {
+        String query ="SELECT * FROM risposta r WHERE r.idDiscussione = "+idDiscussione+" LIMIT ?,?";
+        try (Connection con = ConPool.getConnection()){
+            try (PreparedStatement ps =
+                    con.prepareStatement(query)){
+                ps.setInt(1,paginator.getOffset());
+                ps.setInt(2,paginator.getLimite());
+                ResultSet rs = ps.executeQuery();
+                List<Risposta> risposte = new ArrayList<>();
+                while (rs.next()){
+                    Risposta r = new Risposta();
+                    r.setIdRisposta(rs.getInt("idrisposta"));
+                    r.setCorpo(rs.getString("corpo"));
+                    r.setDataOra(rs.getTimestamp("dataOra"));
+
+                    int idUtente = rs.getInt("idUtente");
+                    SqlUtenteDAO utenteDAO = new SqlUtenteDAO();
+                    Utente utente = utenteDAO.findUtentebyID(idUtente).get();
+                    r.setUtente(utente);
+
+                    SqlDiscussioneDAO discussioneDAO = new SqlDiscussioneDAO();
+                    Discussione discussione = discussioneDAO.fetchDiscussioniByID(idDiscussione).get();
+                    r.setDiscussione(discussione);
+
+                    risposte.add(r);
+                }
+                return risposte;
             }
         }
     }
@@ -114,7 +147,7 @@ public class SqlRispostaDAO implements RispostaDAO {
 
                     rispostas.add(cat);
                 }
-System.out.println("TAGLIA:"+rispostas.size());
+
                 return rispostas;
             }
         }

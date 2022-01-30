@@ -66,7 +66,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     authorize(request.getSession(false));
                     int idUpd= Integer.parseInt(request.getParameter("id"));
                     Optional<Categoria> cl=categoriaDAO.fetchCategoriesByID(idUpd);
-                    System.out.println("CL:"+cl.get().getNome());
+
                     request.setAttribute("categoria",cl.get());
                     request.getRequestDispatcher(view("Categoria/CategoriaUpdate")).forward(request, response);
                     break;
@@ -77,12 +77,14 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     request.setAttribute("back",view("admin/categoriaList"));
                     validate(CategoriaValidator.validateDelete(request));
                     String idDelete=request.getParameter("id");
-                    System.out.println("sto per cancellare "+ idDelete);
+
                     if(categoriaDAO.deleteCategoria(idDelete)) {
 
-                        request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
+                       // request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                      //  request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                         response.sendRedirect("../categorie/?page=1");
+
                     }else{internalError();}
                     break;
 
@@ -134,7 +136,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                         internalError();}
                     break;
 
-                case"/delete"://elimino(admin)
+                case"/delete"://elimino(admin) ATTIVA
                     System.out.println("in categorie Delete");
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("admin/categoriaList"));
@@ -143,9 +145,10 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     System.out.println("sto per cancellare "+ id);
                     if(categoriaDAO.deleteCategoria(id)) {
 
-                        request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
+                        //request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                       // request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                        response.sendRedirect("../categorie/?page=1");
                     }else{internalError();}
                     break;
 

@@ -19,7 +19,7 @@
     <fieldset class="grid-x form admin">
         <legend>Crea Risposta</legend>
         <label for="Corpo" >
-            <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${corpo.nome}" required>
+            <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${risposta.corpo}" required>
         </label>
         <label for="Discussione" >
             <select name="Discussione" id="Discussione">
@@ -29,9 +29,9 @@
 
             </select>
         </label>
-        <input type="hidden" name="idUtente" value="0">
+        <input type="hidden" name="idUtente" value="${risposta.utente.idUtente}">
 
-        <button type="submit" class="btn primary">Aggiorna</button>
+        <button type="submit" class="btn primary">Crea</button>
     </fieldset>
 
 </form>

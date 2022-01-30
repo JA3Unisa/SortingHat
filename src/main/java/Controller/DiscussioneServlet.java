@@ -6,11 +6,14 @@ import Controller.Http.InvalidRequestException;
 import Controller.Http.Paginator;
 
 
-
+import Model.Categoria.Categoria;
+import Model.Categoria.SqlCategoriaDAO;
 import Model.Discussione.Discussione;
 import Model.Discussione.DiscussioneFormMapper;
 import Model.Discussione.DiscussioneValidator;
 import Model.Discussione.SqlDiscussioneDAO;
+import Model.Utente.Utente;
+import Model.Utente.UtenteSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @WebServlet(name= "DiscussioneServlet" , value="/discussioni/*")
 public class DiscussioneServlet extends ControllerHttpServlet {
     private SqlDiscussioneDAO discussioneDAO=new SqlDiscussioneDAO();
-
+    private SqlCategoriaDAO categoriaDAO=new SqlCategoriaDAO();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String path = getPath(request);
@@ -52,7 +55,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     request.getRequestDispatcher(view("admin/discussioneList")).forward(request, response);
                     break;
 
-                case "/show"://show categoria(admin)
+                case "/show"://show (admin)
                     authorize(request.getSession(false));
                     validate(CommonValidator.validatePage(request));
                     int id = Integer.parseInt(request.getParameter("id"));
@@ -68,13 +71,17 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     authorize(request.getSession(false));
                     //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                    // request.setAttribute("dataOra",timestamp);
-                    System.out.println(path);
+                    List<Categoria>categoriaList1=categoriaDAO.fetchCategoriesAll();
+                    request.setAttribute("categorie",categoriaList1);
                     request.getRequestDispatcher(view("Discussione/DiscussioneCreate")).forward(request, response);
                     break;
                 case "/update":
                     authorize(request.getSession(false));
                     int idUpd= Integer.parseInt(request.getParameter("id"));
                     Optional<Discussione> cl=discussioneDAO.fetchDiscussioniByID(idUpd);
+
+                    List<Categoria>categoriaList=categoriaDAO.fetchCategoriesAll();
+                    request.setAttribute("categorie",categoriaList);
                     request.setAttribute("discussione",cl.get());
                     request.getRequestDispatcher(view("Discussione/DiscussioneUpdate")).forward(request, response);
                     break;
@@ -99,9 +106,16 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                 case"/create"://creo(admin)
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("Discussione/DiscussioneCreate"));
+                    UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
+
 
                     validate(DiscussioneValidator.validateForm(request,false));
                     Discussione discussione=new DiscussioneFormMapper().map(request,false);
+                    System.out.println("QUI");
+                    Utente utente=new Utente();
+                    utente.setIdUtente(ut.getId());
+                    discussione.setUtente(utente);
+
                     if(discussioneDAO.createDiscussione(discussione)){
                         System.out.println("creata");
                         request.setAttribute("discussione",discussione);
@@ -115,8 +129,11 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     request.setAttribute("back",view("Discussione/DiscussioneUpdate"));
                     validate(DiscussioneValidator.validateForm(request,true));
                     Discussione discussioneAgg=new DiscussioneFormMapper().map(request,true);
-                    System.out.println(discussioneAgg.getCategoria().getIdCategoria());
 
+                    UtenteSession ut1= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
+                    Utente utente1=new Utente();
+                    utente1.setIdUtente(ut1.getId());
+                    discussioneAgg.setUtente(utente1);
                     if(discussioneDAO.updateDiscussione(discussioneAgg)) {
                         request.setAttribute("discussione",discussioneAgg);
                         request.setAttribute("alert", new Alert(List.of("Discussione Aggiornata!"), "success"));
@@ -136,7 +153,8 @@ public class DiscussioneServlet extends ControllerHttpServlet {
 
                         request.setAttribute("alert", new Alert(List.of("Discussione Rimossa!"), "success"));
                         //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        request.getRequestDispatcher(view("admin/delete")).forward(request,response);/*MODIFICARE*/
+                       // request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                        response.sendRedirect("../discussioni/?page=1");
                     }else{internalError();}
                     break;
 
