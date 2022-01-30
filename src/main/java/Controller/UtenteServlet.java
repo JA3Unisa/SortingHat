@@ -287,15 +287,17 @@ public class UtenteServlet extends ControllerHttpServlet {
                     break;*/
                 case "/secret"://login
                     System.out.println("Verifico login");
-                    request.setAttribute("back", view("user/login"));
-                  // Utente utente1=utenteDAO.findUtenteByMail(request.getParameter("Mail"));
+                    request.setAttribute("back", view("pages/login"));
+                    System.out.println(request.getAttribute("back"));
+
                     validate(UtenteValidator.validateSignin(request,false));
 
                     Utente tmpUtente = new Utente();
                     tmpUtente.setEmail(request.getParameter("Email"));
                     tmpUtente.setPassword(request.getParameter("Password"));
-                    System.out.println(tmpUtente.getEmail()+" "+tmpUtente.getPassword());
+
                     Optional<Utente> optionalUtente=utenteDAO.findUtente(tmpUtente.getEmail(), tmpUtente.getPassword());
+                    System.out.println(optionalUtente.get().getNome());
                     if(optionalUtente.isPresent() && optionalUtente.get().getNome()!=null){
 
                         if(optionalUtente.get().getRuolo()==1){
@@ -314,9 +316,9 @@ public class UtenteServlet extends ControllerHttpServlet {
                         }
                          }
                     else {
+                        response.sendRedirect("../pages/login");
                         throw new InvalidRequestException("Credenziali non valide", List.of("Credenziali non valide"),
                                 HttpServletResponse.SC_BAD_REQUEST);
-
 
                     }
                         break;
