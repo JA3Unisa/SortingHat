@@ -6,11 +6,10 @@
   Time: 21:09
   To change this template use File | Settings | File Templates.
 --%>
-<table class="table">
-    <caption class="align-center justify-center">Lista Utenti
-        <form action="../utenti/delete"  method="post" >
-            <input type="text" name="id" placeholder="Elimina utente" style="color: black"/>
-        </form></caption>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<table class="display" id="tabella_test">
+    <caption>Lista Utenti</caption>
     <thead>
     <tr>
         <th>Id</th>
@@ -31,8 +30,8 @@
     </c:when>
     <c:otherwise>
     <c:forEach items="${utenti}" var="utente">
-    <tr>
-        <td><a href="../utenti/show?id=${utente.idUtente}">${utente.idUtente}</a></td>
+    <tr class="clickable-row" data-href='../utenti/show?id=${utente.idUtente}'>
+        <td>${utente.idUtente}</td>
         <td>${utente.nome}</td>
 
         <td>${utente.cognome}</td>
@@ -66,3 +65,14 @@
     </tbody>
 
 </table>
+
+
+<script>
+    alert("inizio");
+    $("#tabella_test").DataTable({responsive: true});
+    alert("tabella caricata");
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+    alert("listner settato");
+</script>
