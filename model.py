@@ -25,7 +25,7 @@ def saveMachineLearning(nElements, score, pickle_dump):
 
     mydb.commit()
     mydb.close()
-
+#metodo per ottenere l'ultimo modello predittivo ovvero il più aggiornato
 def getLatestMachineLearning():
     mydb = mysql.connector.connect(
         host=os.environ.get("host"),
@@ -34,17 +34,17 @@ def getLatestMachineLearning():
         database='sorting_hat_test'
     )
 
-
+    #ordino per la data la query sulla tabella ia del database
     query = "SELECT * FROM ia ORDER BY dateTime DESC;"
-
+    #eseguo query
     mycursor = mydb.cursor()
     mycursor.execute(query)
 
     res = mycursor.fetchall()
-
+    #chiudo database e ritorno risultato
     mydb.close()
     return res[0][4]
-
+#medoto per salvare i dati dei nuovi form compilati nel database
 def saveContribuisci(dati):
     mydb = mysql.connector.connect(
         host=os.environ.get("host"),
@@ -60,7 +60,7 @@ def saveContribuisci(dati):
     mycursor.execute(sql, dati)
 
     mydb.commit()
-
+#metodo per salvare le  risposte
 def save_response(resp):
     mydb = mysql.connector.connect(
         host=os.environ.get("host"),
