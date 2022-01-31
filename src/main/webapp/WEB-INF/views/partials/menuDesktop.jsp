@@ -20,7 +20,7 @@
 
         <c:set var="authenticated" value="${not empty utenteSession}" scope="request"/>
         <%-- <a href="${pageContext.request.contextPath}/pages/login">Login</a>--%>
- <a href="${authenticated? './utenti/profilo' :  './pages/login'}" >${authenticated? utenteSession.nome : 'Login' }</a>
+ <a href="${authenticated? 'http://localhost:8080/SortingHat_war/utenti/profilo' :  'http://localhost:8080/SortingHat_war/utenti/login'}" >${authenticated? utenteSession.nome : 'Login' }</a>
 
 </div>
 </div>

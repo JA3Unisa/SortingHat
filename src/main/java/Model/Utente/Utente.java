@@ -104,4 +104,9 @@ public class Utente {
 
 
     }
+
+    public void obtainPassword(String s){
+
+      this.password  =s;
+    }
 }

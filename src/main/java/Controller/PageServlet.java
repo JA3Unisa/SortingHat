@@ -142,14 +142,7 @@ public class PageServlet extends ControllerHttpServlet {
 
                     request.getRequestDispatcher(view("documenti/aboutUs")).forward(request, response);
                     break;
-                case "/login": // a login utente
 
-                    request.getRequestDispatcher(view("user/login")).forward(request, response);
-                    break;
-                case "/registrazione": // a registrazione utente
-
-                    request.getRequestDispatcher(view("user/registrazione")).forward(request, response);
-                    break;
                 default:
                     notFound();
             }
