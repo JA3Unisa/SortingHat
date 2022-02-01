@@ -62,7 +62,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
                         System.out.println(ut);
                        Utente profiloClienteUp = utenteDAO.findUtentebyID(ut.getId()).get();
-                        System.out.println(profiloClienteUp.getNome());
+                        System.out.println(profiloClienteUp.getNome()+ profiloClienteUp.getPassword());
                         request.setAttribute("utente", profiloClienteUp);
 
                         if (profiloClienteUp.getRuolo()==1)
@@ -88,7 +88,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         break;
                     case "/secret"://login pagina
                         System.out.println("in secret");
-                        request.getRequestDispatcher(view("user/login")).forward(request, response);
+                        request.getRequestDispatcher(view("pages/login")).forward(request, response);
                         // request.getRequestDispatcher("/WEB-INF/views/crm/secret.jsp").forward(request,response);
                         break;
 
@@ -97,7 +97,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         request.getRequestDispatcher(view("user/registrazione")).forward(request, response);
                         break;
 
-                    case "/profilo": //show profilo cliente
+                    case "/profilo": //show profilo utente
                         System.out.println("Profilo");
                         UtenteSession ut1= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
 
@@ -105,7 +105,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         Utente profilo=utenteDAO.findUtentebyID(ut1.getId()).get();
 
                         request.setAttribute("utente", profilo);
-                        request.getRequestDispatcher(view("user/profilo")).forward(request, response);/*MODIFICARE*/
+                        request.getRequestDispatcher(view("user/profilo")).forward(request, response);
 
 
                         break;
@@ -131,6 +131,14 @@ public class UtenteServlet extends ControllerHttpServlet {
                         session.removeAttribute("utenteSession");
                         session.invalidate();
                         response.sendRedirect(redirect);
+                        break;
+                    case "/login": // a login utente
+
+                        request.getRequestDispatcher(view("user/login")).forward(request, response);
+                        break;
+                    case "/registrazione": // a registrazione utente
+
+                        request.getRequestDispatcher(view("user/registrazione")).forward(request, response);
                         break;
 
                     default:
@@ -195,15 +203,18 @@ public class UtenteServlet extends ControllerHttpServlet {
                     authenticated(request.getSession(false));
                     request.setAttribute("back", view("Utente/UtenteUpdate"));
                     validate(UtenteValidator.validateForm(request, true));
+
                     Utente utenteAggiornato1=new UtenteFormMapper().map(request,true);
+                    String password = request.getParameter("password");
+                    utenteAggiornato1.obtainPassword(password);
                     request.setAttribute("utente",utenteAggiornato1);
-                    if(utenteDAO.updateUtente(utenteAggiornato1)){
+                    if(utenteDAO.updateUser(utenteAggiornato1)){
 
                         request.setAttribute("utente",utenteAggiornato1);
                         request.setAttribute("alert",new Alert(List.of("Utente Aggiornato!"),"success"));
                         // response.sendRedirect("../accounts/");
-                        request.getRequestDispatcher(view("utenti/updateCliente")).forward(request, response);
-
+                      //  request.getRequestDispatcher(view("utenti/updateCliente")).forward(request, response);
+                        response.sendRedirect("../utenti/profilo");
                     }else{internalError();}
                     break;
                 case "/delete": //delete cliente
@@ -309,7 +320,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
                             response.sendRedirect("../pages/dashboard");/*ADMIN HOMEP*/
                         }
-                        if(optionalUtente.get().getRuolo()==2 || optionalUtente.get().getRuolo()==3) {
+                        if(optionalUtente.get().getRuolo()==0) {
                            UtenteSession utenteSession = new UtenteSession(optionalUtente.get());
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
                             response.sendRedirect("../utenti/profilo");/*HOME CLIENTE*/

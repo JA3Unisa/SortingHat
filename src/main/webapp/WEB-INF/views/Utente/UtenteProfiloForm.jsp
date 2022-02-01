@@ -22,12 +22,15 @@
 <jsp:include page="/WEB-INF/views/partials/menuDesktop.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/partials/menuMobile.jsp"></jsp:include>
 
-<form method="post" action="../utenti/update">
+<form method="post" action="../utenti/modificoUtente">
 
 
     <input type="hidden" name="id" value="${utente.idUtente}">
+    <input type="hidden" name="id" value="${utente.password}">
+    <input type="hidden" name="id" value="${utente.universitario}">
     <fieldset class="grid-x form admin">
         <legend>Aggiorna Utente</legend>
+
         <label for="Nome" >
             <input id="Nome" name="Nome" placeholder="Nome" type="text" value="${utente.nome}" required>
         </label>

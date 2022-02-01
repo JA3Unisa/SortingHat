@@ -17,4 +17,6 @@ public interface UtenteDAO <E extends Exception> {
     List<Utente> fetchAccounts(Paginator paginatore) throws SQLException;
 
     Optional<Utente> findUtentebyID(int idCl) throws SQLException;
+
+     boolean updateUser(Utente utente) throws SQLException;
 }

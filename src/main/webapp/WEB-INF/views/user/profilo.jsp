@@ -26,7 +26,7 @@
   <h2>Nome: </h2><h2>  ${utente.nome} </h2>
   <h2>Cognome: </h2><h2> ${utente.cognome}</h2>
   <h2>Email: </h2><h2> ${utente.email}</h2>
-  <h2>Universitario: "${universitario?  'Ordinario':'Universitario' }"</h2>
+  <h2>Universitario: ${universitario?  'Ordinario':'Universitario' }</h2>
 
   <a href="../utenti/modificoCliente">
     <div id="comincia">
