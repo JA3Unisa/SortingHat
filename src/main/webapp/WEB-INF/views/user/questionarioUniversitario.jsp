@@ -24,23 +24,23 @@
         <div class="domanda show">
             <p>Di che dipartimento fai parte?</p>
             <select name="domanda1" id="domanda1" required>
-                <option value="DI (informatica)">DI (informatica)</option>
-                <option value="DIEM (ingegneria informatica)">DIEM (ingegneria informatica)</option>
-                <option value="DIFARMA (gestione e valorizzazione delle risorse agrarie e delle aree protette - tecniche erboristiche - chimica e tecnologia farmaceutiche - farmacia)">DIFARMA (gestione e valorizzazione delle risorse agrarie e delle aree protette - tecniche erboristiche - chimica e tecnologia farmaceutiche - farmacia)</option>
-                <option value="DISES (economia aziendale - economia e commercio - scienze dell'amministrazione e dell'organizzazione - statistica per i big data - economia, valorizzazione, gestione del patrimonio turistico)">DISES (economia aziendale - economia e commercio - scienze dell'amministrazione e dell'organizzazione - statistica per i big data - economia, valorizzazione, gestione del patrimonio turistico)</option>
-                <option value="DISA-MIS (economia e management)">DISA-MIS (economia e management)</option>
-                <option value="DISPAC (discipline delle arti visive - della musica e dello spettacolo - filosofia - scienze dei beni culturali)">DISPAC (discipline delle arti visive - della musica e dello spettacolo - filosofia - scienze dei beni culturali)</option>
-                <option value="DIN (ingegneria chimica - ingegneria elettronica - ingegneria gestionale - ingegneria meccanica)">DIN (ingegneria chimica - ingegneria elettronica - ingegneria gestionale - ingegneria meccanica)</option>
-                <option value="DCIV (ingegneria civile - ingegneria civile per l'ambiente ed il territorio - ingegneria edile/architettura)">DCIV (ingegneria civile - ingegneria civile per l'ambiente ed il territorio - ingegneria edile/architettura)</option>
-                <option value="DISPC (scienze della comunicazione - scienze politiche e delle relazioni internazionali)">DISPC (scienze della comunicazione - scienze politiche e delle relazioni internazionali)</option>
-                <option value="DIPMED (fisioterapia - infermieristica - ostetricia - tecniche di radiologia medica, per immagini e radioterapia - medicina e chirurgia - odontoiatria e protesi dentaria)">DIPMED (fisioterapia - infermieristica - ostetricia - tecniche di radiologia medica, per immagini e radioterapia - medicina e chirurgia - odontoiatria e protesi dentaria)</option>
-                <option value="DCB (chimica - scienze ambientali - scienze biologiche)">DCB (chimica - scienze ambientali - scienze biologiche)</option>
-                <option value="DIPSUM (lettere - lingue e culture straniere)">DIPSUM (lettere - lingue e culture straniere)</option>
-                <option value="DISUFF (scienze dell'educazione - scienze delle attività motorie, sportive e dell'educazione psicomotoria - scienze della formazione primaria)">DISUFF (scienze dell'educazione - scienze delle attività motorie, sportive e dell'educazione psicomotoria - scienze della formazione primaria)</option>
-                <option value="DF (fisica)">DF (fisica)</option>
-                <option value="DISPS (sociologia - studi diplomatici, internazionali e sulla sicurezza globale)">DISPS (sociologia - studi diplomatici, internazionali e sulla sicurezza globale)</option>
-                <option value="DSG (giurista d'impresa e delle nuove tecnologie - giurisprudenza)">DSG (giurista d'impresa e delle nuove tecnologie - giurisprudenza)</option>
-                <option value="DIPMAT (matematica)">DIPMAT (matematica)</option>
+                <option value="0">DI (informatica)</option>
+                <option value="1">DIEM (ingegneria informatica)</option>
+                <option value="2">DIFARMA (gestione e valorizzazione delle risorse agrarie e delle aree protette - tecniche erboristiche - chimica e tecnologia farmaceutiche - farmacia)</option>
+                <option value="3">DISES (economia aziendale - economia e commercio - scienze dell'amministrazione e dell'organizzazione - statistica per i big data - economia, valorizzazione, gestione del patrimonio turistico)</option>
+                <option value="4">DISA-MIS (economia e management)</option>
+                <option value="5">DISPAC (discipline delle arti visive - della musica e dello spettacolo - filosofia - scienze dei beni culturali)</option>
+                <option value="6">DIN (ingegneria chimica - ingegneria elettronica - ingegneria gestionale - ingegneria meccanica)</option>
+                <option value="7">DCIV (ingegneria civile - ingegneria civile per l'ambiente ed il territorio - ingegneria edile/architettura)</option>
+                <option value="8">DISPC (scienze della comunicazione - scienze politiche e delle relazioni internazionali)</option>
+                <option value="9">DIPMED (fisioterapia - infermieristica - ostetricia - tecniche di radiologia medica, per immagini e radioterapia - medicina e chirurgia - odontoiatria e protesi dentaria)</option>
+                <option value="10">DCB (chimica - scienze ambientali - scienze biologiche)</option>
+                <option value="11">DIPSUM (lettere - lingue e culture straniere)</option>
+                <option value="12">DISUFF (scienze dell'educazione - scienze delle attività motorie, sportive e dell'educazione psicomotoria - scienze della formazione primaria)</option>
+                <option value="13">DF (fisica)</option>
+                <option value="14">DISPS (sociologia - studi diplomatici, internazionali e sulla sicurezza globale)</option>
+                <option value="15">DSG (giurista d'impresa e delle nuove tecnologie - giurisprudenza)</option>
+                <option value="16">DIPMAT (matematica)</option>
             </select>
             <div class="comandi">
                 <div class="continua" onclick="prossimaDomanda(this)">
@@ -55,37 +55,37 @@
         <div class="domanda">
             <p>Che istituto hai frequentato?</p>
             <select name="domanda1" id="domanda2" required>
-                <option value="Liceo artistico">Liceo artistico</option>
-                <option value="Liceo classico">Liceo classico</option>
-                <option value="Liceo linguistico">Liceo linguistico</option>
-                <option value="Liceo musicale e coreutico">Liceo musicale e coreutico</option>
-                <option value="Liceo scientifico">Liceo scientifico</option>
-                <option value="Liceo scientifico - scienze applicate">Liceo scientifico - scienze applicate</option>
-                <option value="Liceo scientifico - indirizzo sportivo">Liceo scientifico - indirizzo sportivo</option>
-                <option value="Liceo delle scienze umane">Liceo delle scienze umane</option>
-                <option value="Liceo delle scienze umane - economico/sociale">Liceo delle scienze umane - economico/sociale</option>
-                <option value="Amministrazione, Finanza e Marketing">Amministrazione, Finanza e Marketing</option>
-                <option value="Turismo">Turismo</option>
-                <option value="Meccanica, Meccatronica ed Energia">Meccanica, Meccatronica ed Energia</option>
-                <option value="Trasporti e Logistica">Trasporti e Logistica</option>
-                <option value="Elettronica ed Elettrotecnica">Elettronica ed Elettrotecnica</option>
-                <option value="Informatica e Telecomunicazioni">Informatica e Telecomunicazioni</option>
-                <option value="Grafica e Comunicazione">Grafica e Comunicazione</option>
-                <option value="Chimica, Materiali e Biotecnologie">Chimica, Materiali e Biotecnologie</option>
-                <option value="Sistema Moda">Sistema Moda</option>
-                <option value="Agraria, Agroalimentare e Agroindustria">Agraria, Agroalimentare e Agroindustria</option>
-                <option value="Costruzioni, Ambiente e Territorio">Costruzioni, Ambiente e Territorio</option>
-                <option value="Agricoltura, sviluppo rurale, valorizzazione dei prodotti del territorio e gestione [...]">Agricoltura, sviluppo rurale, valorizzazione dei prodotti del territorio e gestione [...]</option>
-                <option value="Pesca commerciale e produzioni ittiche">Pesca commerciale e produzioni ittiche</option>
-                <option value="Industria e artigianato per il Made in Italy">Industria e artigianato per il Made in Italy</option>
-                <option value="Manutenzione e assistenza tecnica">Manutenzione e assistenza tecnica</option>
-                <option value="Gestione delle acque e risanamento ambientale">Gestione delle acque e risanamento ambientale</option>
-                <option value="Servizi commerciali">Servizi commerciali</option>
-                <option value="Enogastronomia e ospitalità alberghiera">Enogastronomia e ospitalità alberghiera</option>
-                <option value="Servizi culturali e dello spettacolo">Servizi culturali e dello spettacolo</option>
-                <option value="Servizi per la sanità e l’assistenza sociale">Servizi per la sanità e l’assistenza sociale</option>
-                <option value="Arti ausiliarie delle professioni sanitarie: odontotecnico">Arti ausiliarie delle professioni sanitarie: odontotecnico</option>
-                <option value="Arti ausiliarie delle professioni sanitarie: ottico">Arti ausiliarie delle professioni sanitarie: ottico</option>
+                <option value="0">Liceo artistico</option>
+                <option value="1">Liceo classico</option>
+                <option value="2">Liceo linguistico</option>
+                <option value="3">Liceo musicale e coreutico</option>
+                <option value="4">Liceo scientifico</option>
+                <option value="5">Liceo scientifico - scienze applicate</option>
+                <option value="6">Liceo scientifico - indirizzo sportivo</option>
+                <option value="7">Liceo delle scienze umane</option>
+                <option value="8">Liceo delle scienze umane - economico/sociale</option>
+                <option value="9">Amministrazione, Finanza e Marketing</option>
+                <option value="10">Turismo</option>
+                <option value="11">Meccanica, Meccatronica ed Energia</option>
+                <option value="12">Trasporti e Logistica</option>
+                <option value="13">Elettronica ed Elettrotecnica</option>
+                <option value="14">Informatica e Telecomunicazioni</option>
+                <option value="15">Grafica e Comunicazione</option>
+                <option value="16">Chimica, Materiali e Biotecnologie</option>
+                <option value="17">Sistema Moda</option>
+                <option value="18">Agraria, Agroalimentare e Agroindustria</option>
+                <option value="19">Costruzioni, Ambiente e Territorio</option>
+                <option value="20">Agricoltura, sviluppo rurale, valorizzazione dei prodotti del territorio e gestione [...]</option>
+                <option value="21">Pesca commerciale e produzioni ittiche</option>
+                <option value="22">Industria e artigianato per il Made in Italy</option>
+                <option value="23">Manutenzione e assistenza tecnica</option>
+                <option value="24">Gestione delle acque e risanamento ambientale</option>
+                <option value="25">Servizi commerciali</option>
+                <option value="26">Enogastronomia e ospitalità alberghiera</option>
+                <option value="27">Servizi culturali e dello spettacolo</option>
+                <option value="28">Servizi per la sanità e l’assistenza sociale</option>
+                <option value="29">Arti ausiliarie delle professioni sanitarie: odontotecnico</option>
+                <option value="30">Arti ausiliarie delle professioni sanitarie: ottico</option>
             </select>
             <div class="comandi">
                 <div class="back" onclick="precedenteDomanda(this)">
@@ -106,9 +106,9 @@
         <div class="domanda" >
             <p>La tua materia preferita è inerente al tuo indirizzo di studio superiore?</p>
             <div class="radio">
-                <input type="radio" id="materiaPreferitaSI" name="materiaPreferita" value="SI">
+                <input type="radio" id="materiaPreferitaSI" name="materiaPreferita" value="1">
                 <label for="materiaPreferitaSI">SI</label>
-                <input type="radio" id="materiaPreferitaNO" name="materiaPreferita" value="NO">
+                <input type="radio" id="materiaPreferitaNO" name="materiaPreferita" value="0">
                 <label for="materiaPreferitaNO">NO</label>
             </div>
             <div class="comandi">
