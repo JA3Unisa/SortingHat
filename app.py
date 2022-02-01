@@ -7,11 +7,12 @@ from flask_cors import CORS, cross_origin
 from s3 import *
 
 app = Flask(__name__)
-CORS(app, support_credentials=True)
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route('/FIA/consiglio', methods=['POST'])
-@cross_origin(supports_credentials=True)
+@cross_origin()
 def consiglio():
     try:
         content = request.get_json(silent=True)
@@ -27,7 +28,7 @@ def consiglio():
         return Response("Internal error", status=500)
 
 @app.route('/FIA/contribuisci', methods=['POST'])
-@cross_origin(supports_credentials=True)
+@cross_origin()
 def contribuisci():
     try:
         content = request.get_json(silent=True)
@@ -43,7 +44,7 @@ def contribuisci():
 
 
 @app.route('/FIA/machineLearning', methods=['GET'])
-@cross_origin(supports_credentials=True)
+@cross_origin()
 def machineLearning():
     try:
         response, nElements, pickle_dump = executeMachineLearning()
