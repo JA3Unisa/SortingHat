@@ -4,7 +4,7 @@ import urllib.request
 from model import *
 
 def analyze_data(dati):
-    # url il valore dell’ultimo modello predittivo usato(salvato online)
+    # url il valore dell’ultimo modello predittivo usato (salvato online)
     url = getLatestMachineLearning()
     #effettuo il load del model
     loaded_model = pickle.load(urllib.request.urlopen(url))
