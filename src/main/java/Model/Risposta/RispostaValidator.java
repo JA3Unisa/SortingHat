@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 public class RispostaValidator {
     public static RequestValidator validateForm(HttpServletRequest request, boolean update){
         RequestValidator validator=new RequestValidator(request);
-        validator.assertMatch("Corpo", Pattern.compile("^\\w{2,30}$"),"Nome compresa tra i 2 e 30 caratteri");
+        System.out.println(request.getParameter("Corpo"));
+        validator.assertMatch("Corpo", Pattern.compile("^.{1,500}$"),"Corpo non compreso tra i 2 e 500 caratteri");
         if(update){
             validator.assertInt("id","Id deve essere una cifra"); }
         return validator;

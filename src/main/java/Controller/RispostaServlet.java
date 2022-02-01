@@ -84,13 +84,26 @@ public class RispostaServlet extends ControllerHttpServlet {
 
                     request.getRequestDispatcher(view("Risposta/RispostaUpdate")).forward(request, response);
                     break;
+                case"/delete"://elimino(admin)
+                    authorize(request.getSession(false));
+                    request.setAttribute("back",view("admin/discussioneList"));/*MODIFICARE*/
+                    validate(RispostaValidator.validateDelete(request));
+                    int id2= Integer.parseInt(request.getParameter("id"));
+                    System.out.println("sto per cancellare "+ id2);
+                    if(rispostaDAO.deleteRisposta(id2)) {
+                        request.setAttribute("alert", new Alert(List.of("Risposta Rimossa!"), "success"));
+                        //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
+                        //  request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                        response.sendRedirect("../risposte/?page=1");
+                    }else{internalError();}
+                    break;
 
 
                 default:
                     response.sendError(HttpServletResponse.SC_NOT_FOUND, "Risorsa non trovata");
 
             }
-        } catch (InvalidRequestException | SQLException e) {
+        } catch (Exception e ) {
             e.printStackTrace();
         }
     }
@@ -136,21 +149,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                         internalError();}
                     break;
 
-                case"/delete"://elimino(admin)
 
-                    authorize(request.getSession(false));
-                    request.setAttribute("back",view("admin/discussioneList"));/*MODIFICARE*/
-                    validate(CategoriaValidator.validateDelete(request));
-                   int id= Integer.parseInt(request.getParameter("id"));
-                    System.out.println("sto per cancellare "+ id);
-                    if(rispostaDAO.deleteRisposta(id)) {
-
-                        request.setAttribute("alert", new Alert(List.of("Risposta Rimossa!"), "success"));
-                        //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                      //  request.getRequestDispatcher(view("admin/delete")).forward(request,response);
-                        response.sendRedirect("../risposte/?page=1");
-                    }else{internalError();}
-                    break;
 
                 default:
                     notAllowed();

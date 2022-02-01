@@ -15,8 +15,8 @@ public class UtenteValidator {
     public static RequestValidator validateForm(HttpServletRequest request, Boolean update){
         RequestValidator validator=new RequestValidator(request);
 
-        validator.assertMatch("Nome", Pattern.compile("^\\w{2,30}$"),"Nome compreso tra i 2 e 30 caratteri");
-        validator.assertMatch("Cognome", Pattern.compile("^\\w{2,30}$"),"Cognome compreso tra i 2 e 30 caratteri");
+        validator.assertMatch("Nome", Pattern.compile("^.{2,20}$"),"Nome compreso tra i 2 e 30 caratteri");
+        validator.assertMatch("Cognome", Pattern.compile("^.{2,30}$"),"Cognome compreso tra i 2 e 30 caratteri");
         validator.assertEmail("Email","Email non valida");
         if(update){
             validator.assertInt("id","Id deve essere una cifra");

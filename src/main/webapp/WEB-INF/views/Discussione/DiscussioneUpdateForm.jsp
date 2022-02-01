@@ -19,7 +19,7 @@
 
     <input type="hidden" name="id" value="${discussione.idDiscussione}">
     <fieldset class="grid-x form admin">
-        <legend>Aggiorna Categoria</legend>
+        <legend>Aggiorna Discussione</legend>
         <label for="Titolo" >
             <input id="Titolo" name="Titolo" placeholder="Titolo" type="text" value="${discussione.titolo}" required>
         </label>

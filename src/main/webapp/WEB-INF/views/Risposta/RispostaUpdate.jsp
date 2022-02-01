@@ -10,7 +10,7 @@
 <html lang="it">
 <head>
     <jsp:include page="/WEB-INF/views/partials/headS.jsp">
-        <jsp:param name="userStyles" value="main,background,homepage"/>
+        <jsp:param name="userStyles" value="main,background,homepage,adminDashboard"/>
         <jsp:param name="userScripts" value="mobileMenu"/>
         <jsp:param name="title" value="SortingHat - RispostaUpdate"/>
     </jsp:include>
@@ -28,15 +28,11 @@
 <jsp:include page="/WEB-INF/views/partials/menuDesktop.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/partials/menuMobile.jsp"></jsp:include>
 
-<main class="app dashboard">
+<main class="app dashboard update">
 
     <%@include file="../partials/adminBar.jsp"%>
-    <section class="grid-y">
-
-        <div class="grid-x justify-center ">
+    <section class="edit-group">
             <%@include file="../Risposta/RispostaFormUpdate.jsp"%>
-        </div>
-
     </section>
 
 </main>

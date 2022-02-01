@@ -137,8 +137,23 @@ public class UtenteServlet extends ControllerHttpServlet {
                         request.getRequestDispatcher(view("user/login")).forward(request, response);
                         break;
                     case "/registrazione": // a registrazione utente
-
                         request.getRequestDispatcher(view("user/registrazione")).forward(request, response);
+                        break;
+                    case "/delete": //delete cliente
+
+                        authorize(request.getSession(false));
+
+                        request.setAttribute("back", view("admin/utenteList"));/*MODIFICARE*/
+                        validate(UtenteValidator.validateDelete(request));
+                        //   Cliente clienteDel=new ClienteFormMapper().map(request,true);
+                        int id2=Integer.parseInt(request.getParameter("id"));
+                        System.out.println("in delete "+id2);
+                        if(utenteDAO.deleteUtente(id2)){
+                            System.out.println("cancellato");
+                            //request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+                            response.sendRedirect("../utenti/?page=1");
+                        }else
+                        {internalError();}
                         break;
 
                     default:
