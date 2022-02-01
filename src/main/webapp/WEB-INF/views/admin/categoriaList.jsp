@@ -11,7 +11,7 @@
 <html lang="it">
 <head>
     <jsp:include page="/WEB-INF/views/partials/headS.jsp">
-        <jsp:param name="userStyles" value="main,background,homepage"/>
+        <jsp:param name="userStyles" value="main,background,homepage,adminDashboard"/>
         <jsp:param name="userScripts" value="mobileMenu"/>
         <jsp:param name="title" value="SortingHat - categoriaList"/>
     </jsp:include>
@@ -32,17 +32,12 @@
 <main class="app dashboard">
 
     <%@include file="../partials/adminBar.jsp"%>
-    <section class="content-grid-y">
-        <div class ="body grid-x justify-center">
-            <section class="grid-y cell justify-center">
-                <%@include file="categoriaTable.jsp"%>
-                <jsp:include page="../partials/paginator.jsp">
-                    <jsp:param name="risorse" value="categorie"/>
-                </jsp:include>
-            </section>
-
-        </div>
-    </section>
+    <div id="listaUtenteUtenteList">
+        <%@include file="categoriaTable.jsp"%>
+        <jsp:include page="../partials/paginator.jsp">
+            <jsp:param name="risorse" value="categorie"/>
+        </jsp:include>
+    </div>
 </main>
 
 </body>

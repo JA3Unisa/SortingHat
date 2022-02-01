@@ -79,6 +79,7 @@ public class SqlCategoriaDAO implements CategoriaDAO {
             try (PreparedStatement ps =
                          con.prepareStatement("DELETE FROM categoria WHERE idcategoria=?;")) {
                 ps.setString(1, id);
+                System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }

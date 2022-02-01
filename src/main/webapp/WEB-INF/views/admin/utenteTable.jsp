@@ -68,11 +68,5 @@
 
 
 <script>
-    alert("inizio");
     $("#tabella_test").DataTable({responsive: true});
-    alert("tabella caricata");
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-    alert("listner settato");
 </script>

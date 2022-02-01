@@ -5,11 +5,10 @@
   Time: 15:49
   To change this template use File | Settings | File Templates.
 --%>
-<table class="table">
-    <caption class="align-center justify-center">Lista Risposte<a href="../risposte/create" >Crea Risposta</a>
-        <form action="../risposte/delete"  method="post" >
-            <input type="text" name="id" placeholder="Elimina risposta" style="color: black"/>
-        </form></caption>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<table class="table" id="tabella_test">
+    <caption>Lista Risposte</caption>
     <thead>
     <tr>
         <th>Id</th>
@@ -33,8 +32,8 @@
 
         <td>${risposta.dataOra}</td>
 
-
-        <td><a href="../risposte/update?id=${risposta.idRisposta}" >Modifica Risposta</a></td>
+        <td><a href="../risposte/update?id=${risposta.idRisposta}"><i class="fas fa-edit"></i></a></td>
+        <td><a href="../risposte/delete?id=${risposta.idRisposta}"><i class="fas fa-trash-alt"></i></a></td>
 
     </tr>
        </c:forEach>
@@ -43,3 +42,8 @@
     </tbody>
 
 </table>
+
+
+<script>
+    $("#tabella_test").DataTable({responsive: true});
+</script>

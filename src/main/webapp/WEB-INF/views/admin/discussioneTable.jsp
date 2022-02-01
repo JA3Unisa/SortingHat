@@ -5,19 +5,16 @@
   Time: 15:45
   To change this template use File | Settings | File Templates.
 --%>
-<table class="table">
-    <caption class="align-center justify-center">Lista Discussioni<a href="../discussioni/create" >Crea Discussione</a>
-        <form action="../discussioni/delete"  method="post" >
-            <input type="text" name="id" placeholder="Elimina discussione" style="color: black"/>
-        </form></caption>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<table class="table" id="tabella_test">
+    <caption>Lista Discussioni</caption>
     <thead>
     <tr>
         <th>Id</th>
         <th>Corpo</th>
         <th>Data e Ora</th>
         <th>Titolo</th>
-
-
     </tr>
     </thead>
     <tbody>
@@ -37,8 +34,8 @@
 
         <td>${discussione.titolo}</td>
 
-        <td><a href="../discussioni/update?id=${discussione.idDiscussione}" >Modifica discussione</a></td>
-
+        <td><a href="../discussioni/update?id=${discussione.idDiscussione}"><i class="fas fa-edit"></i></a></td>
+        <td><a href="../discussioni/delete?id=${discussione.idDiscussione}"><i class="fas fa-trash-alt"></i></a></td>
     </tr>
 
     </c:forEach>
@@ -47,3 +44,7 @@
     </tbody>
 
 </table>
+
+<script>
+    $("#tabella_test").DataTable({responsive: true});
+</script>

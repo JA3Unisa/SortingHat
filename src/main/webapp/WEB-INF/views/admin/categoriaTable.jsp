@@ -5,11 +5,10 @@
   Time: 15:45
   To change this template use File | Settings | File Templates.
 --%>
-<table class="table">
-    <caption class="align-center justify-center">Lista Categorie<a href="../categorie/create" >Crea Categoria</a>
-        <form action="../categorie/delete"  method="post" >
-            <input type="text" name="id" placeholder="Elimina categoria" style="color: black"/>
-        </form></caption>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<table class="table" id="tabella_test">
+    <caption>Lista Categorie</caption>
     <thead>
     <tr>
         <th>Id</th>
@@ -35,7 +34,8 @@
         <td>${categoria.descrizione}</td>
         <td>${categoria.titoloDescrizione}</td>
         <td>${categoria.dataOra}</td>
-        <td><a href="../categorie/update?id=${categoria.idCategoria}" >Modifica Categoria</a></td>
+        <td><a href="../categorie/update?id=${categoria.idCategoria}"><i class="fas fa-edit"></i></a></td>
+        <td><a href="../categorie/delete?id=${categoria.idCategoria}"><i class="fas fa-trash-alt"></i></a></td>
     </tr>
       </c:forEach>
     </c:otherwise>
@@ -44,3 +44,7 @@
     </tbody>
 
 </table>
+
+<script>
+    $("#tabella_test").DataTable({responsive: true});
+</script>
