@@ -1,3 +1,4 @@
+<%@ page import="Model.Utente.UtenteSession" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="it">
@@ -19,6 +20,10 @@
 <jsp:include page="/WEB-INF/views/partials/background.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/partials/menuDesktop.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/partials/menuMobile.jsp"></jsp:include>
+
+<!-- PER DAVIDE: GENTILMENTE PRENDIMI DALLA SESSIONE L'UTENTE LOGGATO ED INSERISCIMI QUI DENTRO IL SUO ID GRAZIE <3-->
+<input type="hidden" id="user_id" value="<%= user.getId()%>">
+
 <div id="main">
     <div id="questionarioUniversitario">
         <div class="domanda show">

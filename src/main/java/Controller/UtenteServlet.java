@@ -325,7 +325,8 @@ public class UtenteServlet extends ControllerHttpServlet {
                     Optional<Utente> optionalUtente=utenteDAO.findUtente(tmpUtente.getEmail(), tmpUtente.getPassword());
                     System.out.println(optionalUtente.get().getNome());
                     if(optionalUtente.isPresent() && optionalUtente.get().getNome()!=null){
-
+                        System.out.println("sono qui");
+                        System.out.println(optionalUtente.get().getRuolo());
                         if(optionalUtente.get().getRuolo()==1){
                             //ADMIN
 
@@ -342,6 +343,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         }
                          }
                     else {
+                        System.out.println("sono qui purtroppo");
                         response.sendRedirect("../pages/login");
                         throw new InvalidRequestException("Credenziali non valide", List.of("Credenziali non valide"),
                                 HttpServletResponse.SC_BAD_REQUEST);
