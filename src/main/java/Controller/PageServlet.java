@@ -61,20 +61,21 @@ public class PageServlet extends ControllerHttpServlet {
                     request.getRequestDispatcher(view("user/questionarioUtente")).forward(request, response);
                     break;
                 case "/contribuisci": //show Universiatrio
-                    System.out.println("PRE SESSIONE");
+
                     if(request.getSession(false).getAttribute("utenteSession")== null){
-                        System.out.println("NON ESISTE");
+
                         request.getRequestDispatcher(view("user/login")).forward(request,response);
                     } else {
                         UtenteSession ut = (UtenteSession) request.getSession(false).getAttribute("utenteSession");
                         Optional<Utente> utente= utenteDao.findUtentebyID(ut.getId());
                         if(!utente.get().getUniversitario()){
                             System.out.println("NON Autorizzato");
-                            response.sendRedirect("./pages/nonAutorizzato");
-                        }
+                            response.sendRedirect("../pages/nonAutorizzato");
+                        }else {
 
-                        request.setAttribute("id",ut.getId());
-                        request.getRequestDispatcher(view("user/questionarioUniversitario")).forward(request, response);
+                            request.setAttribute("id", ut.getId());
+                            request.getRequestDispatcher(view("user/questionarioUniversitario")).forward(request, response);
+                        }
                     }  break;
                 case "/politiche": //show politiche
 
@@ -115,7 +116,7 @@ public class PageServlet extends ControllerHttpServlet {
                 }
                 case "/nonAutorizzato":
                     System.out.println("NON Autorizzato");
-                    request.getRequestDispatcher(view("../../errors/unauthorized")).forward(request, response);
+                    request.getRequestDispatcher(view("errors/unauthorized")).forward(request, response);
                     break;
                 /*case "/forum/esami": //a forum - categoria esami
                     Paginator paginatorCategoriaEsami = new Paginator(1,"CategoriaServlet");

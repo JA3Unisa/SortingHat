@@ -13,6 +13,7 @@ import Model.Risposta.Risposta;
 import Model.Risposta.RispostaFormMapper;
 import Model.Risposta.RispostaValidator;
 import Model.Risposta.SqlRispostaDAO;
+import Model.Utente.SqlUtenteDAO;
 import Model.Utente.Utente;
 import Model.Utente.UtenteSession;
 
@@ -20,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.image.renderable.RenderableImageProducer;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -148,7 +150,25 @@ public class RispostaServlet extends ControllerHttpServlet {
                     }else{
                         internalError();}
                     break;
+                case"/createPost":
+                    HttpSession session=request.getSession(false);
+                    authenticated(session);
+                    Risposta risposta1=new Risposta();
+                    int idUtente=((getUtenteSessione(session)).getId());
+                    SqlUtenteDAO sqlUtenteDAO=new SqlUtenteDAO();
+                    Optional<Utente> utente2=sqlUtenteDAO.findUtentebyID(idUtente);
+                    Discussione discussione=new Discussione();
+                    discussione.setIdDiscussione(Integer.parseInt(request.getParameter("idDiscussione")));
 
+                    risposta1.setCorpo(request.getParameter("corpo"));//modifca
+                    risposta1.setDiscussione(discussione);
+                    risposta1.setUtente(utente2.get());//Senza findUtente
+                    if(rispostaDAO.createRisposta(risposta1))
+                      response.sendRedirect("");//inserire
+                    else internalError();
+
+
+                    break;
 
 
                 default:

@@ -44,12 +44,9 @@ public class ControllerHttpServlet extends HttpServlet implements ErrorHandler {
         return request.getServletPath() + request.getPathInfo();
     }
 
-
     protected UtenteSession getUtenteSessione(HttpSession session) {
-        return (UtenteSession)session.getAttribute("utenteSessione");
+        return (UtenteSession) session.getAttribute("utenteSession");
     }
-
-
     protected int parsePage(HttpServletRequest request) {
 
         return Integer.parseInt(request.getParameter("page"));

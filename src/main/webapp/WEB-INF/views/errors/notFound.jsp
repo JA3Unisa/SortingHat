@@ -28,7 +28,7 @@
 <jsp:include page="/WEB-INF/views/partials/menuDesktop.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/partials/menuMobile.jsp"></jsp:include>
 <div id="main">
-    <div id="main-text"><span id="joinUnisa">About <div id="unisa"><p>Us</p></div></span></div>
+    <div id="main-text"><span id="joinUnisa">Error <div id="unisa"><p>404</p></div></span></div>
 
     <p>Errore 404,ritorna alla Home e ritenta</p>
     <a href="${pageContext.request.contextPath}/pages/" class="selected">Home</a>
