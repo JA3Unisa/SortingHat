@@ -22,8 +22,7 @@
 <jsp:include page="/WEB-INF/views/partials/menuMobile.jsp"></jsp:include>
 
 <!-- PER DAVIDE: GENTILMENTE PRENDIMI DALLA SESSIONE L'UTENTE LOGGATO ED INSERISCIMI QUI DENTRO IL SUO ID GRAZIE <3-->
-<input type="hidden" id="user_id" value="<%= user.getId()%>">
-
+<input type="hidden" id="user_id" value="${id}">
 <div id="main">
     <div id="questionarioUniversitario">
         <div class="domanda show">

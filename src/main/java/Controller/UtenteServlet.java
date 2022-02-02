@@ -347,7 +347,8 @@ public class UtenteServlet extends ControllerHttpServlet {
                          }
                     else {
                         System.out.println("sono qui purtroppo");
-                        response.sendRedirect("../pages/login");
+
+                        response.sendRedirect("../utenti/login");
                         throw new InvalidRequestException("Credenziali non valide", List.of("Credenziali non valide"),
                                 HttpServletResponse.SC_BAD_REQUEST);
 
