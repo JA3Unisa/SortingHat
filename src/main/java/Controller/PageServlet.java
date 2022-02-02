@@ -10,6 +10,8 @@ import Model.Discussione.SqlDiscussioneDAO;
 import Model.Risposta.Risposta;
 import Model.Risposta.SqlRispostaDAO;
 import Model.Utente.SqlUtenteDAO;
+import Model.Utente.Utente;
+import Model.Utente.UtenteSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "PageServlet", value = "/pages/*")
 public class PageServlet extends ControllerHttpServlet {
@@ -51,23 +54,36 @@ public class PageServlet extends ControllerHttpServlet {
                     break;
                 case "/":
                     request.getRequestDispatcher(view("../../homepage")).forward(request, response);
-                    //  request.getRequestDispatcher(view("site/home")).forward(request, response);
+
                     break;
                 case "/questionarioUtente": //show Universiatrio
+
                     request.getRequestDispatcher(view("user/questionarioUtente")).forward(request, response);
                     break;
                 case "/contribuisci": //show Universiatrio
+                    System.out.println("PRE SESSIONE");
+                    if(request.getSession(false).getAttribute("utenteSession")== null){
+                        System.out.println("NON ESISTE");
+                        request.getRequestDispatcher(view("user/login")).forward(request,response);
+                    } else {
+                        UtenteSession ut = (UtenteSession) request.getSession(false).getAttribute("utenteSession");
+                        Optional<Utente> utente= utenteDao.findUtentebyID(ut.getId());
+                        if(!utente.get().getUniversitario()){
+                            System.out.println("NON Autorizzato");
+                            response.sendRedirect("./pages/nonAutorizzato");
+                        }
 
-                    request.getRequestDispatcher(view("user/questionarioUniversitario")).forward(request, response);
-                    break;
+                        request.setAttribute("id",ut.getId());
+                        request.getRequestDispatcher(view("user/questionarioUniversitario")).forward(request, response);
+                    }  break;
                 case "/politiche": //show politiche
 
                     request.getRequestDispatcher(view("documenti/politiche")).forward(request, response);
                     break;
                 case "/forum": //a forum
-                    System.out.println("Paginator Categorie");
+
                     Paginator paginatorCategoria = new Paginator(1,"CategoriaServlet");
-                    System.out.println("Categorie");
+
                     List<Categoria> categorie = categoriaDAO.fetchCategories(paginatorCategoria);
                     request.setAttribute("categorie",categorie);
                     request.getRequestDispatcher(view("user/categorie")).forward(request, response);
@@ -97,7 +113,10 @@ public class PageServlet extends ControllerHttpServlet {
                     request.getRequestDispatcher(view("user/post")).forward(request, response);
                     break;
                 }
-
+                case "/nonAutorizzato":
+                    System.out.println("NON Autorizzato");
+                    request.getRequestDispatcher(view("../../errors/unauthorized")).forward(request, response);
+                    break;
                 /*case "/forum/esami": //a forum - categoria esami
                     Paginator paginatorCategoriaEsami = new Paginator(1,"CategoriaServlet");
                     Categoria categoriaEsami = categoriaDAO.fetchCategoriesByID(1).get();
