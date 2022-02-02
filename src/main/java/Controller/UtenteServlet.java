@@ -172,7 +172,7 @@ public class UtenteServlet extends ControllerHttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            //1 admin 3 utente
+            //1 admin 0 utente
             String path = getPath(request);
             switch (path) {
 
@@ -255,12 +255,13 @@ public class UtenteServlet extends ControllerHttpServlet {
 
 
                 case "/signupUtente"://registrazione cliente
-
+                    System.out.println("PRE VALIDATE");
                     request.setAttribute("back", view("user/registrazione"));
                     validate(UtenteValidator.validateForm(request,false));
                     System.out.println("POST VALIDATE");
                     Utente utenteSign=new UtenteFormMapper().map(request,false);
                     System.out.println("POST FORM");
+                    utenteSign.setRuolo(0);
                     utenteSign.setPassword(request.getParameter("Password"));
                     System.out.println(utenteSign.getPassword());
                     if(utenteDAO.createUtente(utenteSign)){

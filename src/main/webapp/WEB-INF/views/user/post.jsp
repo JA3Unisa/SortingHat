@@ -57,10 +57,11 @@
         </div>
         <%}%>
     </div>
-    <div id="commenta">
-        <textarea rows="2" cols="50"></textarea>
-        <i class="far fa-paper-plane"></i>
-    </div>
+    <form id="commenta">
+        <textarea name="commento" rows="2" cols="50"></textarea>
+        <button type="submit" class="btn btn-success"><i class="far fa-paper-plane"></i>
+        </button>
+    </form>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
