@@ -52,7 +52,7 @@ function prossimaDomanda(e){
             url: "https://fia-exam-project.herokuapp.com/FIA/contribuisci",
             type: "POST",
             crossDomain: true,
-            data: JSON.stringify({risposte: data, idUtente: 1000}),
+            data: JSON.stringify({risposte: data, idUtente: document.getElementById("user_id").value}),
             contentType: "application/json",
             dataType: "json",
             success: function (response) {
@@ -66,4 +66,5 @@ function prossimaDomanda(e){
     } //fine questionario
     e.parentElement.parentElement.classList.remove("show");
     nextElement.classList.add("show");
+
 }
