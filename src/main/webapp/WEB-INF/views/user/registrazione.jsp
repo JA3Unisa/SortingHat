@@ -37,16 +37,16 @@
         <label for="Password">Password</label>
         <input type="password" name="Password" id="Password" placeholder="********">
 
-        <input type="submit" value="Registrati">
-        <input type="checkbox" id="Ordinario" name="Ordinario"
+
+        <input type="radio" id="Ordinario" name="Boolean" value="Ordinario"
                checked>
-        <label for="Ordinario">Non ancora iscritto all'univeersita</label>
+        <label for="Ordinario">Non ancora iscritto all'universita</label>
 
-        <input type="checkbox" id="Universitario" name="Universitario">
+        <input type="radio" id="Universitario" name="Boolean" value="Universitario">
         <label for="Universitario">Già iscritto all'Università</label>
-
+        <input type="submit" value="Registrati">
     </form>
-    <p id="giaRegistrato">Hai già un account? <a href="${pageContext.request.contextPath}/pages/login">Login</a></p>
+    <p id="giaRegistrato">Hai già un account? <a href="${pageContext.request.contextPath}/utenti/login">Login</a></p>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>

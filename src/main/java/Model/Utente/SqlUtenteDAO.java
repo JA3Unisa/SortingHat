@@ -16,7 +16,7 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
     public boolean createUtente(Utente utente) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("Insert into utente(nome,cognome,email,password,universitario,ruolo) " +
-                    "as value (?,?,?,?,?,?)")) {
+                    "values (?,?,?,?,?,?)")) {
 
                 //Inserimento utente nel db
                 ps.setString(1, utente.getNome());
@@ -25,7 +25,7 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
                 ps.setString(4, utente.getPassword());
                 ps.setBoolean(5, utente.getUniversitario());
                 ps.setInt(6, utente.getRuolo());
-
+                System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
 
                 /*Fetching dell'id
