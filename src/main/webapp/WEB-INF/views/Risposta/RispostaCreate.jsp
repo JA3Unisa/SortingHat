@@ -10,7 +10,7 @@
 <html lang="it">
 <head>
     <jsp:include page="/WEB-INF/views/partials/headS.jsp">
-        <jsp:param name="userStyles" value="main,background,homepage"/>
+        <jsp:param name="userStyles" value="main,background,homepage,adminDashboard"/>
         <jsp:param name="userScripts" value="mobileMenu"/>
         <jsp:param name="title" value="SortingHat - RispostaCreate"/>
     </jsp:include>

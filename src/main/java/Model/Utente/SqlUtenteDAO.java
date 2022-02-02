@@ -54,8 +54,6 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException> {
                 ps.setInt(6, utente.getIdUtente());
 
                 System.out.println(ps.toString());
-                System.out.println(utente.getPassword());
-                System.out.println(utente.getRuolo());
 
                 int rows = ps.executeUpdate();
 
