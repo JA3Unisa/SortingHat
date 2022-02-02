@@ -16,7 +16,7 @@ public class UtenteFormMapper {
             utente.setUniversitario(true);
         }else utente.setUniversitario(false);
       //  utente.setUniversitario(Boolean.valueOf(request.getParameter("univesitario")));
-        utente.setRuolo(3);
+        utente.setRuolo(Integer.parseInt(request.getParameter("Ruolo")));
 
         if(update){
             System.out.println();

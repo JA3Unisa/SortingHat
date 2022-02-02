@@ -137,7 +137,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     }else{internalError();}
                     break;
                 case "/update": //aggiorno(admin)
-                    System.out.println("entro qui dentro in update discussione");
+
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("Discussione/DiscussioneUpdate"));
                     validate(DiscussioneValidator.validateForm(request,true));
@@ -147,10 +147,12 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     Utente utente1=new Utente();
                     utente1.setIdUtente(ut1.getId());
                     discussioneAgg.setUtente(utente1);
-                    System.out.println("arrivo qui 150");
+
                     if(discussioneDAO.updateDiscussione(discussioneAgg)) {
-                        System.out.println("arrivo qui 152");
+
                         request.setAttribute("discussione",discussioneAgg);
+                        request.setAttribute("alert", new Alert(List.of("Disposta Aggiornata!"), "success"));
+
                         request.getRequestDispatcher(view("Discussione/DiscussioneUpdate")).forward(request, response);
                     }else{
                         internalError();}

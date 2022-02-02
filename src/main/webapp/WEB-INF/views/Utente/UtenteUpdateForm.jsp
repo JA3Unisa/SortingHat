@@ -33,8 +33,9 @@
             <input id="Universitario" name="Universitario" placeholder="Universitario" type="text" value="${utente.universitario}" required>
         </label>
         <label for="Ruolo" >
-            <input id="Ruolo" name="Ruolo" placeholder="Ruolo" type="number" value="${utente.ruolo}" pattern="([1-3])"
-                   title="Il prezzo deve essere un numero tra 1 e 3 " required>
+
+            <input id="Ruolo" name="Ruolo" placeholder="Ruolo" type="number" value="${utente.ruolo}" min="0" max="1"
+                   title="Il prezzo deve essere un numero tra 0 e 1 " required>
         </label>
         <button type="submit" class="btn primary">Aggiorna</button>
     </fieldset>

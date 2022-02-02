@@ -5,10 +5,13 @@
   Time: 15:45
   To change this template use File | Settings | File Templates.
 --%>
+
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 <table class="table" id="tabella_test">
-    <caption>Lista Discussioni</caption>
+    <caption>Lista Discussioni
+        <a href="../discussioni/create" >Crea Discussioni</a>
+    </caption>
     <thead>
     <tr>
         <th>Id</th>

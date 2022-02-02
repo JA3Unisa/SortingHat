@@ -203,6 +203,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                     request.setAttribute("back", view("Utente/UtenteUpdate"));
                     validate(UtenteValidator.validateForm(request, true));
                    Utente utenteAggiornato=new UtenteFormMapper().map(request,true);
+
                     request.setAttribute("cliente",utenteAggiornato);
                     if(utenteDAO.updateUtente(utenteAggiornato)){
 
