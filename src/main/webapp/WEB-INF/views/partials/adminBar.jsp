@@ -11,4 +11,5 @@
     <a href="../risposte/?page=1">Gestione Risposte</a>
     <a href="../discussioni/?page=1">Gestione Discussioni</a>
     <a href="../utenti/profilo">Profilo</a>
+    <a href="../utenti/logout">Logout</a>
 </aside>
