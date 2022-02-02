@@ -127,7 +127,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         authenticated(session);
                         UtenteSession utenteSession = (UtenteSession) session.getAttribute("utenteSession");
 
-                        String redirect = "../pages/login";
+                        String redirect = "../utenti/login";
                         session.removeAttribute("utenteSession");
                         session.invalidate();
                         response.sendRedirect(redirect);
