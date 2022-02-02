@@ -257,8 +257,9 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                     request.setAttribute("back", view("user/registrazione"));
                     validate(UtenteValidator.validateForm(request,false));
-
+                    System.out.println("POST VALIDATE");
                     Utente utenteSign=new UtenteFormMapper().map(request,false);
+                    System.out.println("POST FORM");
                     utenteSign.setPassword(request.getParameter("Password"));
                     System.out.println(utenteSign.getPassword());
                     if(utenteDAO.createUtente(utenteSign)){

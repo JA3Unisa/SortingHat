@@ -44,7 +44,7 @@
         <input type="password" name="Password" id="Password" placeholder="********">
         <input type="submit" value="Login">
     </form>
-    <p id="nonRegistrato">Non hai un account? <a href="${pageContext.request.contextPath}/pages/registrazione">Registrati</a></p>
+    <p id="nonRegistrato">Non hai un account? <a href="../utenti/registrazione">Registrati</a></p>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
