@@ -26,7 +26,9 @@
   <h2>Nome: </h2><h2>  ${utente.nome} </h2>
   <h2>Cognome: </h2><h2> ${utente.cognome}</h2>
   <h2>Email: </h2><h2> ${utente.email}</h2>
-  <h2>Ruolo: ${universitario?  'Universitario':'Ordinario' }</h2>
+  <h2>Ruolo: ${utente.universitario?  'Universitario':'Ordinario' }</h2>
+
+  <a href="../utenti/logout">Logout</a>
 
   <a href="../utenti/modificoCliente">
     <div id="comincia">
