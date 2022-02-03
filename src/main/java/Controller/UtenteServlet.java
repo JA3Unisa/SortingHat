@@ -241,7 +241,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                     validate(UtenteValidator.validateDelete(request));
                     //   Cliente clienteDel=new ClienteFormMapper().map(request,true);
                     int id=Integer.parseInt(request.getParameter("id"));
-                    System.out.println("in delete "+id);
+
                     if(utenteDAO.deleteUtente(id)){
 
                         System.out.println("cancellato");
@@ -255,18 +255,20 @@ public class UtenteServlet extends ControllerHttpServlet {
 
 
                 case "/signupUtente"://registrazione cliente
-                    System.out.println("PRE VALIDATE");
+
                     request.setAttribute("back", view("user/registrazione"));
                     validate(UtenteValidator.validateForm(request,false));
-                    System.out.println("POST VALIDATE");
+
                     Utente utenteSign=new UtenteFormMapper().map(request,false);
-                    System.out.println("POST FORM");
+
                     utenteSign.setRuolo(0);
                     utenteSign.setPassword(request.getParameter("Password"));
                     System.out.println(utenteSign.getPassword());
                     if(utenteDAO.createUtente(utenteSign)){
-                        System.out.println("creato");
-                        response.sendRedirect("../pages/");/*MODIFICARE*/
+                       ;
+
+                        request.getRequestDispatcher(view("user/login")).forward(request, response);
+
                     }else{internalError();}
                     break;
 
@@ -315,9 +317,9 @@ public class UtenteServlet extends ControllerHttpServlet {
                     }
                     break;*/
                 case "/secret"://login
-                    System.out.println("Verifico login");
+
                     request.setAttribute("back", view("pages/login"));
-                    System.out.println(request.getAttribute("back"));
+
 
                     validate(UtenteValidator.validateSignin(request,false));
 
@@ -326,10 +328,9 @@ public class UtenteServlet extends ControllerHttpServlet {
                     tmpUtente.setPassword(request.getParameter("Password"));
 
                     Optional<Utente> optionalUtente=utenteDAO.findUtente(tmpUtente.getEmail(), tmpUtente.getPassword());
-                    System.out.println(optionalUtente.get().getNome());
+
                     if(optionalUtente.isPresent() && optionalUtente.get().getNome()!=null){
-                        System.out.println("sono qui");
-                        System.out.println(optionalUtente.get().getRuolo());
+
                         if(optionalUtente.get().getRuolo()==1){
                             //ADMIN
 
@@ -337,16 +338,15 @@ public class UtenteServlet extends ControllerHttpServlet {
                             UtenteSession utenteSession = new UtenteSession(optionalUtente.get()); //Meno info cliente=meno info sensibili
 
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
-                            response.sendRedirect("../pages/dashboard");/*ADMIN HOMEP*/
+                            response.sendRedirect("../pages/dashboard");/*ADMIN HOME*/
                         }
                         if(optionalUtente.get().getRuolo()==0) {
                            UtenteSession utenteSession = new UtenteSession(optionalUtente.get());
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
-                            response.sendRedirect("../utenti/profilo");/*HOME CLIENTE*/
+                            response.sendRedirect("../utenti/profilo");/* UTENTE HOME*/
                         }
                          }
                     else {
-                        System.out.println("sono qui purtroppo");
 
                         response.sendRedirect("../utenti/login");
                         throw new InvalidRequestException("Credenziali non valide", List.of("Credenziali non valide"),
