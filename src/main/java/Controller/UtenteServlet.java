@@ -87,7 +87,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                             notFound();
                         break;
                     case "/secret"://login pagina
-                        System.out.println("in secret");
+
                         request.getRequestDispatcher(view("pages/login")).forward(request, response);
                         // request.getRequestDispatcher("/WEB-INF/views/crm/secret.jsp").forward(request,response);
                         break;
@@ -147,7 +147,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         validate(UtenteValidator.validateDelete(request));
                         //   Cliente clienteDel=new ClienteFormMapper().map(request,true);
                         int id2=Integer.parseInt(request.getParameter("id"));
-                        System.out.println("in delete "+id2);
+
                         if(utenteDAO.deleteUtente(id2)){
                             System.out.println("cancellato");
                             //request.getRequestDispatcher(view("admin/delete")).forward(request,response);

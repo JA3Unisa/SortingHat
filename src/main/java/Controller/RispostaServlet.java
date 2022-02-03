@@ -151,22 +151,29 @@ public class RispostaServlet extends ControllerHttpServlet {
                         internalError();}
                     break;
                 case"/createPost":
-                    HttpSession session=request.getSession(false);
-                    authenticated(session);
-                    Risposta risposta1=new Risposta();
-                    int idUtente=((getUtenteSessione(session)).getId());
-                    SqlUtenteDAO sqlUtenteDAO=new SqlUtenteDAO();
-                    Optional<Utente> utente2=sqlUtenteDAO.findUtentebyID(idUtente);
-                    Discussione discussione=new Discussione();
-                    discussione.setIdDiscussione(Integer.parseInt(request.getParameter("idDiscussione")));
 
-                    risposta1.setCorpo(request.getParameter("corpo"));//modifca
-                    risposta1.setDiscussione(discussione);
-                    risposta1.setUtente(utente2.get());//Senza findUtente
-                    if(rispostaDAO.createRisposta(risposta1))
-                      response.sendRedirect("");//inserire
-                    else internalError();
+                    if(request.getSession(false).getAttribute("utenteSession")== null){
+                        request.getRequestDispatcher(view("user/login")).forward(request,response);
+                    } else {
+                        UtenteSession utenteSession = (UtenteSession) request.getSession(false).getAttribute("utenteSession");
+                        System.out.println("POST");
+                        Risposta risposta1 = new Risposta();
+                        int idUtente = (utenteSession).getId();
+                        Utente utente2=new Utente();
+                        utente2.setIdUtente(idUtente);
+                        //SqlUtenteDAO sqlUtenteDAO = new SqlUtenteDAO();
+                     //   Optional<Utente> utente2 = sqlUtenteDAO.findUtentebyID(idUtente);
+                        Discussione discussione = new Discussione();
+                        discussione.setIdDiscussione(Integer.parseInt(request.getParameter("idDiscussione")));
+                       System.out.println(discussione.getIdDiscussione()+"ID DISCUSSIONE");
+                        risposta1.setCorpo(request.getParameter("commento"));//modifca
+                        risposta1.setDiscussione(discussione);
+                        risposta1.setUtente(utente2);//Senza findUtente
+                        if (rispostaDAO.createRisposta(risposta1))
+                            //${pageContext.request.contextPath}/pages/post?id=<%= d.getIdDiscussione()%>
 
+                            response.sendRedirect("../pages/post?id="+discussione.getIdDiscussione());//inserire
+                    }
 
                     break;
 

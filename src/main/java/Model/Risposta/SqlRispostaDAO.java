@@ -27,7 +27,7 @@ public class SqlRispostaDAO implements RispostaDAO {
                 ps.setTimestamp(2,timestamp);
                 ps.setInt(3, risposta.getUtente().getIdUtente());
                 ps.setInt(4, risposta.getDiscussione().getIdDiscussione());
-
+System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
 
                 return rows == 1;
