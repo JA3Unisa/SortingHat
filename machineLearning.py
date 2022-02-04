@@ -9,7 +9,7 @@ import os
 load_dotenv()
 
 #carico dataset dal database con credenziali di accesso
-def load_dataset(test_size=0.3):
+def load_dataset():
     mydb = mysql.connector.connect(
         host=os.environ.get("host"),
         user=os.environ.get("user"),
@@ -20,6 +20,7 @@ def load_dataset(test_size=0.3):
     df = pd.read_sql(query, mydb) #attraverso pandas effettuo la lettura del risultato, quindi tutte le risposte alle nostre domande
     mydb.close() #chiudo il database poichè non servirà per le operazioni successive
     #converto tutti i valori in tipo int
+
     for colonna in df:
         df[colonna] = df[colonna].astype(int)
 
@@ -28,9 +29,9 @@ def load_dataset(test_size=0.3):
 
     # inserisco in X tutte le colonne tranne "che dipartimento fai parte"
     X = df.iloc[:, 1:].values
-
+    x2 = df.iloc[:, 1:]
     # divido il dataset in training e test set
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=2)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=1)
     nElements = df.shape[0]
     #ritorno i valori calcolati
     return X_train, X_test, y_train, y_test, nElements
@@ -40,11 +41,11 @@ def executeMachineLearning():
     X_train, X_test, y_train, y_test, nElements = load_dataset()
 
     #invoco algoritmo RandomForestClassifier
-    forest = RandomForestClassifier(criterion='gini', n_estimators=1000, random_state=1, n_jobs=4)
+    forest = RandomForestClassifier(n_estimators=100, random_state=0)
     forest.fit(X_train, y_train)
 
     #rendo forest binario per poterlo successivamente salvare su file
     pickle_dump = pickle.dumps(forest)
-    #calcolo score
+    #calcolo accuracy
     score = forest.score(X_test, y_test)
     return score, nElements, pickle_dump
