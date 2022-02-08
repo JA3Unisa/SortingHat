@@ -14,6 +14,19 @@ public class Utente {
     private Boolean universitario;
     private int ruolo;
 
+    @Override
+    public String toString() {
+        return "Utente{" +
+                "idUtente=" + idUtente +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", universitario=" + universitario +
+                ", ruolo=" + ruolo +
+                '}';
+    }
+
     public int getIdUtente() {
         return idUtente;
     }
