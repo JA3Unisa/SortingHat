@@ -28,6 +28,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
             }
         }
     }
+
     @Override
     public List<Discussione> fetchDiscussioni(Paginator paginatore)  throws SQLException{
         try (Connection con = ConPool.getConnection()) {
@@ -106,7 +107,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
                 ps.setString(4, discussione.getTitolo());
                 ps.setInt(5, discussione.getCategoria().getIdCategoria());
                 ps.setInt(6, discussione.getUtente().getIdUtente());
-System.out.println(ps.toString());
+                System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }
@@ -192,6 +193,7 @@ System.out.println(ps.toString());
             }
         }
     }
+
     @Override
     public boolean updateDiscussione(Discussione discussioneAgg) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -205,7 +207,7 @@ System.out.println(ps.toString());
                 ps.setInt(4, discussioneAgg.getCategoria().getIdCategoria());
                 ps.setInt(5, discussioneAgg.getUtente().getIdUtente());
                 ps.setInt(6,discussioneAgg.getIdDiscussione());
-System.out.println(ps.toString());
+                System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }
