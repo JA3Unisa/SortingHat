@@ -16,7 +16,7 @@ public class CategoriaFormMapper implements FormMapper<Categoria> {
         if (update) {
             categoria.setIdCategoria(Integer.parseInt(request.getParameter("id")));
         }
-            return categoria;
+        return categoria;
 
     }
 }
