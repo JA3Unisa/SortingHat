@@ -50,6 +50,7 @@ public class SqlCategoriaDAO implements CategoriaDAO {
         }
     }
 
+
     @Override
     public Optional<Categoria> fetchCategoriesByID(int id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {

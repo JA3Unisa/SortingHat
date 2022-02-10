@@ -1,0 +1,17 @@
+#main{
+    height: 91vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#main #predict-chart{
+    width: 500px !important;
+    height: 300px !important;
+}
+
+#main #contribuisci-chart{
+    width: 300px !important;
+    height: 300px !important;
+}
