@@ -23,7 +23,7 @@
         List<Discussione> discussioni = (List<Discussione>)request.getAttribute("discussioni");
 
     %>
-    <p id="PostTitle">Post [<%= nomeCategoria%>]</p>
+    <div id="PostTitle">Post [<%= nomeCategoria%>]<a href="${pageContext.request.contextPath}/discussioni/createUtente" id="addPost">+</a></div>
     <%for(Discussione d : discussioni){
         String nome = d.getUtente().getNome() + " " + d.getUtente().getCognome();
         String corpo = d.getCorpo();

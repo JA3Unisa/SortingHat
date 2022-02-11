@@ -136,6 +136,26 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                         request.getRequestDispatcher(view("Discussione/DiscussioneCreate")).forward(request,response);/*MODIFICARE*/
                     }else{internalError();}
                     break;
+                case "/createUtente"://creo(admin)
+                    authenticated(request.getSession(false));
+                    request.setAttribute("back",view("user/discussione"));
+                    UtenteSession ut2= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
+
+
+                    validate(DiscussioneValidator.validateForm(request,false));
+                    Discussione discussione2=new DiscussioneFormMapper().map(request,false);
+                    System.out.println("QUI");
+                    Utente utente2=new Utente();
+                    utente2.setIdUtente(ut2.getId());
+                    discussione2.setUtente(utente2);
+
+                    if(discussioneDAO.createDiscussione(discussione2)){
+                        System.out.println("creata");
+                        request.setAttribute("discussione",discussione2);
+                        request.setAttribute("alert",new Alert(List.of("Discussione creata!"),"success"));
+                        request.getRequestDispatcher(view("user/post")).forward(request,response);/*MODIFICARE*/
+                    }else{internalError();}
+                    break;
                 case "/update": //aggiorno(admin)
 
                     authorize(request.getSession(false));
