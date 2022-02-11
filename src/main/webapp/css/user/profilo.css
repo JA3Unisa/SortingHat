@@ -1,0 +1,32 @@
+#utenteInfoAll{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 30vh;
+}
+
+.userOperation{
+    border-radius: 30px;
+    background-color: #6c5ce7;
+    padding: 5px;
+}
+
+.userOperation a{
+    text-decoration: none;
+    color: white;
+}
+
+#utenteInfoAll .infoUtente{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#utenteInfoAll .infoUtente h2{
+    margin-right: 10px;
+}
