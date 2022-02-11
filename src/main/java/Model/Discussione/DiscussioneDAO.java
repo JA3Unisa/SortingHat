@@ -20,4 +20,6 @@ public interface DiscussioneDAO <E extends Exception>{
 
     List<Discussione> fetchDiscussioniByCategoria(Categoria categoria, Paginator paginatorore) throws SQLException;
     List<Discussione> fetchDiscussioniAll() throws SQLException;
+    int createDiscussioneUtente(Discussione discussione) throws SQLException;
+
 }

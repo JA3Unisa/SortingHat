@@ -30,7 +30,7 @@
     <input type="hidden" name="id" value="${utente.universitario}">
     <fieldset class="grid-x form admin">
         <legend>Aggiorna Utente</legend>
-
+        <input type="hidden" name="id" value="${utente.idUtente}">
         <label for="Nome" >
             <input id="Nome" name="Nome" placeholder="Nome" type="text" value="${utente.nome}" required>
         </label>

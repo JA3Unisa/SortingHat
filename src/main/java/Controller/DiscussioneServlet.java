@@ -75,6 +75,21 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     request.setAttribute("categorie",categoriaList1);
                     request.getRequestDispatcher(view("Discussione/DiscussioneCreate")).forward(request, response);
                     break;
+                case "/createUtente":
+
+                    if(request.getSession(false).getAttribute("utenteSession")== null){
+
+                        request.getRequestDispatcher(view("user/login")).forward(request,response);
+                    } else {
+                        UtenteSession ut1 = (UtenteSession) request.getSession(false).getAttribute("utenteSession");
+
+                        System.out.println("REDIRECT");
+                        List<Categoria> categoriaList2 = categoriaDAO.fetchCategoriesAll();
+                        request.setAttribute("categorie", categoriaList2);
+                        request.getRequestDispatcher(view("Discussione/DiscussioneCreateUtente")).forward(request, response);
+
+                    }
+                    break;
                 case "/update":
                     authorize(request.getSession(false));
                     int idUpd= Integer.parseInt(request.getParameter("id"));
@@ -117,7 +132,8 @@ public class DiscussioneServlet extends ControllerHttpServlet {
             String path = getPath(request);
             switch (path) {
                 case"/create"://creo(admin)
-                    authorize(request.getSession(false));
+                     authorize(request.getSession(false));
+                   // authenticated(request.getSession(false));
                     request.setAttribute("back",view("Discussione/DiscussioneCreate"));
                     UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
 
@@ -136,7 +152,8 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                         request.getRequestDispatcher(view("Discussione/DiscussioneCreate")).forward(request,response);/*MODIFICARE*/
                     }else{internalError();}
                     break;
-                case "/createUtente"://creo(admin)
+                case "/createUtente"://creo
+                    System.out.println("In create UTENTE discussione");
                     authenticated(request.getSession(false));
                     request.setAttribute("back",view("user/discussione"));
                     UtenteSession ut2= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
@@ -148,12 +165,14 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     Utente utente2=new Utente();
                     utente2.setIdUtente(ut2.getId());
                     discussione2.setUtente(utente2);
+                    int idU =discussioneDAO.createDiscussioneUtente(discussione2);
+                    if( idU!=0){
 
-                    if(discussioneDAO.createDiscussione(discussione2)){
                         System.out.println("creata");
                         request.setAttribute("discussione",discussione2);
                         request.setAttribute("alert",new Alert(List.of("Discussione creata!"),"success"));
-                        request.getRequestDispatcher(view("user/post")).forward(request,response);/*MODIFICARE*/
+                        System.out.println("PASSO");
+                        response.sendRedirect("../pages/post?id="+idU);
                     }else{internalError();}
                     break;
                 case "/update": //aggiorno(admin)
