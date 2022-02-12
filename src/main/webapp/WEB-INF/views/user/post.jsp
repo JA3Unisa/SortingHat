@@ -59,7 +59,7 @@
     </div>
     <form id="commenta" action="../risposte/createPost" method="post">
         <input hidden name="idDiscussione" value="<%= discussione.getIdDiscussione()%>">
-        <textarea name="commento" rows="2" cols="50"></textarea>
+        <textarea name="commento" rows="2" cols="50" required maxlength="500"></textarea>
         <button type="submit" class="btn btn-success"><i class="far fa-paper-plane"></i>
         </button>
     </form>

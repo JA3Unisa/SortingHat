@@ -30,12 +30,12 @@
     <input type="hidden" name="id" value="${utente.universitario}">
     <fieldset class="grid-x form admin">
         <legend>Aggiorna Utente</legend>
-
+        <input type="hidden" name="id" value="${utente.idUtente}">
         <label for="Nome" >
-            <input id="Nome" name="Nome" placeholder="Nome" type="text" value="${utente.nome}" required>
+            <input id="Nome" name="Nome" placeholder="Nome" type="text" value="${utente.nome}" required maxlength="20">
         </label>
         <label for="Cognome" >
-            <input id="Cognome" name="Cognome" placeholder="Cognome" type="text" value="${utente.cognome}" required>
+            <input id="Cognome" name="Cognome" placeholder="Cognome" type="text" value="${utente.cognome}" required maxlength="20">
         </label>
         <label for="Email" >
             <input id="Email" name="Email" placeholder="Email" type="text" value="${utente.email}" required>

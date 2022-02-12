@@ -113,6 +113,29 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
             }
         }
     }
+    public int createDiscussioneUtente(Discussione discussione) throws SQLException {
+        try (Connection con = ConPool.getConnection()) {
+            try (   PreparedStatement ps =
+                            con.prepareStatement("INSERT INTO discussione (iddiscussione,corpo,dataora,titolo,idcategoria,idutente) VALUES(?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)) {
+                ps.setInt(1,discussione.getIdDiscussione());
+                ps.setString(2, discussione.getCorpo());
+                //  ps.setTimestamp(3,discussione.getDataOra());
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                ps.setTimestamp(3,timestamp);
+                ps.setString(4, discussione.getTitolo());
+                ps.setInt(5, discussione.getCategoria().getIdCategoria());
+                ps.setInt(6, discussione.getUtente().getIdUtente());
+
+
+                 ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                int id = rs.next() ? rs.getInt(1): 0;
+                System.out.println("CHIAVE"+id);
+                return id;
+            }
+        }
+    }
+
 
     @Override
     public List<Discussione> fetchDiscussioniByCategoria(Categoria categoria,Paginator paginatore) throws SQLException {
@@ -182,6 +205,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
         }
     }
 
+
     @Override
     public boolean deleteDiscussione(String id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -207,6 +231,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
                 ps.setInt(4, discussioneAgg.getCategoria().getIdCategoria());
                 ps.setInt(5, discussioneAgg.getUtente().getIdUtente());
                 ps.setInt(6,discussioneAgg.getIdDiscussione());
+
                 System.out.println(ps.toString());
                 int rows = ps.executeUpdate();
                 return rows == 1;

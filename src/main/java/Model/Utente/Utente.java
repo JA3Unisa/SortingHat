@@ -92,18 +92,9 @@ public class Utente {
         this.universitario=universitario;
         this.ruolo=ruolo;
     }
-    //Da controllare
+
     public void setPassword(String password) throws NoSuchAlgorithmException { //SHA-512 prende array byte e format per usarlo
-      /*  MessageDigest digest= MessageDigest.getInstance("SHA-512");
-        byte[] hashedPwd= digest.digest(password.getBytes( StandardCharsets.UTF_8));
-        StringBuilder builder=new StringBuilder();
-        for(byte bit :hashedPwd){
-            builder.append(String.format("%02x",bit));
-        }
 
-        this.password = builder.toString();
-
-       */
         try {
             MessageDigest digest =
                     MessageDigest.getInstance("SHA-512");
@@ -122,4 +113,6 @@ public class Utente {
 
       this.password  =s;
     }
+
+
 }

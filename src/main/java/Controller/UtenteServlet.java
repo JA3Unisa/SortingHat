@@ -57,12 +57,12 @@ public class UtenteServlet extends ControllerHttpServlet {
                         break;
 
                     case "/modificoCliente"://modifico cliente(cliente)
-                         System.out.println("modifico cliente");
+
                         //int idProfiloCliente = getUtenteSessione(request.getSession(false)).getId();
                         UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
-                        System.out.println(ut);
+
                        Utente profiloClienteUp = utenteDAO.findUtentebyID(ut.getId()).get();
-                        System.out.println(profiloClienteUp.getNome()+ profiloClienteUp.getPassword());
+
                         request.setAttribute("utente", profiloClienteUp);
 
                         if (profiloClienteUp.getRuolo()==1)
@@ -209,7 +209,6 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                         request.setAttribute("utente",utenteAggiornato);
                         request.setAttribute("alert",new Alert(List.of("Utente Aggiornato!"),"success"));
-                        // response.sendRedirect("../accounts/");
                         request.getRequestDispatcher(view("Utente/UtenteUpdate")).forward(request, response);
 
                     }else{internalError();}
@@ -220,16 +219,17 @@ public class UtenteServlet extends ControllerHttpServlet {
                     request.setAttribute("back", view("Utente/UtenteUpdate"));
                     validate(UtenteValidator.validateForm(request, true));
 
-                    Utente utenteAggiornato1=new UtenteFormMapper().map(request,true);
-                    String password = request.getParameter("password");
-                    utenteAggiornato1.obtainPassword(password);
-                    request.setAttribute("utente",utenteAggiornato1);
-                    if(utenteDAO.updateUser(utenteAggiornato1)){
+                    Utente u=new Utente();
+                    u.setIdUtente(Integer.parseInt(request.getParameter("id")));
+                    u.setNome(request.getParameter("Nome"));
+                    u.setCognome(request.getParameter("Cognome"));
+                    u.setEmail(request.getParameter("Email"));
 
-                        request.setAttribute("utente",utenteAggiornato1);
+                    request.setAttribute("utente",u);
+                    if(utenteDAO.updateUser(u)){
+
+                        request.setAttribute("utente",u);
                         request.setAttribute("alert",new Alert(List.of("Utente Aggiornato!"),"success"));
-                        // response.sendRedirect("../accounts/");
-                      //  request.getRequestDispatcher(view("utenti/updateCliente")).forward(request, response);
                         response.sendRedirect("../utenti/profilo");
                     }else{internalError();}
                     break;
@@ -239,7 +239,7 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                     request.setAttribute("back", view("admin/utenteList"));/*MODIFICARE*/
                     validate(UtenteValidator.validateDelete(request));
-                    //   Cliente clienteDel=new ClienteFormMapper().map(request,true);
+
                     int id=Integer.parseInt(request.getParameter("id"));
 
                     if(utenteDAO.deleteUtente(id)){
@@ -263,64 +263,19 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                     utenteSign.setRuolo(0);
                     utenteSign.setPassword(request.getParameter("Password"));
-                    System.out.println(utenteSign.getPassword());
+
                     if(utenteDAO.createUtente(utenteSign)){
-                       ;
+
 
                         request.getRequestDispatcher(view("user/login")).forward(request, response);
 
                     }else{internalError();}
                     break;
 
-              /*  case "/signin"://login cliente (ricerca nel DB)
 
-                    request.setAttribute("back", view("crm/secret"));
-
-                    validate(UtenteValidator.validateSignin(request,false));
-                    Cliente clienteTmp=new Cliente();
-                    clienteTmp.setEmail(request.getParameter("Mail"));
-                    clienteTmp.setPassword(request.getParameter("password"));
-                    Optional<Cliente> clienteOpt=clienteDao.findAccount(clienteTmp.getEmail(),clienteTmp.getPassword(),false);
-
-
-                    if(clienteOpt.isPresent() && clienteOpt.get().getNome()!=null){
-                        ClienteSession clienteSession=new ClienteSession(clienteOpt.get());
-                        // request.setAttribute("alert",new Alert(List.of("Cliente trovato!"),"success"));
-                        request.getSession(true).setAttribute("clienteSession", clienteSession);
-                        System.out.println("creata sessione");
-                        response.sendRedirect("../accounts/profilo");//
-                    }else{
-                        throw new InvalidRequestException("Credenziali non valide", List.of("Credenziali non valide"),
-                                HttpServletResponse.SC_BAD_REQUEST);
-                    }
-                    break;
-                case "/secret"://login admin (ricerca nel DB)
-                    // System.out.println("ADMIN");
-                    request.setAttribute("back", view("crm/secret"));
-                    validate(ClienteValidator.validateSignin(request,false));
-                    //  System.out.println("creo tmp");
-                    Cliente tmpCliente = new Cliente();
-                    tmpCliente.setEmail(request.getParameter("Mail"));
-                    tmpCliente.setPassword(request.getParameter("password"));
-                    // System.out.println("\n"+tmpCliente.getEmail()+" "+tmpCliente.getPassword()+" "+request.getParameter("password"));
-                    Optional<Cliente> optionalCliente=clienteDao.findAccount(tmpCliente.getEmail(), tmpCliente.getPassword(), true);
-                    //   System.out.println("tornato"+""+optionalCliente.get().getNome());
-                    if (optionalCliente.isPresent() && optionalCliente.get().getNome()!=null) {
-
-                        ClienteSession clienteSession = new ClienteSession(optionalCliente.get()); //Meno info cliente=meno info sensibili
-                        request.getSession(true).setAttribute("clienteSession", clienteSession);
-                        response.sendRedirect("../pages/dashboard");
-                    } else {
-                        throw new InvalidRequestException("Credenziali non valide", List.of("Credenziali non valide"),
-                                HttpServletResponse.SC_BAD_REQUEST);
-
-                    }
-                    break;*/
                 case "/secret"://login
 
-                    request.setAttribute("back", view("pages/login"));
-
-
+                    request.setAttribute("back", view("user/login"));
                     validate(UtenteValidator.validateSignin(request,false));
 
                     Utente tmpUtente = new Utente();
@@ -347,10 +302,9 @@ public class UtenteServlet extends ControllerHttpServlet {
                         }
                          }
                     else {
+                        request.setAttribute("alert",new Alert(List.of("Credenziali non valide!"),"errore"));
+                        request.getRequestDispatcher(view("user/login")).forward(request,response);
 
-                        response.sendRedirect("../utenti/login");
-                        throw new InvalidRequestException("Credenziali non valide", List.of("Credenziali non valide"),
-                                HttpServletResponse.SC_BAD_REQUEST);
 
                     }
                         break;
