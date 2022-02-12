@@ -11,12 +11,8 @@ public interface UtenteDAO <E extends Exception> {
     boolean updateUtente (Utente utente) throws E;
     boolean deleteUtente (int id) throws E;
     int countAllUtente() throws E;
-
     Optional<Utente> findUtente(String email, String password) throws SQLException;
-
     List<Utente> fetchAccounts(Paginator paginatore) throws SQLException;
-
     Optional<Utente> findUtentebyID(int idCl) throws SQLException;
-
-     boolean updateUser(Utente utente) throws SQLException;
+    boolean updateUser(Utente utente) throws SQLException;
 }
