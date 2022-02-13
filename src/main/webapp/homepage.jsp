@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <jsp:include page="WEB-INF/views/partials/headS.jsp">
+    <jsp:include page="WEB-INF/Interface/partials/headS.jsp">
         <jsp:param name="userStyles" value="main,background,homepage"/>
         <jsp:param name="userScripts" value="mobileMenu"/>
         <jsp:param name="title" value="SortingHat - Homepage"/>
     </jsp:include>
 </head>
     <body>
-    <jsp:include page="WEB-INF/views/partials/background.jsp"></jsp:include>
-    <jsp:include page="WEB-INF/views/partials/menuDesktop.jsp"></jsp:include>
-    <jsp:include page="WEB-INF/views/partials/menuMobile.jsp"></jsp:include>
+    <jsp:include page="WEB-INF/Interface/partials/background.jsp"></jsp:include>
+    <jsp:include page="WEB-INF/Interface/partials/menuDesktop.jsp"></jsp:include>
+    <jsp:include page="WEB-INF/Interface/partials/menuMobile.jsp"></jsp:include>
     <div id="main">
         <div id="main-text"><span id="joinUnisa">Join <div id="unisa"><p>Unisa</p></div></span><br>Scopri il dipartimento più adatto a te</div>
         <svg id="main-logo" viewBox="0 0 57 56" fill="none" xmlns="http://www.w3.org/2000/svg">
