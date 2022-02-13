@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 //Verifica
 
 public class RequestValidator {
+    private static final Pattern INT_PATTERN_RUOLO =Pattern.compile("([0-1])") ;
     private final List<String> errors;//lista errori
     private final HttpServletRequest request;
     private static final Pattern INT_PATTERN = Pattern.compile("^\\d+$");//1 o più cifre
@@ -75,6 +76,17 @@ public class RequestValidator {
         String[] secList=request.getParameterValues(second);
         return gatherError(firsList.length==secList.length,msg);
     }
+
+    public boolean assertBoolean(String universitario, String s) {
+        String universitarioL=request.getParameter(universitario);
+       System.out.println(universitarioL+"UNI");
+       return gatherError((universitarioL.equalsIgnoreCase("false") || universitarioL.equalsIgnoreCase("true")),s);
+    }
+
+    public boolean assertRuolo(String ruolo, String s) {
+        return assertMatch(ruolo, INT_PATTERN_RUOLO, s);
+    }
+
 
 }
 

@@ -5,6 +5,7 @@ import ApplicationLogic.Http.CommonValidator;
 import ApplicationLogic.Http.InvalidRequestException;
 import ApplicationLogic.Http.Paginator;
 import Storage.Discussione.Discussione;
+import Storage.Discussione.DiscussioneValidator;
 import Storage.Discussione.SqlDiscussioneDAO;
 import Storage.Risposta.Risposta;
 import Storage.Risposta.RispostaFormMapper;
@@ -66,7 +67,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                 case "/create":
                     authorize(request.getSession(false));
                     List<Discussione>discussioneList=discussioneDao.fetchDiscussioniAll();
-                    request.setAttribute("discussioni",discussioneList);
+                    request.setAttribute("discussione",discussioneList);
 
                     request.getRequestDispatcher(view("RispostaGUI/RispostaCreate")).forward(request, response);/*MODIFICARE*/
                     break;
@@ -85,11 +86,10 @@ public class RispostaServlet extends ControllerHttpServlet {
                     request.setAttribute("back",view("AdminGUI/discussioneList"));/*MODIFICARE*/
                     validate(RispostaValidator.validateDelete(request));
                     int id2= Integer.parseInt(request.getParameter("id"));
-                    System.out.println("sto per cancellare "+ id2);
+
                     if(rispostaDAO.deleteRisposta(id2)) {
                         request.setAttribute("alert", new Alert(List.of("Risposta Rimossa!"), "success"));
-                        //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                        //  request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+
                         response.sendRedirect("../risposte/?page=1");
                     }else{internalError();}
                     break;
@@ -111,6 +111,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                 case"/create"://creo(admin)
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("RispostaGUI/RispostaCreate"));
+
                    UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
 
                     validate(RispostaValidator.validateForm(request,false));
@@ -120,18 +121,24 @@ public class RispostaServlet extends ControllerHttpServlet {
                     utente.setIdUtente(ut.getId());
                     risposta.setUtente(utente);
                     if(rispostaDAO.createRisposta(risposta)){
-                        System.out.println("creata");
+
                         request.setAttribute("risposta",risposta);
                         request.setAttribute("alert",new Alert(List.of("Risposta creata!"),"success"));
                         request.getRequestDispatcher(view("RispostaGUI/RispostaCreate")).forward(request,response);
                     }else{internalError();}
                     break;
                 case "/update": //aggiorno(admin)
+                    int idUpd= Integer.parseInt(request.getParameter("id"));
+                    Optional<Risposta> cl=rispostaDAO.fetchRisposte(idUpd);
+                    request.setAttribute("risposta",cl.get());
+                    List<Discussione>discussioneList1=discussioneDao.fetchDiscussioniAll();
+                    request.setAttribute("discussioni",discussioneList1);
 
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("RispostaGUI/RispostaUpdate"));
                     validate(RispostaValidator.validateForm(request,true));
 
+                    if(errori.isEmpty()){
                     Risposta rispostaAgg=new RispostaFormMapper().map(request,true);
                     UtenteSession ut1= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
                     Utente utente1=new Utente();
@@ -141,32 +148,48 @@ public class RispostaServlet extends ControllerHttpServlet {
                         request.setAttribute("risposta",rispostaAgg);
                         request.setAttribute("alert", new Alert(List.of("Risposta Aggiornata!"), "success"));
                         request.getRequestDispatcher(view("RispostaGUI/RispostaUpdate")).forward(request, response);
+                    }else internalError();
                     }else{
-                        internalError();}
-                    break;
+                         InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
+                        invalidRequestException.handle(request,response);
+
+                    }
                 case"/createPost":
 
                     if(request.getSession(false).getAttribute("utenteSession")== null){
                         request.getRequestDispatcher(view("user/login")).forward(request,response);
                     } else {
+                        System.out.println("in create POST");
                         UtenteSession utenteSession = (UtenteSession) request.getSession(false).getAttribute("utenteSession");
-                        System.out.println("POST");
-                        Risposta risposta1 = new Risposta();
-                        int idUtente = (utenteSession).getId();
-                        Utente utente2=new Utente();
-                        utente2.setIdUtente(idUtente);
-                        //SqlUtenteDAO sqlUtenteDAO = new SqlUtenteDAO();
-                     //   Optional<Utente> utente2 = sqlUtenteDAO.findUtentebyID(idUtente);
-                        Discussione discussione = new Discussione();
-                        discussione.setIdDiscussione(Integer.parseInt(request.getParameter("idDiscussione")));
-                       System.out.println(discussione.getIdDiscussione()+"ID DISCUSSIONE");
-                        risposta1.setCorpo(request.getParameter("commento"));//modifca
-                        risposta1.setDiscussione(discussione);
-                        risposta1.setUtente(utente2);//Senza findUtente
-                        if (rispostaDAO.createRisposta(risposta1))
-                            //${pageContext.request.contextPath}/pages/post?id=<%= d.getIdDiscussione()%>
+                        List<Discussione>discussioneList=discussioneDao.fetchDiscussioniAll();
+                        request.setAttribute("discussione",discussioneList);
 
-                            response.sendRedirect("../pages/post?id="+discussione.getIdDiscussione());//inserire
+                        request.setAttribute("back", view("AutenticazioneGUI/post"));
+                        validate(RispostaValidator.validateForm(request, false));
+
+                        if (errori.isEmpty()) {
+                            System.out.println("in create POST");
+                            Risposta risposta1 = new Risposta();
+                            int idUtente = (utenteSession).getId();
+                            Utente utente2 = new Utente();
+                            utente2.setIdUtente(idUtente);
+
+                            Discussione discussione = new Discussione();
+                            discussione.setIdDiscussione(Integer.parseInt(request.getParameter("idDiscussione")));
+
+                            risposta1.setCorpo(request.getParameter("commento"));//modifca
+                            risposta1.setDiscussione(discussione);
+                            risposta1.setUtente(utente2);//Senza findUtente
+                            if (rispostaDAO.createRisposta(risposta1)) {
+                                System.out.println("in create ");
+                                response.sendRedirect("../pages/post?id=" + discussione.getIdDiscussione());//inserire
+                            } else {
+                                internalError();
+                            }
+                        } else {
+                            InvalidRequestException invalidRequestException = new InvalidRequestException("ERRORE", errori, HttpServletResponse.SC_BAD_REQUEST);
+                            invalidRequestException.handle(request, response);
+                        }
                     }
 
                     break;

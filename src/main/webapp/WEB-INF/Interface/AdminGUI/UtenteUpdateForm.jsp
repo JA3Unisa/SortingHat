@@ -21,21 +21,21 @@
     <fieldset class="grid-x form admin">
         <legend>Aggiorna Utente</legend>
         <label for="Nome" >
-            <input id="Nome" name="Nome" placeholder="Nome" type="text" value="${utente.nome}" required maxlength="20" minlength="2">
+            <input id="Nome" name="Nome" placeholder="Nome" type="text" value="${utente.nome}"  >
         </label>
         <label for="Cognome" >
-            <input id="Cognome" name="Cognome" placeholder="Cognome" type="text" value="${utente.cognome}" required maxlength="20" minlength="2">
+            <input id="Cognome" name="Cognome" placeholder="Cognome" type="text" value="${utente.cognome}" >
         </label>
         <label for="Email" >
-            <input id="Email" name="Email" placeholder="Email" type="text" value="${utente.email}" required>
+            <input id="Email" name="Email" placeholder="Email" type="text" value="${utente.email}" >
         </label>
         <label for="Universitario" >
-            <input id="Universitario" name="Universitario" placeholder="Universitario" type="text" value="${utente.universitario}" required>
+            <input id="Universitario" name="Universitario" placeholder="Universitario" type="text" value="${utente.universitario}" >
         </label>
         <label for="Ruolo" >
 
-            <input id="Ruolo" name="Ruolo" placeholder="Ruolo" type="number" value="${utente.ruolo}" min="0" max="1"
-                   title="Il prezzo deve essere un numero tra 0 e 1 " required>
+            <input id="Ruolo" name="Ruolo" placeholder="Ruolo" type="number" value="${utente.ruolo}"
+                   >
         </label>
         <button type="submit" class="btn primary">Aggiorna</button>
     </fieldset>

@@ -19,11 +19,16 @@ public class UtenteValidator {
         validator.assertMatch("Cognome", Pattern.compile("^.{2,20}$"),"Cognome compreso tra i 2 e 20 caratteri");
         validator.assertEmail("Email","Email non valida");
         if(update){
+            validator.assertBoolean("Universitario","Formato Universitario non valido , Booleano richiesto");
             validator.assertInt("id","Id deve essere una cifra");
+            validator.assertRuolo("Ruolo","Formato Ruolo non valido ,int richiesto e compreso tra 0 e 1");
+        }else{
+            validator.assertMatch("Password",Pattern.compile("^.{2,20}"),"Password non corretta,troppo lunga");
         }
         System.out.println("ERRORI"+validator.getErrors());
         return validator;
     }
+
 
     public static RequestValidator validateSignin(HttpServletRequest request,Boolean update){
         RequestValidator validator=new RequestValidator(request);

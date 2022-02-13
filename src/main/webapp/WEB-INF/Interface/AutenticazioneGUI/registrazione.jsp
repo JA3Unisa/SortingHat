@@ -43,13 +43,16 @@
     </svg><p class="inter_bold">Sorting Hat</p></div>
 
     <form action="../utenti/signupUtente" method="post" onsubmit="return validateForm(this)">
+        <c:if test="${not empty alert}">
+            <%@include file="../partials/alert.jsp"%>
+        </c:if>
 
         <label for="Nome">Nome</label>
         <input type="text" name="Nome" id="Nome" placeholder="Mario">
         <label for="Cognome">Cognome</label>
         <input type="text" name="Cognome" id="Cognome" placeholder="Rossi">
         <label for="Email">Email</label>
-        <input type="email" name="Email" id="Email" placeholder="m.rossi@studenti.unisa.it">
+        <input type="text" name="Email" id="Email" placeholder="m.rossi@studenti.unisa.it">
         <label for="Password">Password</label>
         <input type="password" name="Password" id="Password" placeholder="********">
 

@@ -140,53 +140,79 @@ public class DiscussioneServlet extends ControllerHttpServlet {
             switch (path) {
                 case"/create"://creo(admin)
                      authorize(request.getSession(false));
-                   // authenticated(request.getSession(false));
+
                     request.setAttribute("back",view("DiscussioneGUI/DiscussioneCreate"));
                     UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
-
+                    List<Categoria>categoriaList1=categoriaDAO.fetchCategoriesAll();
+                    request.setAttribute("categorie",categoriaList1);
 
                     validate(DiscussioneValidator.validateForm(request,false));
-                    Discussione discussione=new DiscussioneFormMapper().map(request,false);
-                    System.out.println("QUI");
-                    Utente utente=new Utente();
-                    utente.setIdUtente(ut.getId());
-                    discussione.setUtente(utente);
+                    if(errori.isEmpty()) {
+                        Discussione discussione = new DiscussioneFormMapper().map(request, false);
 
-                    if(discussioneDAO.createDiscussione(discussione)){
-                        System.out.println("creata");
-                        request.setAttribute("discussione",discussione);
-                        request.setAttribute("alert",new Alert(List.of("Discussione creata!"),"success"));
-                        request.getRequestDispatcher(view("DiscussioneGUI/DiscussioneCreate")).forward(request,response);/*MODIFICARE*/
-                    }else{internalError();}
+                        System.out.println("QUI");
+                        Utente utente = new Utente();
+                        utente.setIdUtente(ut.getId());
+                        discussione.setUtente(utente);
+
+                        if (discussioneDAO.createDiscussione(discussione)) {
+                            System.out.println("creata");
+                            request.setAttribute("discussione", discussione);
+                            request.setAttribute("alert", new Alert(List.of("Discussione creata!"), "success"));
+                            request.getRequestDispatcher(view("DiscussioneGUI/DiscussioneCreate")).forward(request, response);/*MODIFICARE*/
+                        } else {
+                            internalError();
+                        }
+                    }else{
+                    InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
+                    invalidRequestException.handle(request,response);
+                }
                     break;
-                case "/createUtente"://creo
-                    System.out.println("In create UTENTE discussione");
+                case "/createUtente"://creo utente
+
                     authenticated(request.getSession(false));
                     request.setAttribute("back",view("AutenticazioneGUI/discussione"));
                     UtenteSession ut2= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
-
+                    List<Categoria>categoriaList2=categoriaDAO.fetchCategoriesAll();
+                    request.setAttribute("categorie",categoriaList2);
 
                     validate(DiscussioneValidator.validateForm(request,false));
-                    Discussione discussione2=new DiscussioneFormMapper().map(request,false);
-                    System.out.println("QUI");
-                    Utente utente2=new Utente();
-                    utente2.setIdUtente(ut2.getId());
-                    discussione2.setUtente(utente2);
-                    int idU =discussioneDAO.createDiscussioneUtente(discussione2);
-                    if( idU!=0){
+                    if(errori.isEmpty()) {
+                        Discussione discussione2 = new DiscussioneFormMapper().map(request, false);
+                        System.out.println("QUI");
+                        Utente utente2 = new Utente();
+                        utente2.setIdUtente(ut2.getId());
+                        discussione2.setUtente(utente2);
+                        int idU = discussioneDAO.createDiscussioneUtente(discussione2);
+                        if (idU != 0) {
 
-                        System.out.println("creata");
-                        request.setAttribute("discussione",discussione2);
-                        request.setAttribute("alert",new Alert(List.of("Discussione creata!"),"success"));
-                        System.out.println("PASSO");
-                        response.sendRedirect("../pages/post?id="+idU);
-                    }else{internalError();}
+                            System.out.println("creata");
+                            request.setAttribute("discussione", discussione2);
+                            request.setAttribute("alert", new Alert(List.of("Discussione creata!"), "success"));
+                            System.out.println("PASSO");
+                            response.sendRedirect("../pages/post?id=" + idU);
+                        } else {
+                            internalError();
+                        }
+                    }else{
+                            InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
+                            invalidRequestException.handle(request,response);
+                     }
                     break;
                 case "/update": //aggiorno(admin)
 
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("DiscussioneGUI/DiscussioneUpdate"));
                     validate(DiscussioneValidator.validateForm(request,true));
+
+                    int idUpd= Integer.parseInt(request.getParameter("id"));
+                    Optional<Discussione> cl=discussioneDAO.fetchDiscussioniByID(idUpd);
+
+                    List<Categoria>categoriaList=categoriaDAO.fetchCategoriesAll();
+                    request.setAttribute("categorie",categoriaList);
+                    request.setAttribute("discussione",cl.get());
+
+                    if(errori.isEmpty()){
                     Discussione discussioneAgg=new DiscussioneFormMapper().map(request,true);
 
                     UtenteSession ut1= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
@@ -196,12 +222,16 @@ public class DiscussioneServlet extends ControllerHttpServlet {
 
                     if(discussioneDAO.updateDiscussione(discussioneAgg)) {
 
-                        request.setAttribute("discussione",discussioneAgg);
+                        request.setAttribute("discussione", discussioneAgg);
                         request.setAttribute("alert", new Alert(List.of("Disposta Aggiornata!"), "success"));
 
                         request.getRequestDispatcher(view("DiscussioneGUI/DiscussioneUpdate")).forward(request, response);
+                    }else internalError();
                     }else{
-                        internalError();}
+                        InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
+                        invalidRequestException.handle(request,response);
+
+                    }
                     break;
 
                 case"/delete"://elimino(admin)
@@ -214,9 +244,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     if(discussioneDAO.deleteDiscussione(id)) {
 
                         request.setAttribute("alert", new Alert(List.of("Discussione Rimossa!"), "success"));
-                        //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                       // request.getRequestDispatcher(view("admin/delete")).forward(request,response);
-                        response.sendRedirect("../discussioni/?page=1");
+                         response.sendRedirect("../discussioni/?page=1");
                     }else{internalError();}
                     break;
 

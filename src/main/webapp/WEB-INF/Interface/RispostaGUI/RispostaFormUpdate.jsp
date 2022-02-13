@@ -20,7 +20,7 @@
     <fieldset class="grid-x form admin">
         <legend>Aggiorna Risposta</legend>
         <label for="Corpo" >
-            <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${risposta.corpo}" required maxlength="500">
+            <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${risposta.corpo}">
         </label>
         <label for="Discussione" >
             <select name="Discussione" id="Discussione">

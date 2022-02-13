@@ -21,13 +21,13 @@
     <fieldset class="grid-x form admin">
         <legend>Aggiorna Categoria</legend>
         <label for="Nome" >
-            <input id="Nome" name="Nome" placeholder="Nome" type="text" value="${categoria.nome}" required>
+            <input id="Nome" name="Nome" placeholder="Nome" type="text" value="${categoria.nome}" >
         </label>
         <label for="Descrizione" >
-            <input id="Descrizione" name="Descrizione" placeholder="Descrizione" type="text" value="${categoria.descrizione}" required>
+            <input id="Descrizione" name="Descrizione" placeholder="Descrizione" type="text" value="${categoria.descrizione}" >
         </label>
         <label for="TitoloDescrizione" >
-            <input id="TitoloDescrizione" name="TitoloDescrizione" placeholder="Titolo Descrizione" type="text" value="${categoria.titoloDescrizione}" required>
+            <input id="TitoloDescrizione" name="TitoloDescrizione" placeholder="Titolo Descrizione" type="text" value="${categoria.titoloDescrizione}" >
         </label>
         <button type="submit" class="btn primary">Aggiorna</button>
     </fieldset>

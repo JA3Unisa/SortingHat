@@ -111,33 +111,50 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     request.setAttribute("back",view("CategoriaGUI/CategoriaCreate"));
 
                     validate(CategoriaValidator.validateForm(request,false));
+                    if(errori.isEmpty()) {
                     Categoria categoria=new CategoriaFormMapper().map(request,false);
 
                     if(categoriaDAO.createCategoria(categoria)){
-                        System.out.println("creata");
+                       System.out.println(categoria.getNome());
                         request.setAttribute("categoria",categoria);
                         request.setAttribute("alert",new Alert(List.of("Categoria creata!"),"success"));
                         request.getRequestDispatcher(view("CategoriaGUI/CategoriaCreate")).forward(request,response);/*MODIFICARE*/
-                    }else{internalError();}
+                    } else {
+                        internalError();
+                    }
+                    }else{
+                        InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
+                        invalidRequestException.handle(request,response);
+                    }
                     break;
                 case "/update": //aggiorno(admin)
 
                     authorize(request.getSession(false));
+                    int idUpd= Integer.parseInt(request.getParameter("id"));
+                    Optional<Categoria> cl=categoriaDAO.fetchCategoriesByID(idUpd);
+
+                    request.setAttribute("categoria",cl.get());
+
                     request.setAttribute("back",view("CategoriaGUI/CategoriaUpdate"));
                     validate(CategoriaValidator.validateForm(request,true));
+                    if(errori.isEmpty()){
                     Categoria categoriaAgg=new CategoriaFormMapper().map(request,true);
-                    System.out.println(categoriaAgg.getIdCategoria());
+
 
                     if(categoriaDAO.updateCategoria(categoriaAgg)) {
                         request.setAttribute("categoria",categoriaAgg);
                         request.setAttribute("alert", new Alert(List.of("Categoria Aggiornata!"), "success"));
                         request.getRequestDispatcher(view("CategoriaGUI/CategoriaUpdate")).forward(request, response);
                     }else{
-                        internalError();}
+                        internalError();}}
+                    else{
+                        InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
+                        invalidRequestException.handle(request,response);
+                        }
                     break;
 
                 case"/delete"://elimino(admin) ATTIVA
-                    System.out.println("in categorie Delete");
+
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("AdminGUI/categoriaList"));
                     validate(CategoriaValidator.validateDelete(request));
@@ -145,9 +162,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
                     System.out.println("sto per cancellare "+ id);
                     if(categoriaDAO.deleteCategoria(id)) {
 
-                        //request.setAttribute("alert", new Alert(List.of("Categoria Rimossa!"), "success"));
-                        //request.getRequestDispatcher(view("crm/categoria")).forward(request, response);
-                       // request.getRequestDispatcher(view("admin/delete")).forward(request,response);
+
                         response.sendRedirect("../categorie/?page=1");
                     }else{internalError();}
                     break;

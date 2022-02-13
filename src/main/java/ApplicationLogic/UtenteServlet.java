@@ -88,8 +88,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                     case "/secret"://login pagina
 
                         request.getRequestDispatcher(view("pages/login")).forward(request, response);
-                        // request.getRequestDispatcher("/WEB-INF/views/crm/secret.jsp").forward(request,response);
-                        break;
+                             break;
 
 
                     case "/signup"://registro cliente
@@ -108,18 +107,7 @@ public class UtenteServlet extends ControllerHttpServlet {
 
 
                         break;
-                /*    case "/profiloAd": //show profilo admin
-                        int profiloAD = getUtenteSessione(request.getSession(false)).getId();
-                        Optional<Utente> profiloAdmin = utenteDAO.findUtentebyID(profiloAD);
-                        System.out.println("in profilo Ad");
-                        if (profiloAdmin.isPresent()) {
 
-                            request.setAttribute("utente", profiloAdmin.get());
-                            request.getRequestDispatcher(view("utenti/profilo")).forward(request, response);
-                        } else
-                            notFound();
-
-                        break;*/
                     case "/logout"://logout
 
                         HttpSession session = request.getSession(false);//sessione falsa per non crearla(se log-out allora già log-in)
@@ -187,11 +175,11 @@ public class UtenteServlet extends ControllerHttpServlet {
                     utente.setPassword(request.getParameter("password"));
                     //   System.out.println(cliente.getPassword());
                     if (utenteDAO.createUtente(utente)) {
-                      //  System.out.println(cliente.getIdCliente());
+
                         request.setAttribute("utente",utente);
                         request.setAttribute("alert", new Alert(List.of("Cliente creato"), "success"));
                         request.getRequestDispatcher(view("crm/cliente")).forward(request, response);
-                        // response.sendRedirect("../accounts/");
+
                     } else {
                         internalError();
                     }
@@ -200,6 +188,10 @@ public class UtenteServlet extends ControllerHttpServlet {
                     authorize(request.getSession(false));
                     request.setAttribute("back", view("AdminGUI/UtenteUpdate"));
                     validate(UtenteValidator.validateForm(request, true));
+                    int idCl = Integer.parseInt(request.getParameter("id"));
+                    Optional<Utente> cl = utenteDAO.findUtentebyID(idCl);
+                    request.setAttribute("utente", cl.get());
+                    if(errori.isEmpty()){
                     Utente utenteAggiornato=new UtenteFormMapper().map(request,true);
                     request.setAttribute("cliente",utenteAggiornato);
                     if(utenteDAO.updateUtente(utenteAggiornato)){
@@ -207,6 +199,12 @@ public class UtenteServlet extends ControllerHttpServlet {
                         request.setAttribute("alert",new Alert(List.of("Utente Aggiornato!"),"success"));
                         request.getRequestDispatcher(view("AdminGUI/UtenteUpdate")).forward(request, response);
                     }else{internalError();}
+                    }else{
+
+                        InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
+                        invalidRequestException.handle(request,response);
+
+                    }
                     break;
                 case "/modificoUtente": //aggiorno cliente
 
@@ -253,7 +251,7 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                     request.setAttribute("back", view("AutenticazioneGUI/registrazione"));
                     validate(UtenteValidator.validateForm(request,false));
-
+                    if(errori.isEmpty()){
                     Utente utenteSign=new UtenteFormMapper().map(request,false);
 
                     utenteSign.setRuolo(0);
@@ -264,7 +262,12 @@ public class UtenteServlet extends ControllerHttpServlet {
 
                         request.getRequestDispatcher(view("user/login")).forward(request, response);
 
-                    }else{internalError();}
+                    }else internalError();
+                    }else{
+                        InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
+                        invalidRequestException.handle(request,response);
+
+                    }
                     break;
 
 
@@ -297,7 +300,16 @@ public class UtenteServlet extends ControllerHttpServlet {
                         }
                          }
                     else {
-                        request.setAttribute("alert",new Alert(List.of("Credenziali non valide!"),"errore"));
+
+                            //VERIFICA SE ERRORE IN PASS SqlUtenteDAO.findByEmail(tmpUtente.getEmail())WORD
+                            Optional<Utente>  optionalUtente1=SqlUtenteDAO.findByEmail(tmpUtente.getEmail());
+                            if(optionalUtente1.isPresent() && optionalUtente1.get().getNome()!=null){
+                                request.setAttribute("alert",new Alert(List.of("Password non valida"),"errore"));
+                            }else {
+                                System.out.println("NON VALIDA");
+                                request.setAttribute("alert",new Alert(List.of("E-mail non valida"),"errore"));}
+
+
                         request.getRequestDispatcher(view("AutenticazioneGUI/login")).forward(request,response);
 
 

@@ -14,7 +14,7 @@
     </resource-ref>
     <context-param>
         <param-name>basePath</param-name>
-        <param-value>/WEB-INF/views/</param-value>
+        <param-value>/WEB-INF/Interface/</param-value>
     </context-param>
     <context-param>
         <param-name>engine</param-name>
@@ -22,15 +22,15 @@
     </context-param>
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/views/errors/notFound.jsp</location>
+        <location>/WEB-INF/Interface/errors/notFound.jsp</location>
     </error-page>
     <error-page>
         <error-code>401</error-code>
-        <location>/WEB-INF/views/errors/unauthorized.jsp</location>
+        <location>/WEB-INF/Interface/errors/unauthorized.jsp</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/WEB-INF/views/errors/internalError.jsp</location>
+        <location>/WEB-INF/Interface/errors/internalError.jsp</location>
     </error-page>
 
 </web-app>

@@ -16,7 +16,7 @@ public class UtenteFormMapper {
         String email=request.getParameter("Email");
 
         String check = request.getParameter("Universitario");
-        if (check.equals("Ordinario"))
+        if (check.equalsIgnoreCase("false"))
             utente.setUniversitario(false);
         else
             utente.setUniversitario(true);

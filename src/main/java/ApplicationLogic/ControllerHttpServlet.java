@@ -1,9 +1,8 @@
-package Controller;
-
-import Controller.Http.ErrorHandler;
-import Controller.Http.InvalidRequestException;
-import Controller.Http.RequestValidator;
-import Model.Utente.UtenteSession;
+package ApplicationLogic;
+import ApplicationLogic.Http.ErrorHandler;
+import ApplicationLogic.Http.InvalidRequestException;
+import ApplicationLogic.Http.RequestValidator;
+import Storage.Utente.UtenteSession;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -37,28 +36,20 @@ public class ControllerHttpServlet extends HttpServlet implements ErrorHandler {
     protected void validate(RequestValidator validator) throws InvalidRequestException {//Verifica se ci sono errori
         if (validator.hasErrors()) {
             System.out.println("validatore ha errore" + validator.getErrors());
-           // throw new InvalidRequestException("Validation Errore", validator.getErrors(),
-           //         HttpServletResponse.SC_BAD_REQUEST);
-            setError(validator);
+
+           setError(validator);
         }
     }
     protected void setError(RequestValidator validator){
         this.errori=validator.getErrors();
     }
-    protected List<String> getError() {//Verifica se ci sono errori
 
-            return errori;
-
-    }
 
 
     protected String back(HttpServletRequest request) {
         return request.getServletPath() + request.getPathInfo();
     }
 
-    protected UtenteSession getUtenteSessione(HttpSession session) {
-        return (UtenteSession) session.getAttribute("utenteSession");
-    }
     protected int parsePage(HttpServletRequest request) {
 
         return Integer.parseInt(request.getParameter("page"));
