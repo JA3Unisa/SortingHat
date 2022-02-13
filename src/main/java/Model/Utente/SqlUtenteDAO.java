@@ -11,7 +11,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SqlUtenteDAO implements UtenteDAO<SQLException> {
+public class SqlUtenteDAO implements UtenteDAO<SQLException>{
+
+
+    public static Optional<Utente> findByEmail(String email) throws SQLException{
+        try (Connection con = ConPool.getConnection()) {
+            try (   PreparedStatement ps =
+                            con.prepareStatement("SELECT * FROM utente WHERE email=?")){
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
+                Utente utente =new Utente();
+
+                if (rs.next()) {
+                    utente.setIdUtente(rs.getInt("idutente"));
+                    utente.setEmail(rs.getString("email"));
+                    utente.setNome(rs.getString("nome"));
+                    utente.setCognome(rs.getString("cognome"));
+                    utente.setUniversitario(rs.getBoolean("universitario"));
+                    utente.setRuolo(rs.getInt("ruolo"));
+                    utente.obtainPassword(rs.getString("password"));
+                }
+
+
+                return Optional.ofNullable(utente);
+            }
+        }
+    }
+
     @Override
     public boolean createUtente(Utente utente) throws SQLException {
         try (Connection con = ConPool.getConnection()) {

@@ -42,7 +42,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
                     Discussione dis = new Discussione();
                     dis.setIdDiscussione(rs.getInt("iddiscussione"));
                     dis.setCorpo(rs.getString("corpo"));
-                    dis.setDataOra(rs.getTimestamp("dataOra"));          //?
+                    dis.setDataOra(rs.getTimestamp("dataOra"));
                     dis.setTitolo(rs.getString("titolo"));
                     int idCategoria=(rs.getInt("idcategoria"));
                     SqlCategoriaDAO sqlCategoriaDAO=new SqlCategoriaDAO();
@@ -58,6 +58,7 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
 
                     discussioni.add(dis);
                 }
+                rs.close();
 
                 return discussioni;
             }

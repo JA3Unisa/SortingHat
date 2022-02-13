@@ -302,7 +302,14 @@ public class UtenteServlet extends ControllerHttpServlet {
                         }
                          }
                     else {
-                        request.setAttribute("alert",new Alert(List.of("Credenziali non valide!"),"errore"));
+                        //VERIFICA SE ERRORE IN PASS SqlUtenteDAO.findByEmail(tmpUtente.getEmail())WORD
+                        Optional<Utente>  optionalUtente1=SqlUtenteDAO.findByEmail(tmpUtente.getEmail());
+                        if(optionalUtente1.isPresent() && optionalUtente1.get().getNome()!=null){
+                            request.setAttribute("alert",new Alert(List.of("Password non valida"),"errore"));
+                        }else {
+                            System.out.println("NON VALIDA");
+                            request.setAttribute("alert",new Alert(List.of("E-mail non valida"),"errore"));}
+
                         request.getRequestDispatcher(view("user/login")).forward(request,response);
 
 

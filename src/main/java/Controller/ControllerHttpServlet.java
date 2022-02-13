@@ -16,6 +16,8 @@ import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerHttpServlet extends HttpServlet implements ErrorHandler {
 
@@ -24,7 +26,7 @@ public class ControllerHttpServlet extends HttpServlet implements ErrorHandler {
     protected String getPath(HttpServletRequest req) {
         return req.getPathInfo() != null ? req.getPathInfo() : "/";
     }
-
+    protected List<String> errori=new ArrayList<>();
     protected String view(String viewPath) {
         String base = getServletContext().getInitParameter("basePath");
         String engine = getServletContext().getInitParameter("engine");
@@ -35,10 +37,20 @@ public class ControllerHttpServlet extends HttpServlet implements ErrorHandler {
     protected void validate(RequestValidator validator) throws InvalidRequestException {//Verifica se ci sono errori
         if (validator.hasErrors()) {
             System.out.println("validatore ha errore" + validator.getErrors());
-            throw new InvalidRequestException("Validation Errore", validator.getErrors(),
-                    HttpServletResponse.SC_BAD_REQUEST);
+           // throw new InvalidRequestException("Validation Errore", validator.getErrors(),
+           //         HttpServletResponse.SC_BAD_REQUEST);
+            setError(validator);
         }
     }
+    protected void setError(RequestValidator validator){
+        this.errori=validator.getErrors();
+    }
+    protected List<String> getError() {//Verifica se ci sono errori
+
+            return errori;
+
+    }
+
 
     protected String back(HttpServletRequest request) {
         return request.getServletPath() + request.getPathInfo();

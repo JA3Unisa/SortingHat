@@ -178,8 +178,11 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                 case "/update": //aggiorno(admin)
 
                     authorize(request.getSession(false));
+
                     request.setAttribute("back",view("Discussione/DiscussioneUpdate"));
                     validate(DiscussioneValidator.validateForm(request,true));
+
+                    System.out.println("POST VALIDATOR");
                     Discussione discussioneAgg=new DiscussioneFormMapper().map(request,true);
 
                     UtenteSession ut1= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
@@ -194,7 +197,11 @@ public class DiscussioneServlet extends ControllerHttpServlet {
 
                         request.getRequestDispatcher(view("Discussione/DiscussioneUpdate")).forward(request, response);
                     }else{
-                        internalError();}
+                        List<String>errori=getError();
+System.out.println(errori.toString());
+                        throw new InvalidRequestException(errori.toString(),List.of("ERRORI"),HttpServletResponse.SC_BAD_REQUEST);
+                    //internalError();}
+                    }
                     break;
 
                 case"/delete"://elimino(admin)

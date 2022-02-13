@@ -21,10 +21,10 @@
     <fieldset class="grid-x form admin">
         <legend>Aggiorna Discussione</legend>
         <label for="Titolo" >
-            <input id="Titolo" name="Titolo" placeholder="Titolo" type="text" value="${discussione.titolo}" required>
+            <input id="Titolo" name="Titolo" placeholder="Titolo" type="text" value="${discussione.titolo}" >
         </label>
         <label for="Corpo" >
-            <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${discussione.corpo}" required>
+            <input id="Corpo" name="Corpo" placeholder="Corpo" type="text" value="${discussione.corpo}" >
         </label>
         <label for="Categoria" >
             <select name="Categoria" id="Categoria">
