@@ -144,7 +144,9 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
                     List<Categoria>categoriaList1=categoriaDAO.fetchCategoriesAll();
                     request.setAttribute("categorie",categoriaList1);
-
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     validate(DiscussioneValidator.validateForm(request,false));
                     if(errori.isEmpty()) {
                         Discussione discussione = new DiscussioneFormMapper().map(request, false);
@@ -207,6 +209,9 @@ public class DiscussioneServlet extends ControllerHttpServlet {
 
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("DiscussioneGUI/DiscussioneUpdate"));
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     validate(DiscussioneValidator.validateForm(request,true));
 
                     int idUpd= Integer.parseInt(request.getParameter("id"));
@@ -239,12 +244,12 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     break;
 
                 case"/delete"://elimino(admin)
-                    System.out.println("in Discussione Delete");
+
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("AdminGUI/discussioneList"));/*MODIFICARE*/
                     validate(DiscussioneValidator.validateDelete(request));
                     String id=request.getParameter("id");
-                    System.out.println("sto per cancellare "+ id);
+
                     if(discussioneDAO.deleteDiscussione(id)) {
 
                         request.setAttribute("alert", new Alert(List.of("Discussione Rimossa!"), "success"));

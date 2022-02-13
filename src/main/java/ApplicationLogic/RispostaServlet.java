@@ -136,6 +136,9 @@ public class RispostaServlet extends ControllerHttpServlet {
                     request.setAttribute("discussioni",discussioneList1);
 
                     authorize(request.getSession(false));
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     request.setAttribute("back",view("RispostaGUI/RispostaUpdate"));
                     validate(RispostaValidator.validateForm(request,true));
 

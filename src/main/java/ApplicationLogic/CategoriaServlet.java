@@ -108,6 +108,9 @@ public class CategoriaServlet extends ControllerHttpServlet {
             switch (path) {
                 case"/create"://creo(admin)
                     authorize(request.getSession(false));
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     request.setAttribute("back",view("CategoriaGUI/CategoriaCreate"));
 
                     validate(CategoriaValidator.validateForm(request,false));
@@ -130,6 +133,9 @@ public class CategoriaServlet extends ControllerHttpServlet {
                 case "/update": //aggiorno(admin)
 
                     authorize(request.getSession(false));
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     int idUpd= Integer.parseInt(request.getParameter("id"));
                     Optional<Categoria> cl=categoriaDAO.fetchCategoriesByID(idUpd);
 
@@ -137,6 +143,7 @@ public class CategoriaServlet extends ControllerHttpServlet {
 
                     request.setAttribute("back",view("CategoriaGUI/CategoriaUpdate"));
                     validate(CategoriaValidator.validateForm(request,true));
+
                     if(errori.isEmpty()){
                     Categoria categoriaAgg=new CategoriaFormMapper().map(request,true);
 

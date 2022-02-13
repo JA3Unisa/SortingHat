@@ -191,6 +191,9 @@ public class UtenteServlet extends ControllerHttpServlet {
                     int idCl = Integer.parseInt(request.getParameter("id"));
                     Optional<Utente> cl = utenteDAO.findUtentebyID(idCl);
                     request.setAttribute("utente", cl.get());
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     if(errori.isEmpty()){
                     Utente utenteAggiornato=new UtenteFormMapper().map(request,true);
                     request.setAttribute("cliente",utenteAggiornato);
@@ -250,6 +253,9 @@ public class UtenteServlet extends ControllerHttpServlet {
                 case "/signupUtente"://registrazione cliente
 
                     request.setAttribute("back", view("AutenticazioneGUI/registrazione"));
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     validate(UtenteValidator.validateForm(request,false));
                     if(errori.isEmpty()){
                     Utente utenteSign=new UtenteFormMapper().map(request,false);
