@@ -85,6 +85,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.9.0</version>
                 <configuration>
+                    <excludes>
+                        <exclude>ApplicationLogic.DiscussioneServlet</exclude>
+                    </excludes>
                     <source>11</source>
                     <target>11</target>
                 </configuration>
