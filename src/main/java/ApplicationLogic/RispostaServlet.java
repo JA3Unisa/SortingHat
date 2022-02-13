@@ -151,6 +151,7 @@ public class RispostaServlet extends ControllerHttpServlet {
                         request.getRequestDispatcher(view("RispostaGUI/RispostaUpdate")).forward(request, response);
                     }else internalError();
                     }else{
+
                          InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
                         invalidRequestException.handle(request,response);
 
@@ -162,6 +163,9 @@ public class RispostaServlet extends ControllerHttpServlet {
 
                         request.getRequestDispatcher(view("AutenticazioneGUI/login")).forward(request,response);
                     } else {
+                        if(!errori.isEmpty()){
+                            errori.clear();
+                        }
                         UtenteSession utenteSession = (UtenteSession) request.getSession(false).getAttribute("utenteSession");
                         request.setAttribute("back", view("AutenticazioneGUI/post"));
                         validate(RispostaValidator.validateForm(request, false));
@@ -200,6 +204,7 @@ public class RispostaServlet extends ControllerHttpServlet {
 
                             InvalidRequestException invalidRequestException = new InvalidRequestException("ERRORE", errori, HttpServletResponse.SC_BAD_REQUEST);
                             invalidRequestException.handle(request, response);
+
                         }
                     }
 
