@@ -96,7 +96,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         break;
 
                     case "/profilo": //show profilo utente
-                        System.out.println("Profilo");
+
                         UtenteSession ut1= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
 
 
@@ -260,7 +260,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                     if(utenteDAO.createUtente(utenteSign)){
 
 
-                        request.getRequestDispatcher(view("user/login")).forward(request, response);
+                        request.getRequestDispatcher(view("AutenticazioneGUI/login")).forward(request, response);
 
                     }else internalError();
                     }else{
@@ -287,7 +287,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         if(optionalUtente.get().getRuolo()==1){
                             //ADMIN
 
-                            System.out.println("ADMIN VERIFICATO");
+
                             UtenteSession utenteSession = new UtenteSession(optionalUtente.get()); //Meno info cliente=meno info sensibili
 
                             request.getSession(true).setAttribute("utenteSession", utenteSession);
@@ -306,7 +306,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                             if(optionalUtente1.isPresent() && optionalUtente1.get().getNome()!=null){
                                 request.setAttribute("alert",new Alert(List.of("Password non valida"),"errore"));
                             }else {
-                                System.out.println("NON VALIDA");
+
                                 request.setAttribute("alert",new Alert(List.of("E-mail non valida"),"errore"));}
 
 

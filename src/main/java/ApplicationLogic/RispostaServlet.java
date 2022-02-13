@@ -4,6 +4,7 @@ import ApplicationLogic.Http.Alert;
 import ApplicationLogic.Http.CommonValidator;
 import ApplicationLogic.Http.InvalidRequestException;
 import ApplicationLogic.Http.Paginator;
+import Storage.Categoria.Categoria;
 import Storage.Discussione.Discussione;
 import Storage.Discussione.DiscussioneValidator;
 import Storage.Discussione.SqlDiscussioneDAO;
@@ -156,19 +157,17 @@ public class RispostaServlet extends ControllerHttpServlet {
                     }
                 case"/createPost":
 
-                    if(request.getSession(false).getAttribute("utenteSession")== null){
-                        request.getRequestDispatcher(view("user/login")).forward(request,response);
-                    } else {
-                        System.out.println("in create POST");
-                        UtenteSession utenteSession = (UtenteSession) request.getSession(false).getAttribute("utenteSession");
-                        List<Discussione>discussioneList=discussioneDao.fetchDiscussioniAll();
-                        request.setAttribute("discussione",discussioneList);
 
+                    if(request.getSession(false).getAttribute("utenteSession")== null){
+
+                        request.getRequestDispatcher(view("AutenticazioneGUI/login")).forward(request,response);
+                    } else {
+                        UtenteSession utenteSession = (UtenteSession) request.getSession(false).getAttribute("utenteSession");
                         request.setAttribute("back", view("AutenticazioneGUI/post"));
                         validate(RispostaValidator.validateForm(request, false));
 
                         if (errori.isEmpty()) {
-                            System.out.println("in create POST");
+
                             Risposta risposta1 = new Risposta();
                             int idUtente = (utenteSession).getId();
                             Utente utente2 = new Utente();
@@ -177,16 +176,28 @@ public class RispostaServlet extends ControllerHttpServlet {
                             Discussione discussione = new Discussione();
                             discussione.setIdDiscussione(Integer.parseInt(request.getParameter("idDiscussione")));
 
-                            risposta1.setCorpo(request.getParameter("commento"));//modifca
+                            risposta1.setCorpo(request.getParameter("Corpo"));//modifca
                             risposta1.setDiscussione(discussione);
                             risposta1.setUtente(utente2);//Senza findUtente
+
                             if (rispostaDAO.createRisposta(risposta1)) {
-                                System.out.println("in create ");
+
                                 response.sendRedirect("../pages/post?id=" + discussione.getIdDiscussione());//inserire
                             } else {
                                 internalError();
                             }
                         } else {
+
+                            int id = Integer.parseInt(request.getParameter("idDiscussione"));
+                            Paginator paginator = new Paginator(1,"DiscussioneServlet");
+
+                            Discussione discussione = discussioneDao.fetchDiscussioniByID(id).get();
+
+                            List<Risposta> risposteList =rispostaDAO.fetchRispostaByIdDiscussione(id,paginator);
+                            request.setAttribute("discussione",discussione);
+
+                            request.setAttribute("risposte",risposteList);
+
                             InvalidRequestException invalidRequestException = new InvalidRequestException("ERRORE", errori, HttpServletResponse.SC_BAD_REQUEST);
                             invalidRequestException.handle(request, response);
                         }

@@ -86,8 +86,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     break;
                 case "/create":
                     authorize(request.getSession(false));
-                    //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                   // request.setAttribute("dataOra",timestamp);
+
                     List<Categoria>categoriaList1=categoriaDAO.fetchCategoriesAll();
                     request.setAttribute("categorie",categoriaList1);
                     request.getRequestDispatcher(view("DiscussioneGUI/DiscussioneCreate")).forward(request, response);
@@ -100,7 +99,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     } else {
                         UtenteSession ut1 = (UtenteSession) request.getSession(false).getAttribute("utenteSession");
 
-                        System.out.println("REDIRECT");
+
                         List<Categoria> categoriaList2 = categoriaDAO.fetchCategoriesAll();
                         request.setAttribute("categorie", categoriaList2);
                         request.getRequestDispatcher(view("DiscussioneGUI/DiscussioneCreateUtente")).forward(request, response);
@@ -189,12 +188,14 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                             System.out.println("creata");
                             request.setAttribute("discussione", discussione2);
                             request.setAttribute("alert", new Alert(List.of("Discussione creata!"), "success"));
-                            System.out.println("PASSO");
                             response.sendRedirect("../pages/post?id=" + idU);
                         } else {
                             internalError();
                         }
                     }else{
+                            List<Categoria> categoriaList = categoriaDAO.fetchCategoriesAll();
+                            request.setAttribute("categorie", categoriaList);
+
                             InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
                             invalidRequestException.handle(request,response);
                      }

@@ -18,7 +18,7 @@ public class SqlRispostaDAO implements RispostaDAO {
         try (Connection con = ConPool.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement("Insert into risposta(corpo,dataora,idutente,iddiscussione) " +
                     " values (?,?,?,?);")) {
-
+System.out.println("PRE CREATE");
                 ps.setString(1, risposta.getCorpo());
                 //Date date = new Date(risposta.getdataOra().getTimeInMillis());
                 // ps.setDate(2,date);

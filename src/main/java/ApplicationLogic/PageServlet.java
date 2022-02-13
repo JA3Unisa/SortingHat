@@ -32,7 +32,7 @@ public class PageServlet extends ControllerHttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             String path = getPath(request);
-            System.out.println("in pages Servlet"+ path);
+
             switch (path) {
 
                 case "/dashboard":
@@ -69,7 +69,7 @@ public class PageServlet extends ControllerHttpServlet {
                         UtenteSession ut = (UtenteSession) request.getSession(false).getAttribute("utenteSession");
                         Optional<Utente> utente= utenteDao.findUtentebyID(ut.getId());
                         if(!utente.get().getUniversitario()){
-                            System.out.println("NON Autorizzato");
+
                             response.sendRedirect("../pages/nonAutorizzato");
                         }else {
 
@@ -91,7 +91,7 @@ public class PageServlet extends ControllerHttpServlet {
                     break;
 
                 case "/discussione":{
-                    System.out.println("Dentro discussione");
+
                     int id = Integer.parseInt(request.getParameter("id"));
                     Paginator paginator = new Paginator(1,"DiscussioneServlet");
                     Categoria categoria = categoriaDAO.fetchCategoriesByID(id).get();
@@ -103,11 +103,11 @@ public class PageServlet extends ControllerHttpServlet {
                 }
 
                 case "/post":{
-                    System.out.println("Before Id");
+
                     int id = Integer.parseInt(request.getParameter("id"));
-                    System.out.println("After Id");
+
                     Paginator paginator = new Paginator(1,"DiscussioneServlet");
-                    System.out.println("After Paginator");
+
                     Discussione discussione = discussioneDao.fetchDiscussioniByID(id).get();
                     List<Risposta> risposteList = rispostaDao.fetchRispostaByIdDiscussione(id,paginator);
                     request.setAttribute("discussione",discussione);
@@ -116,7 +116,7 @@ public class PageServlet extends ControllerHttpServlet {
                     break;
                 }
                 case "/nonAutorizzato":
-                    System.out.println("NON Autorizzato");
+
                     request.getRequestDispatcher(view("errors/unauthorized")).forward(request, response);
                     break;
 
