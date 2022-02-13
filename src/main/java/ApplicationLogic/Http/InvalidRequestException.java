@@ -18,21 +18,22 @@ public class InvalidRequestException extends Exception {
             System.out.println("ERRORE"+errorCode);
             switch (errorCode){
                 case HttpServletResponse.SC_BAD_REQUEST:
-                    System.out.println("Alert");
+System.out.println("SC_BAD");
                     request.setAttribute("alert",new Alert(errori,"danger"));
-                    System.out.println("Path");
+
                     String backPath=(String)request.getAttribute("back");//attributo per ritorno se fallimento
-                    // String backPath=request.getParameter("back");
-                    System.out.println("STATUS");
+
+System.out.println(backPath);
                     response.setStatus(errorCode);
-                    System.out.println("PATH:"+backPath);
+                    System.out.println("LLLL"+errorCode);
+
                     request.getRequestDispatcher(backPath).forward(request,response);
                     break;
                 default:
                     response.sendError(errorCode,errori.get(0));
             }
         }
-        public List<String> getErrori(){return errori;}
+
     }
 
 

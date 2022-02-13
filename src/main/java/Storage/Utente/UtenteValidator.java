@@ -25,7 +25,7 @@ public class UtenteValidator {
         }else{
             validator.assertMatch("Password",Pattern.compile("^.{2,20}"),"Password non corretta,troppo lunga");
         }
-        System.out.println("ERRORI"+validator.getErrors());
+
         return validator;
     }
 
