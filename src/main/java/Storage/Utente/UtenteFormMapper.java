@@ -13,7 +13,7 @@ public class UtenteFormMapper {
         utente.setCognome(request.getParameter("Cognome"));
         utente.setRuolo(Integer.parseInt(request.getParameter("Ruolo")));
         //CHECK
-        String email=request.getParameter("Email");
+
 
         String check = request.getParameter("Universitario");
         if (check.equalsIgnoreCase("false"))
@@ -22,7 +22,7 @@ public class UtenteFormMapper {
             utente.setUniversitario(true);
 
         if(update){
-            System.out.println();
+
             utente.setIdUtente(Integer.parseInt(request.getParameter("id")));
         }
         return utente;

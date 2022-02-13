@@ -187,13 +187,14 @@ public class UtenteServlet extends ControllerHttpServlet {
                 case "/update": //aggiorno utente (ADMIN)
                     authorize(request.getSession(false));
                     request.setAttribute("back", view("AdminGUI/UtenteUpdate"));
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     validate(UtenteValidator.validateForm(request, true));
                     int idCl = Integer.parseInt(request.getParameter("id"));
                     Optional<Utente> cl = utenteDAO.findUtentebyID(idCl);
                     request.setAttribute("utente", cl.get());
-                    if(!errori.isEmpty()){
-                        errori.clear();
-                    }
+
                     if(errori.isEmpty()){
                     Utente utenteAggiornato=new UtenteFormMapper().map(request,true);
                     request.setAttribute("cliente",utenteAggiornato);
@@ -203,7 +204,7 @@ public class UtenteServlet extends ControllerHttpServlet {
                         request.getRequestDispatcher(view("AdminGUI/UtenteUpdate")).forward(request, response);
                     }else{internalError();}
                     }else{
-
+System.out.println("IN ERRORE");
                         InvalidRequestException invalidRequestException=new InvalidRequestException("ERRORE",errori,HttpServletResponse.SC_BAD_REQUEST);
                         invalidRequestException.handle(request,response);
 
