@@ -8,6 +8,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Interfaccia che permette di gestire le discussioni
+ * @param <E>
+ */
 public interface DiscussioneDAO <E extends Exception>{
     int countAll() throws SQLException;
 

@@ -5,6 +5,10 @@ import ApplicationLogic.Http.RequestValidator;
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Pattern;
 
+/**
+ * Validator che ci permette di gestire le risposte
+ */
+
 public class RispostaValidator {
     public static RequestValidator validateForm(HttpServletRequest request, boolean update){
         RequestValidator validator=new RequestValidator(request);

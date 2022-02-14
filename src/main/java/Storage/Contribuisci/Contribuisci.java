@@ -3,6 +3,9 @@ package Storage.Contribuisci;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Questo è il bean contribuisci
+ */
 public class Contribuisci {
     private int id,idUtente;
     private List<Integer> domande;

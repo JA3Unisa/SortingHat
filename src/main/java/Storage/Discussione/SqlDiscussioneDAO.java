@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class SqlDiscussioneDAO implements DiscussioneDAO{
+    /**
+     * Permette di contare le discussioni
+     * @return
+     * @throws SQLException
+     */
     @Override
     public int countAll () throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -28,6 +33,13 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
             }
         }
     }
+
+    /**
+     * Ottiene tutte le discussioni in base ad un paginatore
+     * @param paginatore
+     * @return
+     * @throws SQLException
+     */
 
     @Override
     public List<Discussione> fetchDiscussioni(Paginator paginatore)  throws SQLException{
@@ -65,6 +77,12 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
         }
     }
 
+    /**
+     * Ottiene la discussione corrispondente ad un id
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Optional<Discussione> fetchDiscussioniByID(int id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -95,6 +113,12 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
         }
     }
 
+    /**
+     * Permette di creare una discussione
+     * @param discussione
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean createDiscussione(Discussione discussione) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -114,6 +138,13 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
             }
         }
     }
+
+    /**
+     * Permette all'utente di creare una discussione
+     * @param discussione
+     * @return
+     * @throws SQLException
+     */
     public int createDiscussioneUtente(Discussione discussione) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
             try (   PreparedStatement ps =
@@ -137,7 +168,13 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
         }
     }
 
-
+    /**
+     * Permette di ottenere le discussioni di una particolare categoria
+     * @param categoria
+     * @param paginatore
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Discussione> fetchDiscussioniByCategoria(Categoria categoria,Paginator paginatore) throws SQLException {
         String str = "SELECT * FROM discussione WHERE idcategoria = " + categoria.getIdCategoria() + " LIMIT ?,?";
@@ -173,6 +210,11 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
         }
     }
 
+    /**
+     * Ottiene tutte le discussioni
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Discussione> fetchDiscussioniAll()  throws SQLException{
         try (Connection con = ConPool.getConnection()) {
@@ -206,7 +248,12 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
         }
     }
 
-
+    /**
+     * Permette di eliminare la discussione corrispondente all'id
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean deleteDiscussione(String id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -219,6 +266,12 @@ public class SqlDiscussioneDAO implements DiscussioneDAO{
         }
     }
 
+    /**
+     * Permette di aggiornare una discussione
+     * @param discussioneAgg
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean updateDiscussione(Discussione discussioneAgg) throws SQLException {
         try (Connection con = ConPool.getConnection()) {

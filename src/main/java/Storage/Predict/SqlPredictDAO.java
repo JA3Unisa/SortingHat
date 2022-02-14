@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqlPredictDAO implements PredictDAO {
-
+    /**
+     * Permette di ottenere tutti i predict
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Predict> fetchAll() throws SQLException {
         try (Connection con = ConPool.getConnection()) {

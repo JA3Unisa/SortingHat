@@ -17,6 +17,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servlet dedicata alla gestione degli utenti
+ */
 
 @WebServlet(name= "UtenteServlet" , value="/utenti/*")
 public class UtenteServlet extends ControllerHttpServlet {

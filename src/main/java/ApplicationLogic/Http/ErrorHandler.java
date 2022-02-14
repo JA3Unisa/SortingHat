@@ -16,9 +16,6 @@ public interface ErrorHandler {
         }
         System.out.println("autenticato");
     }
-
-
-
     default void authorize(HttpSession session)throws InvalidRequestException{
         authenticated(session);
 
@@ -31,7 +28,6 @@ public interface ErrorHandler {
         }
 
     }
-
     default void internalError()throws InvalidRequestException{
         List<String>errori=List.of("Un errore imprevisto è accaduto","Riprova più tardi");
         throw new InvalidRequestException("Errore interno",errori,HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

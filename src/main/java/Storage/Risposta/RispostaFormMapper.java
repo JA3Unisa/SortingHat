@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
     private GregorianCalendar dataOra;
 
 */
+
+/**
+ * FormMapper che ci permette di gestire le risposte
+ */
 public class RispostaFormMapper implements FormMapper<Risposta> {
 
     @Override

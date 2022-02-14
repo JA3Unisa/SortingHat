@@ -5,6 +5,10 @@ import Storage.Utente.Utente;
 
 import java.sql.Timestamp;
 
+/**
+ * Bean di risposta
+ */
+
 public class Risposta {
     private int idRisposta;
     private String corpo;

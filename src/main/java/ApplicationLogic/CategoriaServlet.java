@@ -18,6 +18,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servlet dedicata alla gestione delle categorie
+ */
+
 @WebServlet(name= "CategoriaServlet" , value="/categorie/*")
 public class CategoriaServlet extends ControllerHttpServlet {
     private SqlCategoriaDAO categoriaDAO=new SqlCategoriaDAO();

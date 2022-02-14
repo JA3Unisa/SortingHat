@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Servlet dedicata alla gestione delle discussioni
+ */
 @WebServlet(name= "DiscussioneServlet" , value="/discussioni/*")
 public class DiscussioneServlet extends ControllerHttpServlet {
     private SqlDiscussioneDAO discussioneDAO=new SqlDiscussioneDAO();

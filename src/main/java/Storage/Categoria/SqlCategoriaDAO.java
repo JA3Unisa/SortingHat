@@ -9,6 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class SqlCategoriaDAO implements CategoriaDAO {
+    /**
+     * Questa funziona permette di contare le categorie
+     * @return
+     * @throws SQLException
+     */
     @Override
     public int countAll() throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -24,6 +29,13 @@ public class SqlCategoriaDAO implements CategoriaDAO {
             }
         }
     }
+
+    /**
+     * Questa funzione permettere di ottenere le categorie in base ad un paginatore
+     * @param paginatore
+     * @return
+     * @throws SQLException
+     */
 
     @Override
     public List<Categoria> fetchCategories(Paginator paginatore) throws SQLException {
@@ -50,7 +62,12 @@ public class SqlCategoriaDAO implements CategoriaDAO {
         }
     }
 
-
+    /**
+     * Questa funzione permette di ottenere la categoria corrispondente ad un id
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Optional<Categoria> fetchCategoriesByID(int id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -74,6 +91,12 @@ public class SqlCategoriaDAO implements CategoriaDAO {
         }
     }
 
+    /**
+     * Permette di eliminare una categoria
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean deleteCategoria(String id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -87,6 +110,12 @@ public class SqlCategoriaDAO implements CategoriaDAO {
         }
     }
 
+    /**
+     * Permette di creare una categoria
+     * @param categoria
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean createCategoria(Categoria categoria) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -105,6 +134,11 @@ public class SqlCategoriaDAO implements CategoriaDAO {
         }
     }
 
+    /**
+     * Ottiene tutte le categorie
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Categoria> fetchCategoriesAll() throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -127,6 +161,12 @@ public class SqlCategoriaDAO implements CategoriaDAO {
         }
     }
 
+    /**
+     * Permette di aggiornare una categoria
+     * @param categoriaAgg
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean updateCategoria(Categoria categoriaAgg) throws SQLException {
         try (Connection con = ConPool.getConnection()) {

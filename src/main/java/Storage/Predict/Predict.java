@@ -2,6 +2,10 @@ package Storage.Predict;
 
 import java.sql.Timestamp;
 
+/**
+ * Questo è il bean di predict
+ */
+
 public class Predict {
     private int id, dipartimento;
     private Timestamp dataOra;

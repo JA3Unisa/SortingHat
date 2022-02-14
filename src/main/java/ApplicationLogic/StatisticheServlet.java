@@ -14,7 +14,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Servlet dedicata alla gestione delle statistiche
+ */
 @WebServlet(name = "StatisticheServlet", value = "/StatisticheServlet")
 public class StatisticheServlet extends ControllerHttpServlet {
     private SqlCategoriaDAO sqlCategoriaDAO = new SqlCategoriaDAO();

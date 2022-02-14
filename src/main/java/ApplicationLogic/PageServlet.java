@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Servlet dedicata alla gestione delle pagine
+ */
 @WebServlet(name = "PageServlet", value = "/pages/*")
 public class PageServlet extends ControllerHttpServlet {
     private SqlUtenteDAO utenteDao = new SqlUtenteDAO();

@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Servlet dedicata alla gestione delle risposte
+ */
 @WebServlet(name= "RispostaServlet" , value="/risposte/*")
 public class RispostaServlet extends ControllerHttpServlet {
     private SqlRispostaDAO rispostaDAO=new SqlRispostaDAO();

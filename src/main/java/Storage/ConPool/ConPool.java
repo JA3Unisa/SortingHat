@@ -39,7 +39,7 @@ public final class ConPool {
             p.setUrl("jdbc:mysql://localhost:3306/sorting_hat_test?serverTimezone=" + TimeZone.getDefault().getID());
             p.setDriverClassName("com.mysql.cj.jdbc.Driver");
             p.setUsername("root");
-            p.setPassword("admin");
+            p.setPassword("root");
             p.setMaxActive(MAX_ACTIVE);
             p.setInitialSize(INITIAL_SIZE);
             p.setMinIdle(MIN_IDLE);

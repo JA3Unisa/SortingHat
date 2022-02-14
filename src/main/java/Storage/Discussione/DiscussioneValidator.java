@@ -5,6 +5,9 @@ import ApplicationLogic.Http.RequestValidator;
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Pattern;
 
+/**
+ * Questo è il validator di discussione
+ */
 public class DiscussioneValidator  {
     public static RequestValidator validateForm(HttpServletRequest request, boolean update){
         RequestValidator validator=new RequestValidator(request);

@@ -4,6 +4,9 @@ import ApplicationLogic.Http.FormMapper;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Questo è il FormMapper che gestisce le categorie
+ */
 public class CategoriaFormMapper implements FormMapper<Categoria> {
 
     @Override

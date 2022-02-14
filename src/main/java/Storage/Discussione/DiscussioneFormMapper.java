@@ -7,6 +7,9 @@ import Storage.Utente.Utente;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
+/**
+ * FormMapper che permette di gestire le discussioni
+ */
 
 public class DiscussioneFormMapper implements FormMapper<Discussione> {
 

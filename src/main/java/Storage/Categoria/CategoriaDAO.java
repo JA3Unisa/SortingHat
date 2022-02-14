@@ -6,6 +6,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Questa è l'interfaccia che gestisce le categorie
+ * @param <E>
+ */
 public interface CategoriaDAO <E extends Exception>{
 
     int countAll() throws SQLException;

@@ -5,6 +5,9 @@ import ApplicationLogic.Http.RequestValidator;
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Pattern;
 
+/**
+ * Questo è il validator che gestisce le categorie
+ */
 public class CategoriaValidator {
     public static RequestValidator validateForm(HttpServletRequest request, boolean update){
         RequestValidator validator=new RequestValidator(request);

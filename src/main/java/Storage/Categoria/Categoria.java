@@ -2,12 +2,18 @@ package Storage.Categoria;
 
 import java.sql.Timestamp;
 
-public class    Categoria {
+/**
+ * Questo è il bean che gestisce le categorie
+ * @return
+ */
+
+public class Categoria {
     private int idCategoria;
     private String nome;
     private String descrizione;
     private Timestamp dataOra;
     private String titoloDescrizione;
+
 
     public int getIdCategoria() {
         return idCategoria;

@@ -13,6 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class SqlRispostaDAO implements RispostaDAO {
+    /**
+     * Ci permette di creare una risposta
+     * @param risposta
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean createRisposta(Risposta risposta) throws Exception {
         try (Connection con = ConPool.getConnection()) {
@@ -33,6 +39,13 @@ System.out.println(ps.toString());
             }
         }
     }
+
+    /**
+     * Permette di modificare una risposta
+     * @param risposta
+     * @return
+     * @throws Exception
+     */
 
     @Override
     public boolean updateRisposta(Risposta risposta) throws Exception {
@@ -56,6 +69,12 @@ System.out.println(ps.toString());
         }
     }
 
+    /**
+     * Permette di eliminare la risposta corrispondente ad un id
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean deleteRisposta(int id) throws Exception {
         try (Connection con = ConPool.getConnection()) {
@@ -70,6 +89,11 @@ System.out.println(ps.toString());
         }
     }
 
+    /**
+     * Permette di contare tutte le risposte
+     * @return
+     * @throws SQLException
+     */
     @Override
     public int countAll() throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -85,6 +109,14 @@ System.out.println(ps.toString());
             }
         }
     }
+
+    /**
+     * Permette di ottenere le risposte corrispondenti ad una discussione
+     * @param idDiscussione
+     * @param paginator
+     * @return
+     * @throws SQLException
+     */
 
     @Override
     public List<Risposta> fetchRispostaByIdDiscussione(int idDiscussione, Paginator paginator) throws SQLException {
@@ -117,6 +149,13 @@ System.out.println(ps.toString());
             }
         }
     }
+
+    /**
+     * Permette di ottenere le risposte in base ad un paginatore
+     * @param paginatore
+     * @return
+     * @throws SQLException
+     */
 
     @Override
     public List<Risposta> fetchRisposta(Paginator paginatore) throws SQLException {
@@ -151,6 +190,13 @@ System.out.println(ps.toString());
             }
         }
     }
+
+    /**
+     * Permette di ottenere la risposta corrispondente ad un id
+     * @param idUpd
+     * @return
+     * @throws SQLException
+     */
 
     @Override
     /* private int idRisposta;

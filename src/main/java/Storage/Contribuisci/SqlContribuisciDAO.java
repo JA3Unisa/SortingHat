@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqlContribuisciDAO implements ContribuisciDAO {
-
+    /**
+     * Questo metodo permette di ottenere tutti i contribuisci
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Contribuisci> fetchAll() throws SQLException {
         try (Connection con = ConPool.getConnection()) {

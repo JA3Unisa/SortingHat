@@ -5,6 +5,9 @@ import Storage.Utente.Utente;
 
 import java.sql.Timestamp;
 
+/**
+ * Bean discussione
+ */
 public class Discussione {
     private int idDiscussione;
     private String corpo;
