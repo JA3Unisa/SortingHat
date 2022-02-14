@@ -1,5 +1,8 @@
 package Storage.Utente;
 
+/**
+ * Questa è la classe che modella UtenteSession
+ */
 public class UtenteSession {
     private final String Nome;
     private final String Cognome;

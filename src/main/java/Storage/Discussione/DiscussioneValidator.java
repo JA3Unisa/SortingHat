@@ -15,6 +15,7 @@ public class DiscussioneValidator  {
         validator.assertMatch("Corpo", Pattern.compile("^.{2,10000}$"),"Corpo compresa tra i 2 e 10000 caratteri");
         if(update){
             validator.assertInt("id","Id deve essere una cifra"); }
+        System.out.println("ERRORI 1 "+validator.getErrors());
         return validator;
     }
     public static RequestValidator validateDelete(HttpServletRequest request){

@@ -5,6 +5,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Questo è la classe che modella Utente
+ */
 public class Utente {
     private int idUtente;
     private String nome;

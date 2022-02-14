@@ -146,7 +146,9 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     UtenteSession ut= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
                     List<Categoria>categoriaList1=categoriaDAO.fetchCategoriesAll();
                     request.setAttribute("categorie",categoriaList1);
-
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     validate(DiscussioneValidator.validateForm(request,false));
                     if(errori.isEmpty()) {
                         Discussione discussione = new DiscussioneFormMapper().map(request, false);
@@ -170,14 +172,18 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                 }
                     break;
                 case "/createUtente"://creo utente
-
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     authenticated(request.getSession(false));
-                    request.setAttribute("back",view("AutenticazioneGUI/discussione"));
+                    request.setAttribute("back",view("DiscussioneGUI/DiscussioneCreateUtente"));
                     UtenteSession ut2= (UtenteSession) request.getSession(true).getAttribute("utenteSession");
                     List<Categoria>categoriaList2=categoriaDAO.fetchCategoriesAll();
                     request.setAttribute("categorie",categoriaList2);
 
                     validate(DiscussioneValidator.validateForm(request,false));
+
+
                     if(errori.isEmpty()) {
                         Discussione discussione2 = new DiscussioneFormMapper().map(request, false);
                         System.out.println("QUI");
@@ -191,10 +197,9 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                             request.setAttribute("discussione", discussione2);
                             request.setAttribute("alert", new Alert(List.of("Discussione creata!"), "success"));
                             response.sendRedirect("../pages/post?id=" + idU);
-                        } else {
-                            internalError();
                         }
                     }else{
+
                             List<Categoria> categoriaList = categoriaDAO.fetchCategoriesAll();
                             request.setAttribute("categorie", categoriaList);
 
@@ -206,6 +211,9 @@ public class DiscussioneServlet extends ControllerHttpServlet {
 
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("DiscussioneGUI/DiscussioneUpdate"));
+                    if(!errori.isEmpty()){
+                        errori.clear();
+                    }
                     validate(DiscussioneValidator.validateForm(request,true));
 
                     int idUpd= Integer.parseInt(request.getParameter("id"));
@@ -226,7 +234,7 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     if(discussioneDAO.updateDiscussione(discussioneAgg)) {
 
                         request.setAttribute("discussione", discussioneAgg);
-                        request.setAttribute("alert", new Alert(List.of("Disposta Aggiornata!"), "success"));
+                        request.setAttribute("alert", new Alert(List.of("Discussione Aggiornata!"), "success"));
 
                         request.getRequestDispatcher(view("DiscussioneGUI/DiscussioneUpdate")).forward(request, response);
                     }else internalError();
@@ -238,12 +246,12 @@ public class DiscussioneServlet extends ControllerHttpServlet {
                     break;
 
                 case"/delete"://elimino(admin)
-                    System.out.println("in Discussione Delete");
+
                     authorize(request.getSession(false));
                     request.setAttribute("back",view("AdminGUI/discussioneList"));/*MODIFICARE*/
                     validate(DiscussioneValidator.validateDelete(request));
                     String id=request.getParameter("id");
-                    System.out.println("sto per cancellare "+ id);
+
                     if(discussioneDAO.deleteDiscussione(id)) {
 
                         request.setAttribute("alert", new Alert(List.of("Discussione Rimossa!"), "success"));

@@ -4,13 +4,12 @@ import ApplicationLogic.Http.RequestValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Pattern;
-/* this.idUtente=idUtente;
-        this.nome=nome;
-        this.cognome=cognome;
-        this.email=email;
-        this.password=password;
-        this.universitario=universitario;
-        this.ruolo=ruolo;*/
+
+/**
+ * Questo Validator si gestisce gli Utenti
+ * @return
+ */
+
 public class UtenteValidator {
     public static RequestValidator validateForm(HttpServletRequest request, Boolean update){
         RequestValidator validator=new RequestValidator(request);
@@ -25,7 +24,7 @@ public class UtenteValidator {
         }else{
             validator.assertMatch("Password",Pattern.compile("^.{2,20}"),"Password non corretta,troppo lunga");
         }
-        System.out.println("ERRORI"+validator.getErrors());
+
         return validator;
     }
 
