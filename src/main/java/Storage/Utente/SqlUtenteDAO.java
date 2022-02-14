@@ -11,9 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 public class SqlUtenteDAO implements UtenteDAO<SQLException>{
 
-
+    /**
+     * Questo metodo trova gli utenti in base all'email
+     * @param email
+     * @return
+     * @throws SQLException
+     */
     public static Optional<Utente> findByEmail(String email) throws SQLException{
         try (Connection con = ConPool.getConnection()) {
             try (   PreparedStatement ps =
@@ -38,6 +44,12 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException>{
         }
     }
 
+    /**
+     * Questop metodo crea un nuovo Utente
+     * @param utente
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean createUtente(Utente utente) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -64,6 +76,12 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException>{
         }
     }
 
+    /**
+     * Questo metodo modifica un utente dall'Admin
+     * @param utente
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean updateUtente(Utente utente) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -88,6 +106,12 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException>{
         }
     }
 
+    /**
+     * Questo metodo modifica gli Utenti dal proprio profilo
+     * @param utente
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean updateUser(Utente utente) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -102,8 +126,7 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException>{
                 ps.setInt(4, utente.getIdUtente());
 
                 System.out.println(ps.toString());
-                System.out.println(utente.getPassword());
-                System.out.println(utente.getRuolo());
+
 
                 int rows = ps.executeUpdate();
 
@@ -111,6 +134,13 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException>{
             }
         }
     }
+
+    /**
+     * Questo metodo elimina un Utente
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean deleteUtente(int id) throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -124,6 +154,11 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException>{
         }
     }
 
+    /**
+     * Questo metodo conta tutti gli Utenti
+     * @return
+     * @throws SQLException
+     */
     @Override
     public int countAllUtente() throws SQLException {
         try (Connection con = ConPool.getConnection()) {
@@ -138,6 +173,13 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException>{
         }
     }
 
+    /**
+     * Questo metodo trova un utente tramite la email e la password
+     * @param email
+     * @param password
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Optional<Utente> findUtente(String email, String password) throws SQLException{
         try (Connection con = ConPool.getConnection()) {
@@ -163,6 +205,12 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException>{
         }
     }
 
+    /**
+     * Questo metodo ritorna tutti gli utenti
+     * @param paginatore
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Utente> fetchAccounts(Paginator paginatore) throws SQLException {
 
@@ -188,6 +236,12 @@ public class SqlUtenteDAO implements UtenteDAO<SQLException>{
         }
     }
 
+    /**
+     * questo metodo seleziona tutti gli Utenti in base all'ID
+     * @param idCl
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Optional<Utente> findUtentebyID(int idCl)throws SQLException {
         try (Connection con = ConPool.getConnection()) {

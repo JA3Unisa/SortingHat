@@ -2,6 +2,9 @@ package Storage.Utente;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Questo è il FormMapper che gestisce Utente
+ */
 public class UtenteFormMapper {
     public Utente map(HttpServletRequest request, Boolean update)  {
 
