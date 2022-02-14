@@ -1,0 +1,9 @@
+ApplicationLogic
+ApplicationLogic.Http
+Storage.Categoria
+Storage.ConPool
+Storage.Contribuisci
+Storage.Discussione
+Storage.Predict
+Storage.Risposta
+Storage.Utente
